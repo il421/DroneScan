@@ -42,7 +42,7 @@
         <uses-library android:name="com.android.future.usb.accessory" />
         <meta-data
             android:name="com.dji.sdk.API_KEY"
-            android:value="621d7e2833995cd401a80b61" />
+            android:value="35e4485332cdef67404ed513" />
 
         <activity
             android:name="dji.sdk.sdkmanager.DJIAoaControllerActivity"
