@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion '25.0.0'
+    buildToolsVersion '27.0.3'
 
     defaultConfig {
 
@@ -44,11 +44,15 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:26.1.0'
-    compile 'com.android.support:design:26.1.0'
-    compile 'com.android.support:multidex:1.0.1'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support:design:26.1.0'
+    implementation 'com.android.support:multidex:1.0.1'
 
-    compile ('com.dji:dji-sdk:4.6')
-    provided ('com.dji:dji-sdk-provided:4.6')
+    implementation ('com.dji:dji-sdk:4.6')
+    compileOnly ('com.dji:dji-sdk-provided:4.6')
+
+    //Add mobile vision google API
+    implementation 'com.google.android.gms:play-services-vision:15.0.2'
+    implementation 'com.google.code.gson:gson:2.8.5'
 }
