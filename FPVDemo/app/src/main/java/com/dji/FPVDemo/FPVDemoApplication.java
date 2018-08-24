@@ -6,10 +6,12 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.Toast;
 
+import dji.common.camera.SettingsDefinitions;
 import dji.common.error.DJIError;
 import dji.common.error.DJISDKError;
 import dji.sdk.base.BaseComponent;
@@ -39,7 +41,6 @@ public class FPVDemoApplication extends Application{
     }
 
     public FPVDemoApplication() {
-
     }
 
     /**
@@ -54,13 +55,16 @@ public class FPVDemoApplication extends Application{
     }
 
     public static synchronized Camera getCameraInstance() {
-
         if (getProductInstance() == null) return null;
 
         Camera camera = null;
 
+
         if (getProductInstance() instanceof Aircraft){
             camera = ((Aircraft) getProductInstance()).getCamera();
+
+
+
 
         } else if (getProductInstance() instanceof HandHeld) {
             camera = ((HandHeld) getProductInstance()).getCamera();
@@ -117,6 +121,7 @@ public class FPVDemoApplication extends Application{
             public void onProductConnect(BaseProduct baseProduct) {
                 Log.d("TAG", String.format("onProductConnect newProduct:%s", baseProduct));
                 notifyStatusChange();
+
 
             }
             @Override
