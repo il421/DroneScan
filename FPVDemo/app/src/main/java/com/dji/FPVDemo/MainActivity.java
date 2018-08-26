@@ -72,9 +72,10 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
         setContentView(R.layout.activity_main);
         // Run BarcodeDetector and define formas
         barcodeDetector = new BarcodeDetector.Builder(this).setBarcodeFormats(1).build();
-
+        // SEt up AUTO FOCUS
         camera.setFocusMode(SettingsDefinitions.FocusMode.AFC, null);
 
+        // CHECK AUTO FOCUS
         camera.getFocusMode(new CommonCallbacks.CompletionCallbackWith<SettingsDefinitions.FocusMode>() {
             @Override
             public void onSuccess(SettingsDefinitions.FocusMode focusMode) {
@@ -212,6 +213,7 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
         recognizeBarcode(frame);
     }
 
+    // BARCODE RECOGNITION + ARRAY
     private void recognizeBarcode(Frame frame) {
         SparseArray<Barcode> barcodes = barcodeDetector.detect(frame);
 
@@ -226,7 +228,7 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
         barcodes.clear();
     }
 
-
+    // SHOW TOAST
     public void showToast(final String msg) {
         runOnUiThread(new Runnable() {
             public void run() {
@@ -236,7 +238,7 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
         });
     }
 
-
+    // CREATE JSON AND SHOW IT
     public void getJSON(View v) {
         String json = new Gson().toJson(listOfBarcodes);
 
@@ -245,7 +247,5 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
 
     @Override
     public void onClick(View v) {
-
-
     }
 }
