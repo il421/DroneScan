@@ -5,24 +5,14 @@ import android.graphics.Bitmap;
 import android.graphics.SurfaceTexture;
 import android.media.MediaActionSound;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.util.SparseArray;
-import android.view.Gravity;
 import android.view.TextureView;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.TextureView.SurfaceTextureListener;
-import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ToggleButton;
 
-import com.dji.FPVDemo.FPVDemoApplication;
-import com.dji.FPVDemo.R;
-import com.dji.scan.qr.camera.CameraSettings;
-import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
@@ -30,20 +20,15 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
-import dji.common.camera.FocusState;
 import dji.common.camera.SettingsDefinitions;
-import dji.common.camera.SystemState;
 import dji.common.error.DJIError;
 import dji.common.product.Model;
-import dji.common.useraccount.UserAccountState;
 import dji.common.util.CommonCallbacks;
-import dji.keysdk.CameraKey;
 import dji.sdk.base.BaseProduct;
 import dji.sdk.camera.Camera;
 import dji.sdk.camera.VideoFeeder;
 import dji.sdk.codec.DJICodecManager;
 import dji.sdk.products.Aircraft;
-import dji.sdk.useraccount.UserAccountManager;
 
 public class MainActivity extends Activity implements SurfaceTextureListener,OnClickListener{
 
@@ -72,8 +57,9 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
         setContentView(R.layout.activity_main);
         // Run BarcodeDetector and define formas
         barcodeDetector = new BarcodeDetector.Builder(this).setBarcodeFormats(1).build();
+
         // SEt up AUTO FOCUS
-        camera.setFocusMode(SettingsDefinitions.FocusMode.AFC, null);
+        camera.setFocusMode(SettingsDefinitions.FocusMode.AUTO, null);
 
         // CHECK AUTO FOCUS
         camera.getFocusMode(new CommonCallbacks.CompletionCallbackWith<SettingsDefinitions.FocusMode>() {
@@ -145,7 +131,7 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
 
     private void initUI() {
         // init mVideoSurface
-        mVideoSurface = (TextureView)findViewById(R.id.video_previewer_surface);
+        mVideoSurface = findViewById(R.id.video_previewer_surface);
 
         if (null != mVideoSurface) {
             mVideoSurface.setSurfaceTextureListener(this);
@@ -183,9 +169,6 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
         if (mCodecManager == null) {
             mCodecManager = new DJICodecManager(this, surface, width, height);
         }
-
-
-
     }
 
     @Override
