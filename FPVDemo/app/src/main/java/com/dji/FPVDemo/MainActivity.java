@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import dji.common.camera.FocusAssistantSettings;
 import dji.common.camera.SettingsDefinitions;
 import dji.common.error.DJIError;
 import dji.common.product.Model;
@@ -60,17 +61,34 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Run BarcodeDetector and define formas
+        // Run BarcodeDetector and define formats... 1 - CODE 128 only, 0 - ALL
         barcodeDetector = new BarcodeDetector.Builder(this).setBarcodeFormats(1).build();
 
-        // SEt up AUTO FOCUS
+        // SET UP AUTO FOCUS
         camera.setFocusMode(SettingsDefinitions.FocusMode.AUTO, null);
+
+        // SET UP FOCUS ASSISTANT
+        camera.setFocusAssistantSettings(new FocusAssistantSettings(true, false), new CommonCallbacks.CompletionCallback() {
+            @Override
+            public void onResult(DJIError djiError) {}
+        });
 
         // CHECK AUTO FOCUS
         camera.getFocusMode(new CommonCallbacks.CompletionCallbackWith<SettingsDefinitions.FocusMode>() {
             @Override
             public void onSuccess(SettingsDefinitions.FocusMode focusMode) {
                 showToast(focusMode + "");
+            }
+
+            @Override
+            public void onFailure(DJIError djiError) {}
+        });
+
+        // CHECK AUTO FOCUS
+        camera.getFocusAssistantSettings(new CommonCallbacks.CompletionCallbackWithTwoParam<Boolean, Boolean>() {
+            @Override
+            public void onSuccess(Boolean aBoolean, Boolean aBoolean2) {
+                showToast(aBoolean + " ," + aBoolean2);
             }
 
             @Override
@@ -200,8 +218,6 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
         pool.execute(new BarcodeDetection());
     }
 
-
-
     // SHOW TOAST
     public void showToast(final String msg) {
         runOnUiThread(new Runnable() {
@@ -223,6 +239,7 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
     public void onClick(View v) {
     }
 
+    // Execution Service
     private class BarcodeDetection implements Runnable {
         public void recogniseBarcode(Frame frame) {
             if (barcodeDetector != null) {
