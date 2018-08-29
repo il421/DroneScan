@@ -62,16 +62,16 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
         setContentView(R.layout.activity_main);
 
         // Run BarcodeDetector and define formats... 1 - CODE 128 only, 0 - ALL
-        barcodeDetector = new BarcodeDetector.Builder(this).setBarcodeFormats(1).build();
+        barcodeDetector = new BarcodeDetector.Builder(this).setBarcodeFormats(0).build();
 
         // SET UP AUTO FOCUS
         camera.setFocusMode(SettingsDefinitions.FocusMode.AUTO, null);
 
+
+        camera.setAperture(SettingsDefinitions.Aperture.F_9, null);
+
         // SET UP FOCUS ASSISTANT
-        camera.setFocusAssistantSettings(new FocusAssistantSettings(true, false), new CommonCallbacks.CompletionCallback() {
-            @Override
-            public void onResult(DJIError djiError) {}
-        });
+        camera.setFocusAssistantSettings(new FocusAssistantSettings(true, false), null);
 
         // CHECK AUTO FOCUS
         camera.getFocusMode(new CommonCallbacks.CompletionCallbackWith<SettingsDefinitions.FocusMode>() {
@@ -96,6 +96,8 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
 
             }
         });
+
+        // setFocusRingValue????
 
         initUI();
 
