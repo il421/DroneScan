@@ -19,6 +19,8 @@ import com.google.android.gms.vision.barcode.BarcodeDetector;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import dji.common.camera.SettingsDefinitions;
 import dji.common.error.DJIError;
@@ -49,12 +51,15 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
     protected Frame frame;
     Camera camera = new Aircraft(null).getCamera();
 
+    private ExecutorService pool;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         // Run BarcodeDetector and define formas
         barcodeDetector = new BarcodeDetector.Builder(this).setBarcodeFormats(1).build();
 
@@ -86,6 +91,8 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
                 }
             }
         };
+
+        pool = Executors.newSingleThreadExecutor();
     }
 
     protected void onProductChange() {
@@ -136,7 +143,6 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
         if (null != mVideoSurface) {
             mVideoSurface.setSurfaceTextureListener(this);
         }
-
     }
 
     private void initPreviewer() {
@@ -191,25 +197,10 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
     public void onSurfaceTextureUpdated(SurfaceTexture surface) {
         Bitmap bitman = mVideoSurface.getBitmap();
         frame = new Frame.Builder().setBitmap(bitman).build();
-
-
-        recognizeBarcode(frame);
+        pool.execute(new BarcodeDetection());
     }
 
-    // BARCODE RECOGNITION + ARRAY
-    private void recognizeBarcode(Frame frame) {
-        SparseArray<Barcode> barcodes = barcodeDetector.detect(frame);
 
-        if (barcodes.size() > 0) {
-            for (int i = 0; i < barcodes.size(); i++) {
-                if (listOfBarcodes.indexOf(barcodes.valueAt(i).displayValue) == -1) {
-                    listOfBarcodes.add(barcodes.valueAt(i).displayValue);
-                    sound.play(SHUTTER_CLICK);
-                }
-            }
-        }
-        barcodes.clear();
-    }
 
     // SHOW TOAST
     public void showToast(final String msg) {
@@ -230,5 +221,29 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
 
     @Override
     public void onClick(View v) {
+    }
+
+    private class BarcodeDetection implements Runnable {
+        public void recogniseBarcode(Frame frame) {
+            if (barcodeDetector != null) {
+                SparseArray<Barcode> barcodes = barcodeDetector.detect(frame);
+
+                if (barcodes.size() > 0) {
+                    System.out.println("Got a barcode!!!");
+                    for (int i = 0; i < barcodes.size(); i++) {
+                        if (listOfBarcodes.indexOf(barcodes.valueAt(i).displayValue) == -1) {
+                            listOfBarcodes.add(barcodes.valueAt(i).displayValue);
+                            sound.play(SHUTTER_CLICK);
+                            barcodes.clear();
+                        }
+                    }
+                }
+            }
+        }
+
+        @Override
+        public void run() {
+            this.recogniseBarcode(frame);
+        }
     }
 }
