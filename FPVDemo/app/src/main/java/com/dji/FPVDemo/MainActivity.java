@@ -37,22 +37,16 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
 
     private static final String TAG = MainActivity.class.getName();
     protected VideoFeeder.VideoDataCallback mReceivedVideoDataCallBack = null;
-
-
-    // Codec for video live view
     protected DJICodecManager mCodecManager = null;
-
     protected TextureView mVideoSurface = null;
+    protected Frame frame;
+    private ExecutorService pool;
+    int SHUTTER_CLICK;
 
+    Camera camera = new Aircraft(null).getCamera();
     BarcodeDetector barcodeDetector;
     ArrayList<String> listOfBarcodes = new ArrayList<>();
     MediaActionSound sound = new MediaActionSound();
-    int SHUTTER_CLICK;
-
-    protected Frame frame;
-    Camera camera = new Aircraft(null).getCamera();
-
-    private ExecutorService pool;
 
 
     @Override
@@ -97,7 +91,6 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
             }
         });
 
-        // setFocusRingValue????
 
         initUI();
 
@@ -215,9 +208,10 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
 
     @Override
     public void onSurfaceTextureUpdated(SurfaceTexture surface) {
+        // GET FRAMES AND RUN BARCODE DETECTION
         Bitmap bitman = mVideoSurface.getBitmap();
         frame = new Frame.Builder().setBitmap(bitman).build();
-        pool.execute(new BarcodeDetection());
+        pool.execute(new BarcodeDetectionTimber());
     }
 
     // SHOW TOAST
@@ -241,8 +235,8 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
     public void onClick(View v) {
     }
 
-    // Execution Service
-    private class BarcodeDetection implements Runnable {
+    // EXECUTION SERVICE
+    private class BarcodeDetectionTimber implements Runnable {
         public void recogniseBarcode(Frame frame) {
             if (barcodeDetector != null) {
                 SparseArray<Barcode> barcodes = barcodeDetector.detect(frame);
