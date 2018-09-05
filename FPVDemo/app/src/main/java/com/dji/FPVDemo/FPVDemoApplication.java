@@ -62,6 +62,10 @@ public class FPVDemoApplication extends Application{
 
         if (getProductInstance() instanceof Aircraft){
             camera = ((Aircraft) getProductInstance()).getCamera();
+
+
+
+
         } else if (getProductInstance() instanceof HandHeld) {
             camera = ((HandHeld) getProductInstance()).getCamera();
         }
