@@ -54,7 +54,7 @@
             android:layout_gravity="bottom|end"
             android:layout_margin="@dimen/fab_margin"
             android:src="@drawable/add_white"
-            android:onClick="addAction"
+            android:onClick="openAddAction"
             app:backgroundTint="@color/colorPrimary" />
 
     </FrameLayout>
@@ -67,6 +67,7 @@
         android:textColor="@color/colorPrimary"
         android:layout_weight="1"
         android:textSize="18sp"
+        android:onClick="startDroneScan"
         android:text="@string/start"/>
 
 </LinearLayout>
