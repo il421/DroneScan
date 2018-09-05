@@ -261,7 +261,6 @@ public class ConnectionActivity extends AppCompatActivity implements View.OnClic
             case R.id.btn_set_path: {
                 Intent intent = new Intent(this, PathDefinerActivity.class);
                 startActivity(intent);
-                overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
                 break;
             }
             default:
