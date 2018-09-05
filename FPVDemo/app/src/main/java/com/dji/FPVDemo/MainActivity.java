@@ -36,6 +36,7 @@ import dji.sdk.products.Aircraft;
 import static dji.common.camera.SettingsDefinitions.ExposureMode.APERTURE_PRIORITY;
 import static dji.common.camera.SettingsDefinitions.ExposureMode.MANUAL;
 import static dji.common.camera.SettingsDefinitions.ExposureMode.PROGRAM;
+import static dji.common.camera.SettingsDefinitions.ISO.ISO_6400;
 
 public class MainActivity extends Activity implements SurfaceTextureListener,OnClickListener{
 
@@ -62,14 +63,19 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
         // Run BarcodeDetector and define formats... 1 - CODE 128 only, 0 - ALL
         barcodeDetector = new BarcodeDetector.Builder(this).setBarcodeFormats(0).build();
 
-        // SET UP AUTO APERTURE_PRIORITY
-        camera.setExposureMode(APERTURE_PRIORITY, null);
-        camera.setAperture(SettingsDefinitions.Aperture.F_9, null);
+        camera.setExposureMode(MANUAL, null);
 
         // SET UP AUTO FOCUS
         camera.setFocusMode(SettingsDefinitions.FocusMode.AUTO, null);
 
+        // SET UP APERTURE
+        camera.setAperture(SettingsDefinitions.Aperture.F_9, null);
 
+        // SET UP ISO
+        camera.setISO(ISO_6400, null);
+
+        // SET UP FOCUS ASSISTANT
+        camera.setFocusAssistantSettings(new FocusAssistantSettings(true, false), null);
 
         // CHECK APERTURE
         camera.getAperture(new CommonCallbacks.CompletionCallbackWith<SettingsDefinitions.Aperture>() {
@@ -83,6 +89,43 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
 
             }
         });
+
+        //CHECK ISO
+        camera.getISO(new CommonCallbacks.CompletionCallbackWith<SettingsDefinitions.ISO>() {
+            @Override
+            public void onSuccess(SettingsDefinitions.ISO iso) {
+                showToast(iso + " ");
+            }
+
+            @Override
+            public void onFailure(DJIError djiError) {
+
+            }
+        });
+
+//        // CHECK AUTO FOCUS
+//        camera.getFocusMode(new CommonCallbacks.CompletionCallbackWith<SettingsDefinitions.FocusMode>() {
+//            @Override
+//            public void onSuccess(SettingsDefinitions.FocusMode focusMode) {
+//                showToast(focusMode + "");
+//            }
+//
+//            @Override
+//            public void onFailure(DJIError djiError) {}
+//        });
+//
+//        // CHECK AUTO FOCUS
+//        camera.getFocusAssistantSettings(new CommonCallbacks.CompletionCallbackWithTwoParam<Boolean, Boolean>() {
+//            @Override
+//            public void onSuccess(Boolean aBoolean, Boolean aBoolean2) {
+//                showToast(aBoolean + " ," + aBoolean2);
+//            }
+//
+//            @Override
+//            public void onFailure(DJIError djiError) {
+//
+//            }
+//        });
 
         initUI();
 
