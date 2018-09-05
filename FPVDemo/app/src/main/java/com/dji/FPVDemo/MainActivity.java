@@ -70,21 +70,27 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
         camera.setFocusMode(SettingsDefinitions.FocusMode.AUTO, null);
 
 
+        camera.setAperture(SettingsDefinitions.Aperture.F_9, null);
 
-        // CHECK APERTURE
-        camera.getAperture(new CommonCallbacks.CompletionCallbackWith<SettingsDefinitions.Aperture>() {
+        // SET UP FOCUS ASSISTANT
+        camera.setFocusAssistantSettings(new FocusAssistantSettings(true, false), null);
+
+        // CHECK AUTO FOCUS
+        camera.getFocusMode(new CommonCallbacks.CompletionCallbackWith<SettingsDefinitions.FocusMode>() {
             @Override
-            public void onSuccess(SettingsDefinitions.Aperture aperture) {
+            public void onSuccess(SettingsDefinitions.FocusMode focusMode) {
+                showToast(focusMode + "");
+            }
 
-
-        // CHECK APERTURE
-        camera.getAperture(new CommonCallbacks.CompletionCallbackWith<SettingsDefinitions.Aperture>() {
-
-        // CHECK APERTURE
-        camera.getAperture(new CommonCallbacks.CompletionCallbackWith<SettingsDefinitions.Aperture>() {
             @Override
-            public void onSuccess(SettingsDefinitions.Aperture aperture) {
-                showToast(aperture + " ");
+            public void onFailure(DJIError djiError) {}
+        });
+
+        // CHECK AUTO FOCUS
+        camera.getFocusAssistantSettings(new CommonCallbacks.CompletionCallbackWithTwoParam<Boolean, Boolean>() {
+            @Override
+            public void onSuccess(Boolean aBoolean, Boolean aBoolean2) {
+                showToast(aBoolean + " ," + aBoolean2);
             }
 
             @Override
