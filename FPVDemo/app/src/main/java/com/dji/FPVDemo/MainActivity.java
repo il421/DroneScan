@@ -11,6 +11,9 @@ import android.view.TextureView;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.TextureView.SurfaceTextureListener;
+import android.widget.CompoundButton;
+import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.vision.Frame;
@@ -23,6 +26,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import dji.common.camera.FocusAssistantSettings;
+import dji.common.camera.ResolutionAndFrameRate;
 import dji.common.camera.SettingsDefinitions;
 import dji.common.error.DJIError;
 import dji.common.product.Model;
@@ -33,6 +37,7 @@ import dji.sdk.camera.VideoFeeder;
 import dji.sdk.codec.DJICodecManager;
 import dji.sdk.products.Aircraft;
 
+import static dji.common.camera.SettingsDefinitions.CameraMode.RECORD_VIDEO;
 import static dji.common.camera.SettingsDefinitions.ExposureMode.APERTURE_PRIORITY;
 import static dji.common.camera.SettingsDefinitions.ExposureMode.MANUAL;
 import static dji.common.camera.SettingsDefinitions.ExposureMode.PROGRAM;
@@ -48,10 +53,14 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
     private ExecutorService pool;
     int SHUTTER_CLICK;
 
-    Camera camera = new Aircraft(null).getCamera();
+//    Camera camera = new Aircraft(null).getCamera();
+
+    Camera camera = FPVDemoApplication.getCameraInstance();
     BarcodeDetector barcodeDetector;
     ArrayList<String> listOfBarcodes = new ArrayList<>();
     MediaActionSound sound = new MediaActionSound();
+
+    Switch mySwitch = null;
 
 
     @Override
@@ -60,22 +69,87 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         // Run BarcodeDetector and define formats... 1 - CODE 128 only, 0 - ALL
         barcodeDetector = new BarcodeDetector.Builder(this).setBarcodeFormats(0).build();
-
+        switchCameraMode(SettingsDefinitions.CameraMode.RECORD_VIDEO);
         camera.setExposureMode(MANUAL, null);
 
-        // SET UP AUTO FOCUS
-        camera.setFocusMode(SettingsDefinitions.FocusMode.AUTO, null);
+//        mySwitch = findViewById(R.id.mySwitch);
+//        mySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
-        // SET UP APERTURE
-        camera.setAperture(SettingsDefinitions.Aperture.F_9, null);
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                if (isChecked) {
+//                    switchCameraMode(SettingsDefinitions.CameraMode.SHOOT_PHOTO);
+//                    camera.getMode(new CommonCallbacks.CompletionCallbackWith<SettingsDefinitions.CameraMode>() {
+//                        @Override
+//                        public void onSuccess(SettingsDefinitions.CameraMode cameraMode) {
+//                            showToast(cameraMode + " ");
+//                        }
+//
+//                        @Override
+//                        public void onFailure(DJIError djiError) {
+//
+//                        }
+//                    });
+//
+//                } else {
+//                    switchCameraMode(SettingsDefinitions.CameraMode.RECORD_VIDEO);
+//                    camera.getMode(new CommonCallbacks.CompletionCallbackWith<SettingsDefinitions.CameraMode>() {
+//                        @Override
+//                        public void onSuccess(SettingsDefinitions.CameraMode cameraMode) {
+//                            showToast(cameraMode + " ");
+//                        }
+//
+//                        @Override
+//                        public void onFailure(DJIError djiError) {
+//
+//                        }
+//                    });
+//                    camera.setDigitalZoomFactor(2f, null);
+//                    // CHECK ZOOM
+//                    camera.getDigitalZoomFactor(new CommonCallbacks.CompletionCallbackWith<Float>() {
+//                        @Override
+//                        public void onSuccess(Float aFloat) {
+//                            showToast(aFloat + " ");
+//                        }
+//
+//                        @Override
+//                        public void onFailure(DJIError djiError) {
+//
+//                        }
+//                    });
+//                }
+//            }
+//
+//        });
+
+//        camera.setMode(SettingsDefinitions.CameraMode.RECORD_VIDEO, new CommonCallbacks.CompletionCallback() {
+//            @Override
+//            public void onResult(DJIError djiError) {
+//                if (djiError == null) {
+//                    showToast("Switch Camera Mode Succeeded");
+//                } else {
+//                    showToast(djiError.getDescription());
+//                }
+//            }
+//        });
+
+//        // SET UP AUTO FOCUS
+//        camera.setFocusMode(SettingsDefinitions.FocusMode.AUTO, null);
+//
+//        // SET UP APERTURE
+//        camera.setAperture(SettingsDefinitions.Aperture.F_9, null);
 
         // SET UP ISO
         camera.setISO(ISO_6400, null);
 
         // SET UP FOCUS ASSISTANT
         camera.setFocusAssistantSettings(new FocusAssistantSettings(true, false), null);
+
+        // SET UP ZOOM
+        camera.setDigitalZoomFactor(2f, null);
 
         // CHECK APERTURE
         camera.getAperture(new CommonCallbacks.CompletionCallbackWith<SettingsDefinitions.Aperture>() {
@@ -90,7 +164,7 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
             }
         });
 
-        //CHECK ISO
+        // CHECK ISO
         camera.getISO(new CommonCallbacks.CompletionCallbackWith<SettingsDefinitions.ISO>() {
             @Override
             public void onSuccess(SettingsDefinitions.ISO iso) {
@@ -102,6 +176,45 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
 
             }
         });
+
+        // CHECK CAMERA MODE
+        camera.getMode(new CommonCallbacks.CompletionCallbackWith<SettingsDefinitions.CameraMode>() {
+            @Override
+            public void onSuccess(SettingsDefinitions.CameraMode cameraMode) {
+                showToast(cameraMode + " ");
+            }
+
+            @Override
+            public void onFailure(DJIError djiError) {
+
+            }
+        });
+
+        // CHECK ZOOM
+        camera.getDigitalZoomFactor(new CommonCallbacks.CompletionCallbackWith<Float>() {
+            @Override
+            public void onSuccess(Float aFloat) {
+                showToast(aFloat + " ");
+            }
+
+            @Override
+            public void onFailure(DJIError djiError) {
+
+            }
+        });
+
+//        // CHECK RESOLUTION
+//        camera.getVideoResolutionAndFrameRate(new CommonCallbacks.CompletionCallbackWith<ResolutionAndFrameRate>() {
+//            @Override
+//            public void onSuccess(ResolutionAndFrameRate resolutionAndFrameRate) {
+//                showToast(resolutionAndFrameRate + " ");
+//            }
+//
+//            @Override
+//            public void onFailure(DJIError djiError) {
+//
+//            }
+//        });
 
 //        // CHECK AUTO FOCUS
 //        camera.getFocusMode(new CommonCallbacks.CompletionCallbackWith<SettingsDefinitions.FocusMode>() {
@@ -292,6 +405,22 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
         @Override
         public void run() {
             this.recogniseBarcode(frame);
+        }
+    }
+
+
+    private void switchCameraMode(SettingsDefinitions.CameraMode cameraMode){
+        Camera camera = FPVDemoApplication.getCameraInstance();
+        if (camera != null) {
+            camera.setMode(cameraMode, new CommonCallbacks.CompletionCallback() {
+                @Override
+                public void onResult(DJIError error) {
+                    if (error == null) {
+                    } else {
+                        showToast(error.getDescription());
+                    }
+                }
+            });
         }
     }
 }
