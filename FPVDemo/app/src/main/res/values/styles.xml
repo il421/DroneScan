@@ -13,6 +13,7 @@
         <item name="android:textViewStyle">@style/RobotoTextViewStyle</item>
         <item name="buttonStyle">@style/RobotoButtonStyle</item>
         <item name="android:spinnerItemStyle">@style/SpinnerTextStyle</item>
+        <item name="android:listViewStyle">@style/ListViewStyle</item>
     </style>
 
     <style name="RobotoTextViewStyle" parent="android:Widget.TextView">
@@ -26,5 +27,10 @@
         <item name="android:fontFamily">sans-serif-light</item>
         <item name="android:textColor">@color/colorBlack</item>
         <item name="android:textSize">20sp</item>
+    </style>
+    <style name="ListViewStyle" parent="android:Widget.Holo.Light.ListView">
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textSize">18sp</item>
     </style>
 </resources>
