@@ -13,6 +13,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -22,7 +24,7 @@ public class DroneActionDialog extends DialogFragment {
     private Spinner commandSpnr, directionSpnr;
     private DroneActionDialogListener dialogListener;
     private View view;
-
+    private LinearLayout cmdDetails;
 
     @NonNull
     @Override
@@ -37,7 +39,6 @@ public class DroneActionDialog extends DialogFragment {
                     public void onClick(DialogInterface dialog, int id) {
                         distanceEditTxt = (EditText) getDialog().findViewById(R.id.distance_input);
                         directionSpnr = (Spinner) getDialog().findViewById(R.id.spnr_directions);
-
 
                         // FIRE ZE MISSILES!
 
@@ -60,6 +61,9 @@ public class DroneActionDialog extends DialogFragment {
     public void setCommandSpinner() {
         Log.v(this.getClass().getName(), "setCommandSpinner func");
         commandSpnr = (Spinner) view.findViewById(R.id.spnr_drone_commands);
+        cmdDetails = (LinearLayout) view.findViewById(R.id.action_detail_layout);
+        cmdDetails.removeAllViews();
+
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 getActivity().getBaseContext(),
                 R.array.commands_array,
@@ -73,21 +77,21 @@ public class DroneActionDialog extends DialogFragment {
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 // your code here
                 Log.v("CMD SPNR", " pos " + position);
+                cmdDetails.removeAllViews();
                 switch (position) {
                     case 0:
-                        Toast.makeText(getActivity().getBaseContext(), "TAKEOFF clicked", Toast.LENGTH_SHORT);
+                        Log.v("CMD SPNR", "First clicked");
+                        View child = getLayoutInflater().inflate(R.layout.yaw_detail, null);
+                        cmdDetails.addView(child);
                         break;
                     case 1:
-                        Toast.makeText(getActivity().getBaseContext(), "YAW clicked", Toast.LENGTH_SHORT);
+
                         break;
                     case 2:
-                        Toast.makeText(getActivity().getBaseContext(), "MOVE clicked", Toast.LENGTH_SHORT);
+
                         break;
                     case 3:
-                        Toast.makeText(getActivity().getBaseContext(), "SCAN clicked", Toast.LENGTH_SHORT);
-                        break;
-                    case 4:
-                        Toast.makeText(getActivity().getBaseContext(), "LAND clicked", Toast.LENGTH_SHORT);
+
                         break;
                     default:
                         break;

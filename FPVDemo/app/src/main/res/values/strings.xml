@@ -18,10 +18,10 @@
         <item>Down</item>
     </string-array>
     <string-array name="commands_array">
-        <item>Takeoff</item>
         <item>Yaw</item>
         <item>Move</item>
         <item>Scan</item>
+        <item>Land</item>
     </string-array>
     <string name="select_cmd">Select a command for the drone</string>
 
