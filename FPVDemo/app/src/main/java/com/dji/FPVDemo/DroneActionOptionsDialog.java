@@ -18,7 +18,7 @@ public class DroneActionOptionsDialog extends DialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Choose a drone action " + getTag())
+        builder.setTitle("Choose a drone action")
                 .setItems(R.array.commands_array, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int option) {
                         // The 'which' argument contains the index position

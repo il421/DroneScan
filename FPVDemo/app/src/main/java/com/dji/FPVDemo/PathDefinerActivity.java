@@ -14,7 +14,6 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-//public class PathDefinerActivity extends AppCompatActivity implements DroneActionDialog.DroneActionDialogListener{
 public class PathDefinerActivity extends AppCompatActivity implements DroneActionDetailsDlgListener{
 
     private ListView actionsLv;

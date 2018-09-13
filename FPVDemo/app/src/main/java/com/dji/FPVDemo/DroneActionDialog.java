@@ -23,11 +23,7 @@ import android.widget.Toast;
 
 public class DroneActionDialog extends DialogFragment {
 
-    private EditText distanceEditTxt;
-    private Spinner commandSpnr, directionSpnr;
-    private DroneActionDialogListener dialogListener;
     private View view;
-    private LinearLayout cmdDetails;
 
     @NonNull
     @Override
@@ -37,19 +33,17 @@ public class DroneActionDialog extends DialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
         int resourceId = getLayout(getTag());
-//        view = inflater.inflate(R.layout.add_action_dialog, null);
         view = inflater.inflate(resourceId, null);
 
         builder.setView(view)
+                .setTitle("Please set values for " + getTag() + " action")
                 .setPositiveButton("Add Action", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        distanceEditTxt = (EditText) getDialog().findViewById(R.id.distance_input);
-                        directionSpnr = (Spinner) getDialog().findViewById(R.id.spnr_directions);
 
-                        // FIRE ZE MISSILES!
+                        // SET DIALOG LISTENER
 
-                        dialogListener = (DroneActionDialogListener) getActivity();
-                        dialogListener.onFinishActionDialog(distanceEditTxt.getText().toString(), directionSpnr.getSelectedItem().toString());
+//                        dialogListener = (DroneActionDialogListener) getActivity();
+//                        dialogListener.onFinishActionDialog(distanceEditTxt.getText().toString(), directionSpnr.getSelectedItem().toString());
 
                     }
                 })
@@ -60,22 +54,8 @@ public class DroneActionDialog extends DialogFragment {
 //                        dialogListener.onFinishActionDialog("", "");
                     }
                 });
-//        setCommandSpinner();
         return builder.create();
 
-        /*
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Choose a drone action")
-                .setItems(R.array.commands_array, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int option) {
-                        // The 'which' argument contains the index position
-                        // of the selected item
-                        Log.v(this.getClass().toString(), "selected: " + option);
-
-                    }
-                });
-
-        return builder.create(); */
     }
 
     public int getLayout(String tag) {
@@ -96,64 +76,7 @@ public class DroneActionDialog extends DialogFragment {
         return layout;
     }
 
-    public void setCommandSpinner() {
-        Log.v(this.getClass().getName(), "setCommandSpinner func");
-        commandSpnr = (Spinner) view.findViewById(R.id.spnr_drone_commands);
-        cmdDetails = (LinearLayout) view.findViewById(R.id.action_detail_layout);
-        cmdDetails.removeAllViews();
-
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-                getActivity().getBaseContext(),
-                R.array.commands_array,
-                android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        commandSpnr.setAdapter(adapter);
-
-        commandSpnr.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-            @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                // your code here
-                Log.v("CMD SPNR", " pos " + position);
-                /*
-                cmdDetails.removeAllViews();
-                View child;
-
-                switch (position) {
-                    case 1:
-                        child = getLayoutInflater().inflate(R.layout.yaw_detail, null);
-                        cmdDetails.setFocusable(true);
-                        cmdDetails.addView(child);
-
-                        break;
-                    case 2:
-                        child = getLayoutInflater().inflate(R.layout.move_detail, null);
-                        getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-                        cmdDetails.setFocusable(true);
-                        cmdDetails.addView(child);
-                        break;
-                    case 3:
-                        child = getLayoutInflater().inflate(R.layout.scan_detail, null);
-                        cmdDetails.setFocusable(true);
-                        getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-                        cmdDetails.addView(child);
-                        break;
-                    default:
-                        break;
-                } */
-//                getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parentView) {
-                // your code here
-
-            }
-
-        });
-    }
-
-    public interface DroneActionDialogListener {
-        void onFinishActionDialog(String distance, String direction);
-    }
+//    public interface DroneActionDialogListener {
+//        void onFinishActionDialog(String distance, String direction);
+//    }
 }
