@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -13,7 +14,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PathDefinerActivity extends AppCompatActivity implements DroneActionDialog.DroneActionDialogListener{
+//public class PathDefinerActivity extends AppCompatActivity implements DroneActionDialog.DroneActionDialogListener{
+public class PathDefinerActivity extends AppCompatActivity implements DroneActionDetailsDlgListener{
 
     private ListView actionsLv;
     private List<String> actionsArray;
@@ -37,9 +39,17 @@ public class PathDefinerActivity extends AppCompatActivity implements DroneActio
     }
 
     public void openAddAction(View view) {
-        DialogFragment addActionDialog = new DroneActionDialog();
-        addActionDialog.show(this.getSupportFragmentManager(), "tag");
+//        DialogFragment addActionDialog = new DroneActionDialog();
+//        addActionDialog.show(this.getSupportFragmentManager(), "tag");
 
+        DialogFragment addActionDialog = new DroneActionOptionsDialog();
+        addActionDialog.show(this.getSupportFragmentManager(), DroneCommand.Yaw.toString());
+
+    }
+
+    public void openActionDetails() {
+//        DialogFragment addActionDialog = new DroneActionDialog();
+//        addActionDialog.show(this.getSupportFragmentManager(), "tag");
     }
 
     public void fillArrayList(){
@@ -60,11 +70,49 @@ public class PathDefinerActivity extends AppCompatActivity implements DroneActio
         actionsLv.setAdapter(arrayAdapter);
     }
 
-    @Override
+//    @Override
     public void onFinishActionDialog(String distance, String direction) {
         actionsArray.add(distance + " " + direction);
         populateArrayAdapter();
 //        Toast.makeText(this, "PathDefinerActivity " + distance + " " + direction, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onFinishActionOptionsDlg(int position) {
+//        Bundle args = new Bundle();
+//        args.putString("droneCmd", "YAW");
+//        getDetailsDlg.setArguments(args);
+        DialogFragment getDetailsDlg = new DroneActionDialog();
+        Log.v("PathDefinerAct","onFinishActionOptionsDlg " + position);
+        switch (position) {
+            case 0:
+                // TAKEOFF
+
+                break;
+            case 1:
+                // YAW
+                getDetailsDlg.show(this.getSupportFragmentManager(), DroneCommand.Yaw.toString());
+                break;
+            case 2:
+                // MOVE
+                getDetailsDlg.show(this.getSupportFragmentManager(), DroneCommand.Move.toString());
+                break;
+            case 3:
+                // SCAN
+                getDetailsDlg.show(this.getSupportFragmentManager(), DroneCommand.Scan.toString());
+                break;
+            case 4:
+                // LAND
+
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void onFinishActionDetailsDlg() {
+        // lala
     }
 
     public void startDroneScan(View view) {

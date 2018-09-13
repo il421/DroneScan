@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/min_height_input"
+        android:textSize="20sp"
+        android:textAlignment="center"
+        android:hint="Min height"
+        android:inputType="number" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/max_height_input"
+        android:textSize="20sp"
+        android:textAlignment="center"
+        android:hint="Max height"
+        android:inputType="number" />
+    <TextView
+        android:id="@+id/unit_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:text="Starting Direction"
+        android:textSize="20sp" />
+    <RadioGroup
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/start_direction_opt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <RadioButton
+            android:id="@+id/opt_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Left"/>
+        <RadioButton
+            android:id="@+id/opt_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Right"/>
+    </RadioGroup>
+
+</LinearLayout>

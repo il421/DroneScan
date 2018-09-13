@@ -18,6 +18,7 @@
         <item>Down</item>
     </string-array>
     <string-array name="commands_array">
+        <item>Takeoff</item>
         <item>Yaw</item>
         <item>Move</item>
         <item>Scan</item>

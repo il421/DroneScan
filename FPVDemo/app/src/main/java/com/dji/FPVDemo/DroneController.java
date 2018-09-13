@@ -5,6 +5,7 @@ import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import dji.common.error.DJIError;
 import dji.common.flightcontroller.virtualstick.FlightControlData;
@@ -13,7 +14,7 @@ import dji.sdk.flightcontroller.FlightAssistant;
 import dji.sdk.flightcontroller.FlightController;
 import dji.sdk.products.Aircraft;
 
-public class DroneController extends AppCompatActivity implements CommonCallbacks.CompletionCallback{
+public class DroneController extends AppCompatActivity {
 
     private Aircraft aircraft;
     private FlightController flightController;
@@ -40,19 +41,33 @@ public class DroneController extends AppCompatActivity implements CommonCallback
         logsTxtView.setText("TRALALALA");
 //        FlightControlData flightControlData = new FlightControlData(1, 0, 0, 0);
 //        flightController.startTakeoff(actionCompletion);
-        flightController.startTakeoff(new CommonCallbacks.CompletionCallback() {
-            @Override
-            public void onResult(DJIError djiError) {
-                logsTxtView.setText("inside startTakeoff");
-            }
-        });
+        logsTxtView.setText("actionComp: ");
+        if(flightController != null) {
+            logsTxtView.setText("flight controller not null");
+            flightController.startTakeoff(new CommonCallbacks.CompletionCallback() {
+                @Override
+                public void onResult(DJIError djiError) {
+//                    Toast.makeText(getApplication().getBaseContext(), "in onResult", Toast.LENGTH_SHORT);
+                    logsTxtView.setText("in on result");
+                    if(djiError == null) {
+                        logsTxtView.setText("takeoff successful");
+                    } else {
+                        logsTxtView.setText("takeoff failed");
+                    }
+                }
+            });
+        } else {
+            logsTxtView.setText("flight controller null");
+        }
+
 //        flightController.startTakeoff(null);
 //        flightController.
-
+//        actionCompletion.onResult();
+//        logsTxtView.setText("actionComp: ");
     }
 
-    @Override
-    public void onResult(DJIError djiError) {
-        logsTxtView.setText("Outside onResult " + actionCompletion.toString());
-    }
+//    @Override
+//    public void onResult(DJIError djiError) {
+//        logsTxtView.setText("Outside onResult");
+//    }
 }

@@ -2,7 +2,9 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:orientation="horizontal">
 
     <EditText
@@ -10,7 +12,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/distance_input"
         android:textSize="20sp"
-        android:layout_alignBottom="@id/hint_text"
         android:textAlignment="center"
         android:inputType="number" />
 

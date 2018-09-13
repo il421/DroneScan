@@ -9,27 +9,27 @@ public class DroneAction {
     private float minHeight;
 
     public DroneAction() {
-        this.droneCommand = DroneCommand.LAND;
+        this.droneCommand = DroneCommand.Land;
     }
 
     public DroneAction(float dis) {
-        this.droneCommand = DroneCommand.TAKEOFF;
+        this.droneCommand = DroneCommand.Takeoff;
         this.distance = dis;
     }
 
     public DroneAction(Direction dir) {
-        this.droneCommand = DroneCommand.YAW;
+        this.droneCommand = DroneCommand.Yaw;
         this.direction = dir;
     }
 
     public DroneAction(Direction dir, float dis) {
-        this.droneCommand = DroneCommand.MOVE;
+        this.droneCommand = DroneCommand.Move;
         this.direction = dir;
         this.distance = dis;
     }
 
     public DroneAction(float width, float maxH, float minH, Direction startDir) {
-        this.droneCommand = DroneCommand.SCAN;
+        this.droneCommand = DroneCommand.Scan;
         this.maxHeight = maxH;
         this.minHeight = minH;
         this.direction = startDir;
