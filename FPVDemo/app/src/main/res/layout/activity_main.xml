@@ -3,28 +3,78 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    
+
     <TextureView
         android:id="@+id/video_previewer_surface"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:layout_centerHorizontal="true" />
-
-        <Button
-        android:id="@+id/scan_res"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="JSON"
-        android:onClick="getJSON"/>
-
-    <Switch
-        android:id="@+id/mySwitch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="29dp"
-        android:text="Switch" />
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center" />
+
+    <!--<RadioGroup-->
+        <!--android:id="@+id/radioButtons_ISO"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="200dp"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:layout_centerVertical="true">-->
+
+        <!--<RadioButton-->
+            <!--android:id="@+id/radioButton_8"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="47dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:onClick="onRadioButtonClicked"-->
+            <!--android:text="ISO_800" />-->
+
+        <!--<RadioButton-->
+            <!--android:id="@+id/radioButton_16"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="47dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:onClick="onRadioButtonClicked"-->
+            <!--android:text="ISO_1600" />-->
+
+        <!--<RadioButton-->
+            <!--android:id="@+id/radioButton_32"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="47dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:onClick="onRadioButtonClicked"-->
+            <!--android:text="ISO_3200" />-->
+
+        <!--<RadioButton-->
+            <!--android:id="@+id/radioButton_64"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="47dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:onClick="onRadioButtonClicked"-->
+            <!--android:text="ISO_6400" />-->
+
+        <!--<RadioButton-->
+            <!--android:id="@+id/radioButton_128"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="47dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:checked="true"-->
+            <!--android:onClick="onRadioButtonClicked"-->
+            <!--android:text="ISO_12800" />-->
+    <!--</RadioGroup>-->
+
+    <Button
+        android:id="@+id/scan_res"
+        android:layout_width="187dp"
+        android:layout_height="wrap_content"
+        android:onClick="getJSON"
+        android:text="JSON" />
+
+    <!--<Button-->
+        <!--android:id="@+id/zoom"-->
+        <!--android:layout_width="169dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:onClick="setZoom"-->
+        <!--android:text="ZOOM" />-->
 
 </RelativeLayout>
