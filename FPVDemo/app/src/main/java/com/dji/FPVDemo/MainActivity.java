@@ -59,7 +59,8 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
     protected DJICodecManager mCodecManager = null;
     protected TextureView mVideoSurface = null;
     protected Frame frame;
-    private ExecutorService pool;
+    private ExecutorService barcodeThread;
+    private Thread zoomThread;
     int SHUTTER_CLICK;
 
     Camera camera = FPVDemoApplication.getCameraInstance();
@@ -74,8 +75,16 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // RUN BAR-CODE DETECTOR AND DEFINE FORMATS (int)
-        barcodeDetector = new BarcodeDetector.Builder(this).setBarcodeFormats(0).build();
+        // The callback for receiving the raw H264 video data for camera live view
+        mReceivedVideoDataCallBack = new VideoFeeder.VideoDataCallback() {
+
+            @Override
+            public void onReceive(byte[] videoBuffer, int size) {
+                if (mCodecManager != null) {
+                    mCodecManager.sendDataToDecoder(videoBuffer, size);
+                }
+            }
+        };
 
         // CAMERA SETTING
         camera.setMode(SettingsDefinitions.CameraMode.SHOOT_PHOTO, null);
@@ -84,7 +93,8 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
         camera.setISO(SettingsDefinitions.ISO.ISO_12800, null);
         camera.setFocusAssistantSettings(new FocusAssistantSettings(true, true), null);
         camera.setFocusMode(SettingsDefinitions.FocusMode.AUTO, null);
-        Thread zoomThread = new Thread(new Runnable() {
+
+        zoomThread = new Thread(new Runnable() {
             PointF point = new PointF(0.5f, 0.5f);
 
             void zoomFocus() {
@@ -100,7 +110,6 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
                 zoomFocus();
             }
         });
-
         zoomThread.start();
 
 
@@ -139,21 +148,49 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
             }
         });
 
+        // RUN BAR-CODE DETECTOR AND DEFINE FORMATS (int)
+        barcodeDetector = new BarcodeDetector.Builder(this).setBarcodeFormats(0).build();
+        barcodeThread = Executors.newSingleThreadExecutor();
 
         initUI();
+    }
 
-        // The callback for receiving the raw H264 video data for camera live view
-        mReceivedVideoDataCallBack = new VideoFeeder.VideoDataCallback() {
+    // SHOW TOAST
+    public void showToast(final String msg) {
+        runOnUiThread(new Runnable() {
+            public void run() {
+                Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
 
-            @Override
-            public void onReceive(byte[] videoBuffer, int size) {
-                if (mCodecManager != null) {
-                    mCodecManager.sendDataToDecoder(videoBuffer, size);
+            }
+        });
+    }
+
+    // CREATE JSON AND SHOW IT
+    public void getJSON(View v) {
+        String json = new Gson().toJson(listOfBarcodes);
+        showToast(json);
+    }
+
+    // EXECUTION SERVICE
+    private class BarcodeDetectionTimber implements Runnable {
+
+        @Override
+        public void run() {
+            if (barcodeDetector != null) {
+                SparseArray<Barcode> barcodes = barcodeDetector.detect(frame);
+
+                if (barcodes.size() > 0) {
+                    System.out.println("Got a barcode!!!");
+                    for (int i = 0; i < barcodes.size(); i++) {
+                        if (listOfBarcodes.indexOf(barcodes.valueAt(i).displayValue) == -1) {
+                            listOfBarcodes.add(barcodes.valueAt(i).displayValue);
+                            sound.play(SHUTTER_CLICK);
+                            barcodes.clear();
+                        }
+                    }
                 }
             }
-        };
-
-        pool = Executors.newSingleThreadExecutor();
+        }
     }
 
     protected void onProductChange() {
@@ -258,118 +295,10 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
         // GET FRAMES AND RUN BARCODE DETECTION
         Bitmap bitman = mVideoSurface.getBitmap();
         frame = new Frame.Builder().setBitmap(bitman).build();
-        pool.execute(new BarcodeDetectionTimber());
-    }
-
-    // SHOW TOAST
-    public void showToast(final String msg) {
-        runOnUiThread(new Runnable() {
-            public void run() {
-                Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
-
-            }
-        });
-    }
-
-    // CREATE JSON AND SHOW IT
-    public void getJSON(View v) {
-        String json = new Gson().toJson(listOfBarcodes);
-
-        showToast(json);
-    }
-
-     // SET ZOOM VIA FOCUS
-    public void setZoom(View v) {
-        Thread zoomThread = new Thread(new Runnable() {
-            PointF point = new PointF(0.5f, 0.5f);
-
-            void zoomFocus() {
-                camera.setFocusTarget(point, new CommonCallbacks.CompletionCallback() {
-                    @Override
-                    public void onResult(DJIError djiError) {
-                        zoomFocus();
-                    }
-                });
-            }
-            @Override
-            public void run() {
-                zoomFocus();
-            }
-        });
-
-        zoomThread.start();
+        barcodeThread.execute(new BarcodeDetectionTimber());
     }
 
     @Override
     public void onClick(View v) {
     }
-
-    // EXECUTION SERVICE
-    private class BarcodeDetectionTimber implements Runnable {
-
-        @Override
-        public void run() {
-            if (barcodeDetector != null) {
-                SparseArray<Barcode> barcodes = barcodeDetector.detect(frame);
-
-                if (barcodes.size() > 0) {
-                    System.out.println("Got a barcode!!!");
-                    for (int i = 0; i < barcodes.size(); i++) {
-                        if (listOfBarcodes.indexOf(barcodes.valueAt(i).displayValue) == -1) {
-                            listOfBarcodes.add(barcodes.valueAt(i).displayValue);
-                            sound.play(SHUTTER_CLICK);
-                            barcodes.clear();
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-//    // SWITCH CAMERA MODE
-//    private void switchCameraMode(SettingsDefinitions.CameraMode cameraMode){
-//        final Camera camera = FPVDemoApplication.getCameraInstance();
-//        if (camera != null) {
-//            camera.setMode(cameraMode, new CommonCallbacks.CompletionCallback() {
-//                @Override
-//                public void onResult(DJIError djiError) {
-//                    Log.e(TAG, djiError + " ");
-//                }
-//            });
-//        }
-//    }
-
-//    public void onRadioButtonClicked(View view) {
-//        // Is the button now checked?
-//        boolean checked = ((RadioButton) view).isChecked();
-//
-//        // Check which radio button was clicked
-//        switch (view.getId()) {
-//            case R.id.radioButton_8:{
-//                if (checked)
-//                    camera.setISO(ISO_800, null);
-//                break;
-//            }
-//            case R.id.radioButton_16:{
-//                if (checked)
-//                    camera.setISO(ISO_1600, null);
-//                break;
-//            }
-//            case R.id.radioButton_32:{
-//                if (checked)
-//                    camera.setISO(ISO_3200, null);
-//                break;
-//            }
-//            case R.id.radioButton_64:{
-//                if (checked)
-//                    camera.setISO(ISO_6400, null);
-//                break;
-//            }
-//            case R.id.radioButton_128:{
-//                if (checked)
-//                    camera.setISO(ISO_12800, null);
-//                break;
-//            }
-//        }
-//    }
 }
