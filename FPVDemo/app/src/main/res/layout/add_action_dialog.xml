@@ -7,42 +7,25 @@
     android:padding="20dp">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/hint_text"
-        android:text="@string/distance_hint"
+        android:text="@string/select_cmd"
         android:textSize="20sp"/>
+
+    <Spinner
+        android:id="@+id/spnr_drone_commands"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp"></Spinner>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
+        android:id="@+id/action_detail_layout"
         android:orientation="horizontal">
-
-        <EditText
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/distance_input"
-            android:textSize="20sp"
-            android:layout_alignBottom="@id/hint_text"
-            android:textAlignment="center"
-            android:inputType="number" />
-
-        <TextView
-            android:id="@+id/unit_text"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:text="@string/meters_unit"
-            android:textSize="20sp" />
-
-        <Spinner
-            android:id="@+id/spnr_directions"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="10dp"
-            android:entries="@array/directions_array"></Spinner>
 
     </LinearLayout>
 
