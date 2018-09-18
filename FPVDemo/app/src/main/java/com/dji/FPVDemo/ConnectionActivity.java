@@ -93,8 +93,6 @@ public class ConnectionActivity extends AppCompatActivity implements View.OnClic
         }
 
     }
-
-
     /**
      * Result of runtime permission request
      */
