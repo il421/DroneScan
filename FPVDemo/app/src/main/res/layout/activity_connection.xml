@@ -21,7 +21,16 @@
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_centerHorizontal="true"
-        android:text="Settings"
+        android:text="Camera Settings"
+        android:textColor="@color/colorWhite"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/btn_set_barcode"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_centerHorizontal="true"
+        android:text="Set Barcode Types"
         android:textColor="@color/colorWhite"
         android:textSize="18sp" />
 
