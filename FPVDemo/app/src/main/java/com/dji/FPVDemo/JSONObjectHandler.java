@@ -57,7 +57,7 @@ public class JSONObjectHandler {
         }
     }
 
-    public void readJsonData(Context context) {
+    public String readJsonData(Context context) {
         try {
             File f = new File(context.getFilesDir().getPath() + "/" + this.filename);
             FileInputStream is = new FileInputStream(f);
@@ -66,10 +66,12 @@ public class JSONObjectHandler {
             is.read(buffer);
             is.close();
             String mResponse = new String(buffer);
-            Log.v("READ JSON ", "res: " + mResponse);
+            Log.v("READ JSON: ", "" + mResponse);
+            return mResponse;
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+            return null;
         }
     }
 }

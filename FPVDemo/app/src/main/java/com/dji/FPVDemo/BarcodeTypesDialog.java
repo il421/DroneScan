@@ -13,17 +13,21 @@ import java.util.ArrayList;
 public class BarcodeTypesDialog extends DialogFragment {
 
     private ArrayList<Integer> selectedTypes = new ArrayList<Integer>();
+    private boolean[] checkedItems;
+    private JSONObjectHandler barcodeTypesJson;
 
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
 //        super.onCreate(savedInstanceState);
         selectedTypes = new ArrayList();  // Where we track the selected items
+        barcodeTypesJson = new JSONObjectHandler("barcodeTypes.json");
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        setCheckedItems();
         // Set the dialog title
         builder.setTitle("Select barcode types to scan")
                 // Specify the list array, the items to be selected by default (null for none),
                 // and the listener through which to receive callbacks when items are selected
-                .setMultiChoiceItems(R.array.barcode_types_array, null,
+                .setMultiChoiceItems(R.array.barcode_types_array, checkedItems,
                         new DialogInterface.OnMultiChoiceClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which,
@@ -46,7 +50,6 @@ public class BarcodeTypesDialog extends DialogFragment {
                         for (Integer num: selectedTypes) {
                             Log.v("type ", "" + num);
                         }
-                        JSONObjectHandler barcodeTypesJson = new JSONObjectHandler("barcodeTypes.json");
                         barcodeTypesJson.writeBarcodeTypesJSON(selectedTypes);
                         barcodeTypesJson.createAndSaveFile(getContext());
                         barcodeTypesJson.readJsonData(getContext());
@@ -60,5 +63,20 @@ public class BarcodeTypesDialog extends DialogFragment {
                 });
 
         return builder.create();
+    }
+
+    public void setCheckedItems() {
+        checkedItems = new boolean[6];
+        String types = barcodeTypesJson.readJsonData(getContext());
+        if(types != null) {
+            for (int i=1; i < types.length() && types.charAt(i)!=']'; i++){
+                char c = types.charAt(i);
+                if(c!=','){
+                    int idx = Integer.parseInt(String.valueOf(c));
+                    checkedItems[idx] = true;
+                    selectedTypes.add(idx);
+                }
+            }
+        }
     }
 }
