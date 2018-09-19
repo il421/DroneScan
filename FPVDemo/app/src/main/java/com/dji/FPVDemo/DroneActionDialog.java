@@ -17,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -24,6 +25,8 @@ import android.widget.Toast;
 public class DroneActionDialog extends DialogFragment {
 
     private View view;
+    private String command;
+    private DroneActionDetailsDlgListener detailsDlgListener;
 
     @NonNull
     @Override
@@ -32,14 +35,29 @@ public class DroneActionDialog extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
-        int resourceId = getLayout(getTag());
+        command = getTag();
+        int resourceId = getLayout();
         view = inflater.inflate(resourceId, null);
+        detailsDlgListener = (DroneActionDetailsDlgListener) getActivity();
 
         builder.setView(view)
                 .setTitle("Please set values for " + getTag() + " action")
                 .setPositiveButton("Add Action", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+                        // dialogListener = (DroneActionDialogListener) getActivity();
+                        if(command.equals("Yaw")) {
+                            RadioButton rBtn = (RadioButton) getDialog().findViewById(R.id.opt_left);
+                            Direction dir = (rBtn.isChecked()) ? Direction.Left : Direction.Right;
+                            detailsDlgListener.onFinishActionDetailsDlg(new DroneAction(dir));
+                        } else if (command.equals("Move")) {
+                            Spinner directionSpnr = (Spinner) getDialog().findViewById(R.id.spnr_directions);
+                            // check direction
+                            directionSpnr.getSelectedItem().toString();
+                            EditText dis = (EditText) getDialog().findViewById(R.id.distance_input);
+//                            detailsDlgListener.onFinishActionDetailsDlg(new DroneAction(dis, directionSpnr)));
+                        } else {
 
+                        }
                         // SET DIALOG LISTENER
 
 //                        dialogListener = (DroneActionDialogListener) getActivity();
@@ -58,9 +76,9 @@ public class DroneActionDialog extends DialogFragment {
 
     }
 
-    public int getLayout(String tag) {
+    public int getLayout() {
         int layout = 0;
-        switch (tag) {
+        switch (command) {
             case "Yaw":
                 layout = R.layout.yaw_detail;
                 break;
@@ -79,4 +97,5 @@ public class DroneActionDialog extends DialogFragment {
 //    public interface DroneActionDialogListener {
 //        void onFinishActionDialog(String distance, String direction);
 //    }
+
 }

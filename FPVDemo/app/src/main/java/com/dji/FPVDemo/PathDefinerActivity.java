@@ -19,6 +19,7 @@ public class PathDefinerActivity extends AppCompatActivity implements DroneActio
     private ListView actionsLv;
     private List<String> actionsArray;
     private ArrayAdapter<String> arrayAdapter;
+    private ArrayList<DroneAction> droneActions;
 
 
     @Override
@@ -27,7 +28,8 @@ public class PathDefinerActivity extends AppCompatActivity implements DroneActio
         setContentView(R.layout.path_definer);
         actionsLv = findViewById(R.id.actions_list);
         actionsArray = new ArrayList<String>();
-        fillArrayList();
+        droneActions = new ArrayList<DroneAction>();
+        initializeArray();
         populateArrayAdapter();
     }
 
@@ -51,17 +53,31 @@ public class PathDefinerActivity extends AppCompatActivity implements DroneActio
 //        addActionDialog.show(this.getSupportFragmentManager(), "tag");
     }
 
-    public void fillArrayList(){
-        actionsArray.add("3m Right");
-        actionsArray.add("3m Forward");
-        actionsArray.add("4m Left");
-        actionsArray.add("13m Up");
-        actionsArray.add("1m Left");
-        actionsArray.add("3m Right");
-        actionsArray.add("3m Forward");
+    public void initializeArray() {
+        droneActions.add(new DroneAction());
+        droneActions.add(new DroneAction("Land"));
     }
 
     public void populateArrayAdapter() {
+        for (DroneAction d: droneActions) {
+//            switch (d.droneCommand) {
+//                case Yaw:
+//                    actionsArray.add(d.droneCommand.toString() + " " + d.direction);
+//                    break;
+//                case Move:
+//                    actionsArray.add(d.droneCommand.toString() + " " + d.distance + " " + d.direction);
+//                    break;
+//                case Scan:
+//                    actionsArray.add(d.droneCommand.toString() + " from the " + d.direction + " min height: " +
+//                            d.minHeight + ", max height: " + d.maxHeight + ", min width: " + d.minWidth +
+//                            ", max width: " + d.maxWidth);
+//                    break;
+//                default:
+//                    actionsArray.add(d.droneCommand.toString());
+//                    break;
+//            }
+            actionsArray.add(d.droneActionDesc);
+        }
         arrayAdapter = new ArrayAdapter<String>(
                 this,
                 android.R.layout.simple_list_item_1,
@@ -91,6 +107,7 @@ public class PathDefinerActivity extends AppCompatActivity implements DroneActio
             case 1:
                 // YAW
                 getDetailsDlg.show(this.getSupportFragmentManager(), DroneCommand.Yaw.toString());
+
                 break;
             case 2:
                 // MOVE
@@ -110,8 +127,9 @@ public class PathDefinerActivity extends AppCompatActivity implements DroneActio
     }
 
     @Override
-    public void onFinishActionDetailsDlg() {
+    public void onFinishActionDetailsDlg(DroneAction droneAction) {
         // lala
+        Log.v(getClass().toString(), droneAction.droneActionDesc);
     }
 
     public void startDroneScan(View view) {

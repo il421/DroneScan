@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.PointF;
 import android.graphics.SurfaceTexture;
 import android.media.MediaActionSound;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.SparseArray;
@@ -13,10 +12,6 @@ import android.view.TextureView;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.TextureView.SurfaceTextureListener;
-import android.widget.CompoundButton;
-import android.widget.RadioButton;
-import android.widget.Switch;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.vision.Frame;
@@ -29,28 +24,14 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import dji.common.camera.FocusAssistantSettings;
-import dji.common.camera.ResolutionAndFrameRate;
 import dji.common.camera.SettingsDefinitions;
 import dji.common.error.DJIError;
-import dji.common.flightcontroller.FlightControllerState;
 import dji.common.product.Model;
 import dji.common.util.CommonCallbacks;
 import dji.sdk.base.BaseProduct;
 import dji.sdk.camera.Camera;
 import dji.sdk.camera.VideoFeeder;
 import dji.sdk.codec.DJICodecManager;
-import dji.sdk.products.Aircraft;
-
-import static dji.common.camera.SettingsDefinitions.CameraMode.RECORD_VIDEO;
-import static dji.common.camera.SettingsDefinitions.CameraMode.SHOOT_PHOTO;
-import static dji.common.camera.SettingsDefinitions.ExposureMode.APERTURE_PRIORITY;
-import static dji.common.camera.SettingsDefinitions.ExposureMode.MANUAL;
-import static dji.common.camera.SettingsDefinitions.ExposureMode.PROGRAM;
-import static dji.common.camera.SettingsDefinitions.ISO.ISO_12800;
-import static dji.common.camera.SettingsDefinitions.ISO.ISO_1600;
-import static dji.common.camera.SettingsDefinitions.ISO.ISO_3200;
-import static dji.common.camera.SettingsDefinitions.ISO.ISO_6400;
-import static dji.common.camera.SettingsDefinitions.ISO.ISO_800;
 
 public class MainActivity extends Activity implements SurfaceTextureListener,OnClickListener{
 
@@ -88,7 +69,7 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
 
         // CAMERA SETTING
         camera.setMode(SettingsDefinitions.CameraMode.SHOOT_PHOTO, null);
-        camera.setExposureMode(MANUAL, null);
+        camera.setExposureMode(SettingsDefinitions.ExposureMode.MANUAL, null);
         camera.setAperture(SettingsDefinitions.Aperture.F_9, null);
         camera.setISO(SettingsDefinitions.ISO.ISO_12800, null);
         camera.setFocusAssistantSettings(new FocusAssistantSettings(true, true), null);

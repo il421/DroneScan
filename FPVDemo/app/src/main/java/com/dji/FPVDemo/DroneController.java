@@ -7,8 +7,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import dji.common.error.DJIError;
 import dji.common.flightcontroller.virtualstick.FlightControlData;
+import dji.common.flightcontroller.virtualstick.FlightCoordinateSystem;
+import dji.common.flightcontroller.virtualstick.RollPitchControlMode;
+import dji.common.flightcontroller.virtualstick.VerticalControlMode;
+import dji.common.flightcontroller.virtualstick.YawControlMode;
 import dji.common.util.CommonCallbacks;
 import dji.sdk.flightcontroller.FlightAssistant;
 import dji.sdk.flightcontroller.FlightController;
@@ -21,6 +28,8 @@ public class DroneController extends AppCompatActivity {
 //    private FlightAssistant flightAssistant;
     private TextView logsTxtView;
     private CommonCallbacks.CompletionCallback actionCompletion;
+    private Timer sendVirtualStickDataTimer;
+    private SendVirtualStickDataTask sendVirtualStickDataTask;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,21 +47,19 @@ public class DroneController extends AppCompatActivity {
 
     private void startBasicMission() {
         logsTxtView = (TextView) findViewById(R.id.logs_textview);
-        logsTxtView.setText("TRALALALA");
-//        FlightControlData flightControlData = new FlightControlData(1, 0, 0, 0);
-//        flightController.startTakeoff(actionCompletion);
-        logsTxtView.setText("actionComp: ");
+        FlightControlData flightControlData = new FlightControlData(0, 0, 1, 0);
         if(flightController != null) {
             logsTxtView.setText("flight controller not null");
             flightController.startTakeoff(new CommonCallbacks.CompletionCallback() {
                 @Override
                 public void onResult(DJIError djiError) {
-//                    Toast.makeText(getApplication().getBaseContext(), "in onResult", Toast.LENGTH_SHORT);
-                    logsTxtView.setText("in on result");
+                    showToast("in on result");
                     if(djiError == null) {
-                        logsTxtView.setText("takeoff successful");
+                        showToast("takeoff successful");
+                        // YAW CODE HERE
+                        initializeFlightCtrlr();
                     } else {
-                        logsTxtView.setText("takeoff failed");
+                        showToast("takeoff failed " + djiError.getDescription());
                     }
                 }
             });
@@ -60,14 +67,53 @@ public class DroneController extends AppCompatActivity {
             logsTxtView.setText("flight controller null");
         }
 
-//        flightController.startTakeoff(null);
-//        flightController.
-//        actionCompletion.onResult();
-//        logsTxtView.setText("actionComp: ");
     }
 
-//    @Override
-//    public void onResult(DJIError djiError) {
-//        logsTxtView.setText("Outside onResult");
-//    }
+    private void initializeFlightCtrlr(){
+//        Aircraft aircraft = DJISimulatorApplication.getAircraftInstance();
+
+//        if (aircraft == null || !aircraft.isConnected()) {
+//            showToast("Disconnected");
+//            flightController = null;
+//            return;
+//        } else {
+            flightController = aircraft.getFlightController();
+            flightController.setRollPitchControlMode(RollPitchControlMode.VELOCITY);
+            flightController.setYawControlMode(YawControlMode.ANGULAR_VELOCITY);
+            flightController.setVerticalControlMode(VerticalControlMode.VELOCITY);
+            flightController.setRollPitchCoordinateSystem(FlightCoordinateSystem.BODY);
+//        }
+        if (sendVirtualStickDataTimer == null) {
+            sendVirtualStickDataTask = new SendVirtualStickDataTask();
+            sendVirtualStickDataTimer = new Timer();
+            sendVirtualStickDataTimer.schedule(sendVirtualStickDataTask, 0, 200);
+        }
+    }
+
+    class SendVirtualStickDataTask extends TimerTask {
+        @Override
+        public void run() {
+            if (flightController != null) {
+                flightController.sendVirtualStickFlightControlData(
+                        new FlightControlData(
+                                0, 0, 2, 0
+                        ), new CommonCallbacks.CompletionCallback() {
+                            @Override
+                            public void onResult(DJIError djiError) {
+                            }
+                        }
+                );
+            }
+        }
+    }
+
+    private void showToast(final String toastMsg) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getApplicationContext(), toastMsg, Toast.LENGTH_LONG).show();
+
+            }
+        });
+    }
 }

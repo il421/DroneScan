@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -39,7 +40,7 @@ public class ConnectionActivity extends AppCompatActivity implements View.OnClic
     private TextView mTextConnectionStatus;
     private TextView mTextProduct;
     private TextView mVersionTv;
-    private Button mBtnOpen, btnSetPath;
+    private Button mBtnOpen, btnSetPath, btnSetBarcodeType;
     private static final String[] REQUIRED_PERMISSION_LIST = new String[]{
             Manifest.permission.VIBRATE,
             Manifest.permission.INTERNET,
@@ -208,6 +209,8 @@ public class ConnectionActivity extends AppCompatActivity implements View.OnClic
         mBtnOpen.setEnabled(false);
         btnSetPath = (Button) findViewById(R.id.btn_set_path);
         btnSetPath.setOnClickListener(this);
+        btnSetBarcodeType = (Button) findViewById(R.id.btn_set_barcode);
+        btnSetBarcodeType.setOnClickListener(this);
 //        mVersionTv = (TextView) findViewById(R.id.textView2);
 //        mVersionTv.setText(getResources().getString(R.string.sdk_version, DJISDKManager.getInstance().getSDKVersion()));
     }
@@ -256,7 +259,19 @@ public class ConnectionActivity extends AppCompatActivity implements View.OnClic
                 startActivity(intent);
                 break;
             }
+            case R.id.btn_set_barcode: {
+                DialogFragment setBarcodesDialog = new BarcodeTypesDialog();
+                setBarcodesDialog.show(this.getSupportFragmentManager(), DroneCommand.Yaw.toString());
+                break;
+            }
             case R.id.btn_set_path: {
+                Intent intent = new Intent(this, PathDefinerActivity.class);
+                overridePendingTransition(R.anim.slide_to_left, R.anim.slide_from_right);
+                startActivity(intent);
+                break;
+            }
+
+            case R.id.btn_settings: {
                 Intent intent = new Intent(this, PathDefinerActivity.class);
                 startActivity(intent);
                 break;
