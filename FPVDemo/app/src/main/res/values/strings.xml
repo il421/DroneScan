@@ -27,6 +27,7 @@
     <string-array name="barcode_types_array">
         <item>Code 128</item>
         <item>Code 39</item>
+        <item>QR Code</item>
         <item>EAN 13</item>
         <item>EAN 8</item>
         <item>Data Matrix</item>

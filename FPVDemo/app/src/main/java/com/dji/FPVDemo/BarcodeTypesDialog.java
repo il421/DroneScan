@@ -43,10 +43,13 @@ public class BarcodeTypesDialog extends DialogFragment {
                     public void onClick(DialogInterface dialog, int id) {
                         // User clicked OK, so save the mSelectedItems results somewhere
                         // or return them to the component that opened the dialog
-                        Log.v("Selected barcodes " + selectedTypes.size(), ": " );
                         for (Integer num: selectedTypes) {
                             Log.v("type ", "" + num);
                         }
+                        JSONObjectHandler barcodeTypesJson = new JSONObjectHandler("barcodeTypes.json");
+                        barcodeTypesJson.writeBarcodeTypesJSON(selectedTypes);
+                        barcodeTypesJson.createAndSaveFile(getContext());
+                        barcodeTypesJson.readJsonData(getContext());
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

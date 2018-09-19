@@ -266,7 +266,6 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
         runOnUiThread(new Runnable() {
             public void run() {
                 Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
-
             }
         });
     }
