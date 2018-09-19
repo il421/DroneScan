@@ -16,7 +16,7 @@
         android:id="@+id/scan_res"
         android:layout_width="187dp"
         android:layout_height="wrap_content"
-        android:onClick="getJSON"
+        android:onClick="getResults"
         android:text="RESULTS" />
 
 </RelativeLayout>

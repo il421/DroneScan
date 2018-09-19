@@ -1,6 +1,7 @@
 package com.dji.FPVDemo;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.PointF;
 import android.graphics.SurfaceTexture;
@@ -12,6 +13,7 @@ import android.view.TextureView;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.TextureView.SurfaceTextureListener;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.vision.Frame;
@@ -26,7 +28,9 @@ import java.util.concurrent.Executors;
 import dji.common.camera.FocusAssistantSettings;
 import dji.common.camera.SettingsDefinitions;
 import dji.common.error.DJIError;
+import dji.common.flightcontroller.FlightControllerState;
 import dji.common.product.Model;
+import dji.common.remotecontroller.HardwareState;
 import dji.common.util.CommonCallbacks;
 import dji.sdk.base.BaseProduct;
 import dji.sdk.camera.Camera;
@@ -43,7 +47,9 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
     private ExecutorService barcodeThread;
     private Thread zoomThread;
     int SHUTTER_CLICK;
+    private Button resultBtn = findViewById(R.id.scan_res);
 
+    FlightControllerState flightControler;
     Camera camera = FPVDemoApplication.getCameraInstance();
     BarcodeDetector barcodeDetector;
     ArrayList<String> listOfBarcodes = new ArrayList<>();
@@ -133,6 +139,14 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
         barcodeDetector = new BarcodeDetector.Builder(this).setBarcodeFormats(0).build();
         barcodeThread = Executors.newSingleThreadExecutor();
 
+        // RESULT BTN ENABLE/DISABLE
+        if(flightControler.isFlying()) {
+            resultBtn.setEnabled(false);
+        } else {
+            resultBtn.setEnabled(true);
+        }
+
+
         initUI();
     }
 
@@ -141,15 +155,19 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
         runOnUiThread(new Runnable() {
             public void run() {
                 Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
-
             }
         });
     }
 
-    // CREATE JSON AND SHOW IT
-    public void getJSON(View v) {
-        String json = new Gson().toJson(listOfBarcodes);
-        showToast(json);
+    // CREATE INTENT AND SHOW RESULTS
+
+    public void getResults(View v) {
+        Intent intentResults = new Intent(this, ScanningResults.class);
+        overridePendingTransition(R.anim.slide_to_left, R.anim.slide_from_right);
+
+        intentResults.putStringArrayListExtra("barcode", listOfBarcodes);
+        startActivity(intentResults);
+        finish();
     }
 
     // EXECUTION SERVICE
@@ -165,7 +183,8 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
                     for (int i = 0; i < barcodes.size(); i++) {
                         if (listOfBarcodes.indexOf(barcodes.valueAt(i).displayValue) == -1) {
                             listOfBarcodes.add(barcodes.valueAt(i).displayValue);
-                            sound.play(SHUTTER_CLICK);
+//                            sound.play(SHUTTER_CLICK);
+                            showToast("Barcode: " + barcodes.valueAt(i).displayValue);
                             barcodes.clear();
                         }
                     }
@@ -273,10 +292,12 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
 
     @Override
     public void onSurfaceTextureUpdated(SurfaceTexture surface) {
-        // GET FRAMES AND RUN BARCODE DETECTION
-        Bitmap bitman = mVideoSurface.getBitmap();
-        frame = new Frame.Builder().setBitmap(bitman).build();
-        barcodeThread.execute(new BarcodeDetectionTimber());
+        if (flightControler.isFlying()) {
+            // GET FRAMES AND RUN BARCODE DETECTION
+            Bitmap bitman = mVideoSurface.getBitmap();
+            frame = new Frame.Builder().setBitmap(bitman).build();
+            barcodeThread.execute(new BarcodeDetectionTimber());
+        }
     }
 
     @Override

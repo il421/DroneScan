@@ -276,6 +276,7 @@ public class ConnectionActivity extends AppCompatActivity implements View.OnClic
                 startActivity(intent);
                 break;
             }
+
             default:
                 break;
         }

@@ -74,6 +74,8 @@
             android:screenOrientation="portrait"></activity>
         <activity android:name=".DroneController"
             android:screenOrientation="portrait"></activity>
+        <activity android:name=".ScanningResults"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
