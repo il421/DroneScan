@@ -31,7 +31,7 @@ public class ScanningResults extends Activity {
             resultText.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 25);
             resultText.setTextColor(Color.BLACK);
 
-            resultText.setText((i + 1) + ". " + listOfBarcodes.get(i));
+            resultText.setText("Barcode #" + (i + 1) + " " + listOfBarcodes.get(i));
 
             resultTable.addView(resultRow);
             resultRow.addView(resultText);
