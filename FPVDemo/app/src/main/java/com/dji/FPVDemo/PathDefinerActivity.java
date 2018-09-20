@@ -132,6 +132,8 @@ public class PathDefinerActivity extends AppCompatActivity implements DroneActio
         Log.v(getClass().toString(), droneAction.droneActionDesc);
     }
 
+
+
     public void startDroneScan(View view) {
 //        Intent intent = new Intent(this, MainActivity.class);
 //        startActivity(intent);
