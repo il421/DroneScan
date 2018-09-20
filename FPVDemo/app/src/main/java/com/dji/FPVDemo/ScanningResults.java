@@ -27,11 +27,17 @@ public class ScanningResults extends Activity {
 
             TableRow resultRow = new TableRow(this);
 
+            TextView resultTitle = new TextView(this);
             TextView resultText = new TextView(this);
-            resultText.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 25);
+
+            resultTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+            resultTitle.setTextColor(Color.BLACK);
+
+            resultText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
             resultText.setTextColor(Color.BLACK);
 
-            resultText.setText("Barcode #" + (i + 1) + " " + listOfBarcodes.get(i));
+            resultTitle.setText("Barcode #" + (i + 1));
+            resultText.setText(listOfBarcodes.get(i));
 
             resultTable.addView(resultRow);
             resultRow.addView(resultText);

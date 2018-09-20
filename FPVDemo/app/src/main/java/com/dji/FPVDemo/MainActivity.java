@@ -7,6 +7,7 @@ import android.graphics.PointF;
 import android.graphics.SurfaceTexture;
 import android.media.MediaActionSound;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.TextureView;
@@ -36,6 +37,8 @@ import dji.sdk.base.BaseProduct;
 import dji.sdk.camera.Camera;
 import dji.sdk.camera.VideoFeeder;
 import dji.sdk.codec.DJICodecManager;
+import dji.sdk.flightcontroller.FlightController;
+import dji.sdk.products.Aircraft;
 
 public class MainActivity extends Activity implements SurfaceTextureListener,OnClickListener{
 
@@ -49,7 +52,8 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
     int SHUTTER_CLICK;
     private Button resultBtn = findViewById(R.id.scan_res);
 
-    FlightControllerState flightControler;
+    Aircraft aircraft = new Aircraft(null);
+    FlightController flightController;
     Camera camera = FPVDemoApplication.getCameraInstance();
     BarcodeDetector barcodeDetector;
     ArrayList<String> listOfBarcodes = new ArrayList<>();
@@ -140,12 +144,17 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
         barcodeThread = Executors.newSingleThreadExecutor();
 
         // RESULT BTN ENABLE/DISABLE
-        if(flightControler.isFlying()) {
-            resultBtn.setEnabled(false);
-        } else {
-            resultBtn.setEnabled(true);
-        }
-
+        flightController = aircraft.getFlightController();
+        flightController.setStateCallback(new FlightControllerState.Callback() {
+            @Override
+            public void onUpdate(@NonNull FlightControllerState flightControllerState) {
+                if(flightControllerState.isFlying()) {
+                    resultBtn.setEnabled(false);
+                } else {
+                    resultBtn.setEnabled(true);
+                }
+            }
+        });
 
         initUI();
     }
@@ -292,12 +301,10 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
 
     @Override
     public void onSurfaceTextureUpdated(SurfaceTexture surface) {
-        if (flightControler.isFlying()) {
-            // GET FRAMES AND RUN BARCODE DETECTION
-            Bitmap bitman = mVideoSurface.getBitmap();
-            frame = new Frame.Builder().setBitmap(bitman).build();
-            barcodeThread.execute(new BarcodeDetectionTimber());
-        }
+        // GET FRAMES AND RUN BARCODE DETECTION
+        Bitmap bitman = mVideoSurface.getBitmap();
+        frame = new Frame.Builder().setBitmap(bitman).build();
+        barcodeThread.execute(new BarcodeDetectionTimber());
     }
 
     @Override

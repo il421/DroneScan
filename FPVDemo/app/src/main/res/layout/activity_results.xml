@@ -9,9 +9,10 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="15dip"
+        android:text="Scanned Barcodes"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="35sp"
-        android:text="Results" />
+        android:textSize="35sp" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -20,7 +21,32 @@
         <TableLayout
             android:id="@+id/barcode_result"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:stretchColumns="1">
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/cell_shape"
+                    android:padding="15dp"
+                    android:text="Name"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/cell_shape"
+                    android:padding="15dp"
+                    android:text="ID"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </TableRow>
+
         </TableLayout>
 
     </ScrollView>
