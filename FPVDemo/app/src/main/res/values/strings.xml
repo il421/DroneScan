@@ -30,7 +30,7 @@
         <item>QR Code</item>
         <item>EAN 13</item>
         <item>EAN 8</item>
-        <item>Data Matrix</item>
+        <item>Data Matrix</item>gggg
     </string-array>
     <string name="select_cmd">Select a command for the drone</string>
     <string name="select_types">Select barcode types to scan</string>

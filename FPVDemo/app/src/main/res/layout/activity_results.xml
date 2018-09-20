@@ -33,6 +33,7 @@
                     android:padding="15dp"
                     android:text="Name"
                     android:textColor="@color/colorBlack"
+                    android:textAlignment="center"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -43,6 +44,7 @@
                     android:padding="15dp"
                     android:text="ID"
                     android:textColor="@color/colorBlack"
+                    android:textAlignment="center"
                     android:textSize="20sp"
                     android:textStyle="bold" />
             </TableRow>
