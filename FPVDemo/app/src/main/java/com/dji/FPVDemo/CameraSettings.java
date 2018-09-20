@@ -1,7 +1,6 @@
 package com.dji.FPVDemo;
 
 import android.app.Activity;
-import android.graphics.Bitmap;
 import android.graphics.SurfaceTexture;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,9 +8,10 @@ import android.util.Log;
 import android.view.TextureView;
 import android.view.View;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.google.android.gms.vision.Frame;
+import java.util.ArrayList;
 
 import dji.common.camera.SettingsDefinitions;
 import dji.common.product.Model;
@@ -28,6 +28,10 @@ public class CameraSettings extends Activity implements TextureView.SurfaceTextu
     protected TextureView mVideoSurface = null;
 
     Camera camera = FPVDemoApplication.getCameraInstance();
+    ArrayList<String> cameraSettings = new ArrayList<>();
+    String valueOfISO;
+    String valueOfAperture;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,6 +50,25 @@ public class CameraSettings extends Activity implements TextureView.SurfaceTextu
         };
 
         initUI();
+
+        RadioGroup groupISO = findViewById(R.id.radioButtons_ISO);
+        groupISO.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                RadioButton checkedISO =  radioGroup.findViewById(i);
+                valueOfISO = checkedISO.getText().toString();
+            }
+        });
+
+        RadioGroup groupAperture = findViewById(R.id.radioButtons_aperture);
+        groupAperture.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                RadioButton checkedAperture =  radioGroup.findViewById(i);
+                valueOfAperture = checkedAperture.getText().toString();
+            }
+        });
+
     }
 
     // SHOW TOAST
@@ -63,27 +86,27 @@ public class CameraSettings extends Activity implements TextureView.SurfaceTextu
 
         // Check which radio button was clicked
         switch (view.getId()) {
-            case R.id.radioButton_8:{
+            case R.id.ISO_800:{
                 if (checked)
                     camera.setISO(SettingsDefinitions.ISO.ISO_800, null);
                 break;
             }
-            case R.id.radioButton_16:{
+            case R.id.ISO_1600:{
                 if (checked)
                     camera.setISO(SettingsDefinitions.ISO.ISO_1600, null);
                 break;
             }
-            case R.id.radioButton_32:{
+            case R.id.ISO_3200:{
                 if (checked)
                     camera.setISO(SettingsDefinitions.ISO.ISO_3200, null);
                 break;
             }
-            case R.id.radioButton_64:{
+            case R.id.ISO_6400:{
                 if (checked)
                     camera.setISO(SettingsDefinitions.ISO.ISO_6400, null);
                 break;
             }
-            case R.id.radioButton_128:{
+            case R.id.ISO_12800:{
                 if (checked)
                     camera.setISO(SettingsDefinitions.ISO.ISO_12800, null);
                 break;
@@ -97,32 +120,38 @@ public class CameraSettings extends Activity implements TextureView.SurfaceTextu
 
         // Check which radio button was clicked
         switch (view.getId()) {
-            case R.id.radioButton_f6:{
+            case R.id.F_6_DOT_3:{
                 if (checked)
                     camera.setAperture(SettingsDefinitions.Aperture.F_6_DOT_3, null);
                 break;
             }
-            case R.id.radioButton_f7:{
+            case R.id.F_7_DOT_1:{
                 if (checked)
                     camera.setAperture(SettingsDefinitions.Aperture.F_7_DOT_1, null);
                 break;
             }
-            case R.id.radioButton_f8:{
+            case R.id.F_8:{
                 if (checked)
                     camera.setAperture(SettingsDefinitions.Aperture.F_8, null);
                 break;
             }
-            case R.id.radioButton_f9:{
+            case R.id.F_9:{
                 if (checked)
                     camera.setAperture(SettingsDefinitions.Aperture.F_9, null);
                 break;
             }
-            case R.id.radioButton_f10:{
+            case R.id.F_10:{
                 if (checked)
                     camera.setAperture(SettingsDefinitions.Aperture.F_10, null);
                 break;
             }
         }
+    }
+
+    public void cameraSaveBtn(View view) {
+
+
+
     }
 
     protected void onProductChange() {
