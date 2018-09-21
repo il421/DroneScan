@@ -25,6 +25,7 @@
         <item>Land</item>
     </string-array>
     <string-array name="barcode_types_array">
+        <item>All barcode types</item>
         <item>Code 128</item>
         <item>Code 39</item>
         <item>QR Code</item>
