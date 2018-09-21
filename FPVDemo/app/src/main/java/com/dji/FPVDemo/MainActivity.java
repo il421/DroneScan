@@ -2,11 +2,13 @@ package com.dji.FPVDemo;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.PointF;
 import android.graphics.SurfaceTexture;
 import android.media.MediaActionSound;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.util.SparseArray;
@@ -59,7 +61,6 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
     ArrayList<String> listOfBarcodes = new ArrayList<>();
     MediaActionSound sound = new MediaActionSound();
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -77,14 +78,20 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
             }
         };
 
+        // GET CUSTOM'S SETTINGS FROM CameraSettings
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        String myAperture = sharedPref.getString("Aperture", "Not Available");
+        String myISO = sharedPref.getString("ISO", "Not Available");
+
         // CAMERA SETTING
         camera.setMode(SettingsDefinitions.CameraMode.SHOOT_PHOTO, null);
         camera.setExposureMode(SettingsDefinitions.ExposureMode.MANUAL, null);
-        camera.setAperture(SettingsDefinitions.Aperture.F_9, null);
-        camera.setISO(SettingsDefinitions.ISO.ISO_12800, null);
+        camera.setAperture(SettingsDefinitions.Aperture.valueOf(myAperture), null);
+        camera.setISO(SettingsDefinitions.ISO.valueOf(myISO), null);
         camera.setFocusAssistantSettings(new FocusAssistantSettings(true, true), null);
         camera.setFocusMode(SettingsDefinitions.FocusMode.AUTO, null);
 
+        // ZOOM SETTINGS
         zoomThread = new Thread(new Runnable() {
             PointF point = new PointF(0.5f, 0.5f);
 
@@ -103,8 +110,7 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
         });
         zoomThread.start();
 
-
-        // CHECK CAMERA
+        // CHECK CAMERA SETTINGS
         camera.getAperture(new CommonCallbacks.CompletionCallbackWith<SettingsDefinitions.Aperture>() {
             @Override
             public void onSuccess(SettingsDefinitions.Aperture aperture) {
@@ -112,9 +118,7 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
             }
 
             @Override
-            public void onFailure(DJIError djiError) {
-
-            }
+            public void onFailure(DJIError djiError) {}
         });
         camera.getISO(new CommonCallbacks.CompletionCallbackWith<SettingsDefinitions.ISO>() {
             @Override
@@ -123,9 +127,7 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
             }
 
             @Override
-            public void onFailure(DJIError djiError) {
-
-            }
+            public void onFailure(DJIError djiError) {}
         });
         camera.getMode(new CommonCallbacks.CompletionCallbackWith<SettingsDefinitions.CameraMode>() {
             @Override
@@ -134,12 +136,10 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
             }
 
             @Override
-            public void onFailure(DJIError djiError) {
-
-            }
+            public void onFailure(DJIError djiError) {}
         });
 
-        // RUN BAR-CODE DETECTOR AND DEFINE FORMATS (int)
+        // RUN BAR-CODE DETECTOR AND SETTINGS BARCODE FORMAT
         barcodeDetector = new BarcodeDetector.Builder(this).setBarcodeFormats(0).build();
         barcodeThread = Executors.newSingleThreadExecutor();
 
@@ -169,7 +169,6 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
     }
 
     // CREATE INTENT AND SHOW RESULTS
-
     public void getResults(View v) {
         Intent intentResults = new Intent(this, ScanningResults.class);
         overridePendingTransition(R.anim.slide_to_left, R.anim.slide_from_right);
@@ -188,7 +187,6 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
                 SparseArray<Barcode> barcodes = barcodeDetector.detect(frame);
 
                 if (barcodes.size() > 0) {
-                    System.out.println("Got a barcode!!!");
                     for (int i = 0; i < barcodes.size(); i++) {
                         if (listOfBarcodes.indexOf(barcodes.valueAt(i).displayValue) == -1) {
                             listOfBarcodes.add(barcodes.valueAt(i).displayValue);

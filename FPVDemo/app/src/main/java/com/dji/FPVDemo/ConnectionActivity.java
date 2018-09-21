@@ -211,6 +211,11 @@ public class ConnectionActivity extends AppCompatActivity implements View.OnClic
         btnSetPath.setOnClickListener(this);
         btnSetBarcodeType = (Button) findViewById(R.id.btn_set_barcode);
         btnSetBarcodeType.setOnClickListener(this);
+
+        // JUST FOR TESTING
+        Button btnSetCameraSettings = findViewById(R.id.btn_view_barcode);
+        btnSetCameraSettings.setOnClickListener(this);
+
 //        mVersionTv = (TextView) findViewById(R.id.textView2);
 //        mVersionTv.setText(getResources().getString(R.string.sdk_version, DJISDKManager.getInstance().getSDKVersion()));
     }
