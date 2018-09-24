@@ -190,7 +190,7 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
                     for (int i = 0; i < barcodes.size(); i++) {
                         if (listOfBarcodes.indexOf(barcodes.valueAt(i).displayValue) == -1) {
                             listOfBarcodes.add(barcodes.valueAt(i).displayValue);
-//                            sound.play(SHUTTER_CLICK);
+                            sound.play(SHUTTER_CLICK);
                             showToast("Barcode: " + barcodes.valueAt(i).displayValue);
                             barcodes.clear();
                         }
@@ -307,5 +307,11 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
 
     @Override
     public void onClick(View v) {
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
     }
 }
