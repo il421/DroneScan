@@ -201,9 +201,6 @@ public class ConnectionActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void initUI() {
-
-        mTextConnectionStatus = (TextView) findViewById(R.id.text_connection_status);
-        mTextProduct = (TextView) findViewById(R.id.text_product_info);
         mBtnOpen = (Button) findViewById(R.id.btn_open);
         mBtnOpen.setOnClickListener(this);
         mBtnOpen.setEnabled(false);
@@ -260,19 +257,15 @@ public class ConnectionActivity extends AppCompatActivity implements View.OnClic
                 break;
             }
             case R.id.btn_set_barcode: {
-                DialogFragment setBarcodesDialog = new BarcodeTypesDialog();
-                setBarcodesDialog.show(this.getSupportFragmentManager(), DroneCommand.Yaw.toString());
+//                DialogFragment setBarcodesDialog = new BarcodeTypesDialog();
+//                setBarcodesDialog.show(this.getSupportFragmentManager(), DroneCommand.Yaw.toString());
+                Intent intent = new Intent(this, BarcodeTypeSelection.class);
+                startActivity(intent);
                 break;
             }
             case R.id.btn_set_path: {
                 Intent intent = new Intent(this, PathDefinerActivity.class);
                 overridePendingTransition(R.anim.slide_to_left, R.anim.slide_from_right);
-                startActivity(intent);
-                break;
-            }
-
-            case R.id.btn_settings: {
-                Intent intent = new Intent(this, PathDefinerActivity.class);
                 startActivity(intent);
                 break;
             }

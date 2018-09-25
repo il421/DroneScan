@@ -11,27 +11,16 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:text="Actions"
+        android:text="Drone Actions"
         android:gravity="center_vertical"
         android:layout_weight="1"
         android:textColor="@android:color/white"
         android:textSize="20sp" />
 
-    <!--<Button-->
-    <!--android:layout_width="0dp"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:gravity="center_vertical|center"-->
-    <!--android:background="@color/colorWhite"-->
-    <!--android:textColor="@color/colorPrimary"-->
-    <!--android:layout_weight="3"-->
-    <!--android:text="Start"/>-->
-
-    <!--</LinearLayout>-->
-
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="8">
+        android:layout_weight="9">
 
         <ListView
             android:layout_width="match_parent"
@@ -51,16 +40,5 @@
             app:backgroundTint="@color/colorPrimary" />
 
     </FrameLayout>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:gravity="center_vertical|center"
-        android:background="@color/colorWhite"
-        android:textColor="@color/colorPrimary"
-        android:layout_weight="1"
-        android:textSize="18sp"
-        android:onClick="startDroneScan"
-        android:text="@string/start"/>
 
 </LinearLayout>
