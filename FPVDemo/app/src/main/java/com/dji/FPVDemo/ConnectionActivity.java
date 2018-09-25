@@ -210,8 +210,8 @@ public class ConnectionActivity extends AppCompatActivity implements View.OnClic
         btnSetBarcodeType.setOnClickListener(this);
 
         // JUST FOR TESTING
-        Button btnSetCameraSettings = findViewById(R.id.btn_view_barcode);
-        btnSetCameraSettings.setOnClickListener(this);
+//        Button btnSetCameraSettings = findViewById(R.id.btn_view_barcode);
+//        btnSetCameraSettings.setOnClickListener(this);
 
 //        mVersionTv = (TextView) findViewById(R.id.textView2);
 //        mVersionTv.setText(getResources().getString(R.string.sdk_version, DJISDKManager.getInstance().getSDKVersion()));
@@ -271,11 +271,6 @@ public class ConnectionActivity extends AppCompatActivity implements View.OnClic
             case R.id.btn_set_path: {
                 Intent intent = new Intent(this, PathDefinerActivity.class);
                 overridePendingTransition(R.anim.slide_to_left, R.anim.slide_from_right);
-                startActivity(intent);
-                break;
-            }
-            case R.id.btn_settings: {
-                Intent intent = new Intent(this, PathDefinerActivity.class);
                 startActivity(intent);
                 break;
             }

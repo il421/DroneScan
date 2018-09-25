@@ -76,12 +76,6 @@
             android:screenOrientation="landscape"></activity>
         <activity android:name=".BarcodeTypeSelection"
             android:screenOrientation="landscape"></activity>
-
-            android:screenOrientation="portrait">
-        </activity>
-        <activity android:name=".DroneController"
-            android:screenOrientation="portrait">
-        </activity>
         <activity android:name=".ScanningResults"
             android:screenOrientation="landscape">
         </activity>
