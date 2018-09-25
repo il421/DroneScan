@@ -1,0 +1,155 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <TextureView
+        android:id="@+id/video_previewer_surface_settings"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout_ISO"
+        android:layout_width="140dp"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="16dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RadioGroup
+            android:id="@+id/radioButtons_ISO"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RadioButton
+                android:id="@+id/ISO_800"
+                android:layout_width="match_parent"
+                android:layout_height="47dp"
+                android:layout_weight="1"
+                android:onClick="onRadioButtonClickedISO"
+                android:text="ISO_800" />
+
+            <RadioButton
+                android:id="@+id/ISO_1600"
+                android:layout_width="match_parent"
+                android:layout_height="47dp"
+                android:layout_weight="1"
+                android:onClick="onRadioButtonClickedISO"
+                android:text="ISO_1600" />
+
+            <RadioButton
+                android:id="@+id/ISO_3200"
+                android:layout_width="match_parent"
+                android:layout_height="47dp"
+                android:layout_weight="1"
+                android:onClick="onRadioButtonClickedISO"
+                android:text="ISO_3200" />
+
+            <RadioButton
+                android:id="@+id/ISO_6400"
+                android:layout_width="match_parent"
+                android:layout_height="47dp"
+                android:layout_weight="1"
+                android:onClick="onRadioButtonClickedISO"
+                android:text="ISO_6400" />
+
+            <RadioButton
+                android:id="@+id/ISO_12800"
+                android:layout_width="match_parent"
+                android:layout_height="47dp"
+                android:layout_weight="1"
+                android:onClick="onRadioButtonClickedISO"
+                android:text="ISO_12800" />
+        </RadioGroup>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout_aperture"
+        android:layout_width="140dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RadioGroup
+            android:id="@+id/radioButtons_aperture"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RadioButton
+                android:id="@+id/F_6_DOT_3"
+                android:layout_width="match_parent"
+                android:layout_height="47dp"
+                android:layout_weight="1"
+                android:onClick="onRadioButtonClickedAperture"
+                android:text="F_6_DOT_3" />
+
+            <RadioButton
+                android:id="@+id/F_7_DOT_1"
+                android:layout_width="match_parent"
+                android:layout_height="47dp"
+                android:layout_weight="1"
+                android:onClick="onRadioButtonClickedAperture"
+                android:text="F_7_DOT_1" />
+
+            <RadioButton
+                android:id="@+id/F_8"
+                android:layout_width="match_parent"
+                android:layout_height="47dp"
+                android:layout_weight="1"
+                android:onClick="onRadioButtonClickedAperture"
+                android:text="F_8" />
+
+            <RadioButton
+                android:id="@+id/F_9"
+                android:layout_width="match_parent"
+                android:layout_height="47dp"
+                android:layout_weight="1"
+                android:onClick="onRadioButtonClickedAperture"
+                android:text="F_9" />
+
+            <RadioButton
+                android:id="@+id/F_10"
+                android:layout_width="match_parent"
+                android:layout_height="47dp"
+                android:layout_weight="1"
+                android:onClick="onRadioButtonClickedAperture"
+                android:text="F_10" />
+        </RadioGroup>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout_btn"
+        android:layout_width="120dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:orientation="vertical"
+        android:gravity="bottom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/camera_save"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="20dp"
+            android:onClick="cameraSaveBtn"
+            android:text="SAVE" />
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

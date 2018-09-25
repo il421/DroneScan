@@ -1,5 +1,4 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -14,9 +13,22 @@
 
     <Button
         android:id="@+id/scan_res"
-        android:layout_width="187dp"
+        android:layout_width="131dp"
         android:layout_height="wrap_content"
-        android:onClick="getJSON"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="129dp"
+        android:onClick="getResults"
         android:text="RESULTS" />
+
+    <Button
+        android:id="@+id/scan_land"
+        android:layout_width="131dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="120dp"
+        android:onClick="getResults"
+        android:text="LAND" />
 
 </RelativeLayout>

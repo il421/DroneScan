@@ -60,7 +60,7 @@
 
         <activity android:name=".ConnectionActivity"
             android:configChanges="orientation"
-            android:screenOrientation="landscape">
+	    android:screenOrientation="landscape">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -68,13 +68,26 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape">
+        </activity>
         <activity android:name=".PathDefinerActivity"
             android:screenOrientation="landscape"></activity>
         <activity android:name=".DroneController"
             android:screenOrientation="landscape"></activity>
         <activity android:name=".BarcodeTypeSelection"
             android:screenOrientation="landscape"></activity>
+
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".DroneController"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".ScanningResults"
+            android:screenOrientation="landscape">
+        </activity>
+        <activity android:name=".CameraSettings"
+            android:screenOrientation="landscape">
+        </activity>
     </application>
 
 </manifest>
