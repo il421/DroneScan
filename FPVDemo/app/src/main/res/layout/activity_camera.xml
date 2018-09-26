@@ -5,7 +5,7 @@
     android:orientation="vertical">
 
     <TextureView
-        android:id="@+id/video_previewer_surface_settings"
+        android:id="@+id/video_previewer_surface"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"

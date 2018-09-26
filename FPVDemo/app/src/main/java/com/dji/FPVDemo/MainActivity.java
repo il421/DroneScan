@@ -65,7 +65,6 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
     protected String valueOfISO;
     protected String valueOfAperture;
 
-
     BarcodeDetector barcodeDetector;
     ArrayList<String> listOfBarcodes = new ArrayList<>();
     MediaActionSound sound = new MediaActionSound();
@@ -74,10 +73,10 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        Intent intentCameraMode = getIntent();
-        cameraMode = intentCameraMode.getIntExtra("cameraMode", 0);
 
-        Log.e(TAG, "cameraMode");
+        // DEFINE THE CAMERA MODE (0 - settings, 1 - scanning)
+        Intent intentCameraMode = getIntent();
+        cameraMode = intentCameraMode.getIntExtra("cameraMode", 1);
 
         // SELECT AN ACTIVITY
         if (cameraMode == 0) {
@@ -97,7 +96,7 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
             }
         };
 
-        if(cameraMode == 0) {
+        if (cameraMode == 0) {
             // WATCHING ISO CHANGES
             RadioGroup groupISO = findViewById(R.id.radioButtons_ISO);
             groupISO.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -151,33 +150,33 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
             zoomThread.start();
 
             // CHECK CAMERA SETTINGS
-            camera.getAperture(new CommonCallbacks.CompletionCallbackWith<SettingsDefinitions.Aperture>() {
-                @Override
-                public void onSuccess(SettingsDefinitions.Aperture aperture) {
-                    showToast(aperture + " ");
-                }
-
-                @Override
-                public void onFailure(DJIError djiError) {}
-            });
-            camera.getISO(new CommonCallbacks.CompletionCallbackWith<SettingsDefinitions.ISO>() {
-                @Override
-                public void onSuccess(SettingsDefinitions.ISO iso) {
-                    showToast(iso + " ");
-                }
-
-                @Override
-                public void onFailure(DJIError djiError) {}
-            });
-            camera.getMode(new CommonCallbacks.CompletionCallbackWith<SettingsDefinitions.CameraMode>() {
-                @Override
-                public void onSuccess(SettingsDefinitions.CameraMode cameraMode) {
-                    showToast(cameraMode + " ");
-                }
-
-                @Override
-                public void onFailure(DJIError djiError) {}
-            });
+//            camera.getAperture(new CommonCallbacks.CompletionCallbackWith<SettingsDefinitions.Aperture>() {
+//                @Override
+//                public void onSuccess(SettingsDefinitions.Aperture aperture) {
+//                    showToast(aperture + " ");
+//                }
+//
+//                @Override
+//                public void onFailure(DJIError djiError) {}
+//            });
+//            camera.getISO(new CommonCallbacks.CompletionCallbackWith<SettingsDefinitions.ISO>() {
+//                @Override
+//                public void onSuccess(SettingsDefinitions.ISO iso) {
+//                    showToast(iso + " ");
+//                }
+//
+//                @Override
+//                public void onFailure(DJIError djiError) {}
+//            });
+//            camera.getMode(new CommonCallbacks.CompletionCallbackWith<SettingsDefinitions.CameraMode>() {
+//                @Override
+//                public void onSuccess(SettingsDefinitions.CameraMode cameraMode) {
+//                    showToast(cameraMode + " ");
+//                }
+//
+//                @Override
+//                public void onFailure(DJIError djiError) {}
+//            });
 
             // RUN BAR-CODE DETECTOR AND SETTINGS BARCODE FORMAT
             barcodeDetector = new BarcodeDetector.Builder(this).setBarcodeFormats(0).build();
@@ -328,7 +327,7 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
         finish();
     }
 
-    // EXECUTION SERVICE
+    // BARCODE DETECTION
     private class BarcodeDetectionTimber implements Runnable {
 
         @Override

@@ -80,9 +80,6 @@
         <activity android:name=".ScanningResults"
             android:screenOrientation="landscape">
         </activity>
-        <activity android:name=".CameraSettings"
-            android:screenOrientation="landscape">
-        </activity>
     </application>
 
 </manifest>

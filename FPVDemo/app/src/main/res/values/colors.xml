@@ -6,4 +6,10 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="colorGrayTitle">#909090</color>
+    <color name="colorGrayBorder">#e2e2e2</color>
+    <color name="colorBlackResults">#383838</color>
+    <color name="colorGrayBackground">#2bffffff</color>
+
 </resources>
