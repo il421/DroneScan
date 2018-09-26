@@ -69,6 +69,23 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
     ArrayList<String> listOfBarcodes = new ArrayList<>();
     MediaActionSound sound = new MediaActionSound();
 
+    Thread zoomThread = new Thread(new Runnable() {
+        PointF point = new PointF(0.5f, 0.5f);
+
+        void zoomFocus() {
+            camera.setFocusTarget(point, new CommonCallbacks.CompletionCallback() {
+                @Override
+                public void onResult(DJIError djiError) {
+                    zoomFocus();
+                }
+            });
+        }
+        @Override
+        public void run() {
+            zoomFocus();
+        }
+    });
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -130,25 +147,6 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
             camera.setFocusAssistantSettings(new FocusAssistantSettings(true, true), null);
             camera.setFocusMode(SettingsDefinitions.FocusMode.AUTO, null);
 
-            // ZOOM SETTINGS
-            Thread zoomThread = new Thread(new Runnable() {
-                PointF point = new PointF(0.5f, 0.5f);
-
-                void zoomFocus() {
-                    camera.setFocusTarget(point, new CommonCallbacks.CompletionCallback() {
-                        @Override
-                        public void onResult(DJIError djiError) {
-                            zoomFocus();
-                        }
-                    });
-                }
-                @Override
-                public void run() {
-                    zoomFocus();
-                }
-            });
-            zoomThread.start();
-
             // CHECK CAMERA SETTINGS
 //            camera.getAperture(new CommonCallbacks.CompletionCallbackWith<SettingsDefinitions.Aperture>() {
 //                @Override
@@ -196,6 +194,9 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
                 }
             });
         }
+
+        // ZOOM SETTINGS
+        zoomThread.start();
 
         initUI();
     }
@@ -291,31 +292,31 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
     }
 
     // SAVE PARAMETERS
-    public void cameraSaveBtn(View view) {
-        if (valueOfAperture != null && valueOfISO != null) {
-            // Create object of SharedPreferences.
-            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-
-            // Get Editor
-            SharedPreferences.Editor editor = sharedPref.edit();
-
-            // Put values
-            editor.putString("ISO", valueOfISO);
-            editor.putString("Aperture", valueOfAperture);
-
-            // Commit editor
-            editor.apply();
-
-            if (sharedPref.contains("ISO") && sharedPref.contains("Aperture")) {
-                showToast("Saved successfully");
-            } else {
-                showToast("Something has happend!");
-            }
-        } else {
-            showToast("Please, select camera settings!");
-        }
-
-    }
+//    public void cameraSaveBtn(View view) {
+//        if (valueOfAperture != null && valueOfISO != null) {
+//            // Create object of SharedPreferences.
+//            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+//
+//            // Get Editor
+//            SharedPreferences.Editor editor = sharedPref.edit();
+//
+//            // Put values
+//            editor.putString("ISO", valueOfISO);
+//            editor.putString("Aperture", valueOfAperture);
+//
+//            // Commit editor
+//            editor.apply();
+//
+//            if (sharedPref.contains("ISO") && sharedPref.contains("Aperture")) {
+//                showToast("Saved successfully");
+//            } else {
+//                showToast("Something has happend!");
+//            }
+//        } else {
+//            showToast("Please, select camera settings!");
+//        }
+//
+//    }
 
     // CREATE INTENT AND SHOW RESULTS
     public void getResults(View v) {
@@ -464,6 +465,24 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+
+        if (cameraMode == 0) {
+            if (valueOfAperture != null && valueOfISO != null) {
+                // Create object of SharedPreferences.
+                SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+
+                // Get Editor
+                SharedPreferences.Editor editor = sharedPref.edit();
+
+                // Put values
+                editor.putString("ISO", valueOfISO);
+                editor.putString("Aperture", valueOfAperture);
+
+                // Commit editor
+                editor.apply();
+            }
+        }
+
         overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
         this.finish();
     }

@@ -30,7 +30,6 @@ public class ScanningResults extends Activity {
         int padding_69dp = (int) (69 * scale + 0.5f);
         int padding_186dp = (int) (186 * scale + 0.5f);
 
-
         for (int i = 0; i < listOfBarcodes.size(); i++) {
 
             TableRow resultRow = new TableRow(this);

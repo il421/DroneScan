@@ -11,24 +11,34 @@
         android:layout_alignParentTop="true"
         android:layout_gravity="center" />
 
-    <Button
-        android:id="@+id/scan_res"
-        android:layout_width="131dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="129dp"
-        android:onClick="getResults"
-        android:text="RESULTS" />
 
-    <Button
-        android:id="@+id/scan_land"
-        android:layout_width="131dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="120dp"
-        android:onClick="getResults"
-        android:text="LAND" />
+    <LinearLayout
+        android:layout_width="160dp"
+        android:layout_height="130dp"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/scan_land"
+            android:layout_width="160dp"
+            android:layout_height="65dp"
+            android:onClick="getResults"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:background="@drawable/btn_control"
+            android:text="Land" />
+
+        <Button
+            android:id="@+id/scan_res"
+            android:layout_width="160dp"
+            android:layout_height="65dp"
+            android:onClick="getResults"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:background="@drawable/btn_control"
+            android:text="Barcodes" />
+
+    </LinearLayout>
 
 </RelativeLayout>
