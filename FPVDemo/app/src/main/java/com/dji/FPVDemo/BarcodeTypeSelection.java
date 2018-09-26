@@ -15,7 +15,6 @@ public class BarcodeTypeSelection extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.select_barcode_type);
         GridView gridview = (GridView) findViewById(R.id.gridview);
-//        gridview.se
         gridview.setAdapter(new ImageAdapter(this));
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
