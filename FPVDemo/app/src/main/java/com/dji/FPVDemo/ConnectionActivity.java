@@ -18,9 +18,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -41,6 +43,13 @@ public class ConnectionActivity extends AppCompatActivity implements View.OnClic
     private TextView mTextProduct;
     private TextView mVersionTv;
     private Button mBtnOpen, btnSetPath, btnSetBarcodeType, btnSettings;
+
+//    private TextView mTextConnectionStatus;
+//    private TextView mTextProduct;
+//    private TextView mVersionTv;
+//    private Button mBtnOpen, btnSetPath, btnSetBarcodeType;
+    private ImageView settings, autoScan, manualScan;
+
     private static final String[] REQUIRED_PERMISSION_LIST = new String[]{
             Manifest.permission.VIBRATE,
             Manifest.permission.INTERNET,
@@ -65,7 +74,8 @@ public class ConnectionActivity extends AppCompatActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         checkAndRequestPermissions();
-        setContentView(R.layout.activity_connection);
+//        setContentView(R.layout.activity_connection);
+        setContentView(R.layout.main_page);
 
         initUI();
 
@@ -202,18 +212,29 @@ public class ConnectionActivity extends AppCompatActivity implements View.OnClic
 
     private void initUI() {
 
-        mTextConnectionStatus = (TextView) findViewById(R.id.text_connection_status);
-        mTextProduct = (TextView) findViewById(R.id.text_product_info);
-        mBtnOpen = (Button) findViewById(R.id.btn_open);
-        mBtnOpen.setOnClickListener(this);
+//        mTextConnectionStatus = (TextView) findViewById(R.id.text_connection_status);
+//        mTextProduct = (TextView) findViewById(R.id.text_product_info);
+//        mBtnOpen = (Button) findViewById(R.id.btn_open);
+//        mBtnOpen.setOnClickListener(this);
 //        mBtnOpen.setEnabled(false);
-        btnSetPath = (Button) findViewById(R.id.btn_set_path);
-        btnSetPath.setOnClickListener(this);
-        btnSetBarcodeType = (Button) findViewById(R.id.btn_set_barcode);
-        btnSetBarcodeType.setOnClickListener(this);
+//        btnSetPath = (Button) findViewById(R.id.btn_set_path);
+//        btnSetPath.setOnClickListener(this);
+//        btnSetBarcodeType = (Button) findViewById(R.id.btn_set_barcode);
+//        btnSetBarcodeType.setOnClickListener(this);
 
-        btnSettings = (Button) findViewById(R.id.btn_settings);
-        btnSettings.setOnClickListener(this);
+//        btnSettings = (Button) findViewById(R.id.btn_settings);
+//        btnSettings.setOnClickListener(this);
+
+        settings = (ImageView) findViewById(R.id.img_cam_settings);
+        settings.setOnClickListener(this);
+        autoScan = (ImageView) findViewById(R.id.img_auto);
+        autoScan.setOnClickListener(this);
+        manualScan = (ImageView) findViewById(R.id.img_manual);
+        manualScan.setOnClickListener(this);
+
+        // JUST FOR TESTING
+//        Button btnSetCameraSettings = findViewById(R.id.btn_view_barcode);
+//        btnSetCameraSettings.setOnClickListener(this);
 
 //        mVersionTv = (TextView) findViewById(R.id.textView2);
 //        mVersionTv.setText(getResources().getString(R.string.sdk_version, DJISDKManager.getInstance().getSDKVersion()));
@@ -229,28 +250,29 @@ public class ConnectionActivity extends AppCompatActivity implements View.OnClic
 
     private void refreshSDKRelativeUI() {
         BaseProduct mProduct = FPVDemoApplication.getProductInstance();
+        TextView statusText = findViewById(R.id.text_status);
 
         if (null != mProduct && mProduct.isConnected()) {
 
             Log.v(TAG, "refreshSDK: True");
-            mBtnOpen.setEnabled(true);
+//            mBtnOpen.setEnabled(true);
 
             String str = mProduct instanceof Aircraft ? "DJIAircraft" : "DJIHandHeld";
-            mTextConnectionStatus.setText("Status: " + str + " connected");
+//            mTextConnectionStatus.setText("Status: " + str + " connected");
 
             if (null != mProduct.getModel()) {
-                mTextProduct.setText("" + mProduct.getModel().getDisplayName());
+//                mTextProduct.setText("" + mProduct.getModel().getDisplayName());
+                statusText.setText("Status: " + mProduct.getModel().getDisplayName() + " connected");
             } else {
-                mTextProduct.setText(R.string.product_information);
+//                mTextProduct.setText(R.string.product_information);
             }
 
         } else {
 
             Log.v(TAG, "refreshSDK: False");
-            mBtnOpen.setEnabled(false);
-
-            mTextProduct.setText(R.string.product_information);
-            mTextConnectionStatus.setText(R.string.connection_loose);
+//            mBtnOpen.setEnabled(false);
+//            mTextProduct.setText(R.string.product_information);
+//            mTextConnectionStatus.setText(R.string.connection_loose);
         }
     }
 
@@ -258,31 +280,25 @@ public class ConnectionActivity extends AppCompatActivity implements View.OnClic
     public void onClick(View v) {
         switch (v.getId()) {
 
-            case R.id.btn_open: {
-                Intent intentCameraMode = new Intent(this, MainActivity.class);
-                overridePendingTransition(R.anim.slide_to_left, R.anim.slide_from_right);
-                intentCameraMode.putExtra("cameraMode", 1);
-                startActivity(intentCameraMode);
-                break;
-            }
-
-            case R.id.btn_settings: {
+            case R.id.img_cam_settings: {
                 Intent intentCameraMode = new Intent(this, MainActivity.class);
                 overridePendingTransition(R.anim.slide_to_left, R.anim.slide_from_right);
                 intentCameraMode.putExtra("cameraMode", 0);
                 startActivity(intentCameraMode);
                 break;
             }
-
-            case R.id.btn_set_barcode: {
-                DialogFragment setBarcodesDialog = new BarcodeTypesDialog();
-                setBarcodesDialog.show(this.getSupportFragmentManager(), DroneCommand.Yaw.toString());
+            case R.id.img_auto: {
+                Intent intentCameraMode = new Intent(this, MainActivity.class);
+                overridePendingTransition(R.anim.slide_to_left, R.anim.slide_from_right);
+                intentCameraMode.putExtra("cameraMode", 1);
+                startActivity(intentCameraMode);
                 break;
             }
-            case R.id.btn_set_path: {
-                Intent intent = new Intent(this, PathDefinerActivity.class);
+            case R.id.img_manual: {
+                Intent intentCameraMode = new Intent(this, MainActivity.class);
                 overridePendingTransition(R.anim.slide_to_left, R.anim.slide_from_right);
-                startActivity(intent);
+                intentCameraMode.putExtra("cameraMode", 1);
+                startActivity(intentCameraMode);
                 break;
             }
 
