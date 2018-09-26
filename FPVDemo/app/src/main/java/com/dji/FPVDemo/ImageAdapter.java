@@ -1,9 +1,12 @@
 package com.dji.FPVDemo;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.BaseAdapter;
+import android.widget.GridView;
 import android.widget.ImageView;
 
 public class ImageAdapter extends BaseAdapter {
@@ -32,7 +35,10 @@ public class ImageAdapter extends BaseAdapter {
         if (convertView == null) {
             // if it's not recycled, initialize some attributes
             imageView = new ImageView(mContext);
-            imageView.setLayoutParams(new ViewGroup.LayoutParams(200, 200));
+            imageView.setBackgroundColor(Color.WHITE);
+//            imageView.setLayoutParams(new GridView.LayoutParams(WindowManager.LayoutParams.WRAP_CONTENT,
+//                    WindowManager.LayoutParams.WRAP_CONTENT));
+            imageView.setLayoutParams(new ViewGroup.LayoutParams(275, 310));
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             imageView.setPadding(8, 8, 8, 8);
         } else {
@@ -45,9 +51,9 @@ public class ImageAdapter extends BaseAdapter {
 
     // references to our images
     private Integer[] mThumbIds = {
-            R.drawable.barcode_icon, R.drawable.code128,
-            R.drawable.code39, R.drawable.code128,
-            R.drawable.qr, R.drawable.ean,
-            R.drawable.ean8, R.drawable.data_matrix
+            R.drawable.all, R.drawable.code39,
+            R.drawable.code128, R.drawable.qr,
+            R.drawable.ean13, R.drawable.ean8,
+            R.drawable.datamatrix
     };
 }
