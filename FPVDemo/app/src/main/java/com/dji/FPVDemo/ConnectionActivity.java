@@ -1,7 +1,6 @@
 package com.dji.FPVDemo;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -12,17 +11,13 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -39,10 +34,6 @@ public class ConnectionActivity extends AppCompatActivity implements View.OnClic
 
     private static final String TAG = ConnectionActivity.class.getName();
 
-//    private TextView mTextConnectionStatus;
-//    private TextView mTextProduct;
-//    private TextView mVersionTv;
-//    private Button mBtnOpen, btnSetPath, btnSetBarcodeType;
     private ImageView settings, autoScan, manualScan;
     private static final String[] REQUIRED_PERMISSION_LIST = new String[]{
             Manifest.permission.VIBRATE,
@@ -71,6 +62,7 @@ public class ConnectionActivity extends AppCompatActivity implements View.OnClic
 //        setContentView(R.layout.activity_connection);
         setContentView(R.layout.main_page);
 
+        // TODO: Remove this call to disable buttons if drone is not connected
         initUI();
 
         // Register the broadcast receiver for receiving the device connection's changes.
@@ -151,7 +143,6 @@ public class ConnectionActivity extends AppCompatActivity implements View.OnClic
                         public void onProductConnect(BaseProduct baseProduct) {
                             Log.d(TAG, String.format("onProductConnect newProduct:%s", baseProduct));
                             showToast("Product Connected");
-
                         }
                         @Override
                         public void onComponentChange(BaseProduct.ComponentKey componentKey, BaseComponent oldComponent,
@@ -205,8 +196,6 @@ public class ConnectionActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void initUI() {
-
-
         settings = (ImageView) findViewById(R.id.img_cam_settings);
         settings.setOnClickListener(this);
         autoScan = (ImageView) findViewById(R.id.img_auto);
@@ -245,6 +234,9 @@ public class ConnectionActivity extends AppCompatActivity implements View.OnClic
             if (null != mProduct.getModel()) {
 //                mTextProduct.setText("" + mProduct.getModel().getDisplayName());
                 statusText.setText("Status: " + mProduct.getModel().getDisplayName() + " connected");
+                initUI();
+                autoScan.setImageResource(R.drawable.auto_btn_enabled);
+                manualScan.setImageResource(R.drawable.manual_btn_enabled);
             } else {
 //                mTextProduct.setText(R.string.product_information);
             }

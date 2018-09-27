@@ -30,7 +30,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_weight="1"
-            android:src="@drawable/settings_button"
+            android:src="@drawable/settings"
             android:gravity="right" />
 
     </LinearLayout>
@@ -50,7 +50,7 @@
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:id="@+id/img_auto"
-                android:src="@drawable/auto_on_button" />
+                android:src="@drawable/auto_btn_disabled" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -68,7 +68,7 @@
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:id="@+id/img_manual"
-                android:src="@drawable/manual_on_button" />
+                android:src="@drawable/auto_btn_disabled" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
