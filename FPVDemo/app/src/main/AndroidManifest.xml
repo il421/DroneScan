@@ -42,6 +42,9 @@
         <meta-data
             android:name="com.dji.sdk.API_KEY"
             android:value="35e4485332cdef67404ed513" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
 
         <activity
             android:name="dji.sdk.sdkmanager.DJIAoaControllerActivity"
@@ -80,9 +83,6 @@
             android:screenOrientation="landscape">
         </activity>
         <activity android:name=".ScanningResults"
-            android:screenOrientation="landscape">
-        </activity>
-        <activity android:name=".CameraSettings"
             android:screenOrientation="landscape">
         </activity>
     </application>

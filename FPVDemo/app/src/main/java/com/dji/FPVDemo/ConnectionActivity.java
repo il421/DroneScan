@@ -253,8 +253,9 @@ public class ConnectionActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+
             case R.id.img_cam_settings: {
-                Intent intent = new Intent(this, CameraSettings.class);
+                Intent intent = new Intent(this, ManualFlightActivity.class);
                 startActivity(intent);
                 break;
             }
@@ -264,11 +265,13 @@ public class ConnectionActivity extends AppCompatActivity implements View.OnClic
                 break;
             }
             case R.id.img_manual: {
+                // TODO: Update class to be called to start manual scanning
                 Intent intent = new Intent(this, ManualFlightActivity.class);
                 overridePendingTransition(R.anim.slide_to_left, R.anim.slide_from_right);
                 startActivity(intent);
                 break;
             }
+
             default:
                 break;
         }

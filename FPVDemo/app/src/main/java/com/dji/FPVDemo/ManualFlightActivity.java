@@ -31,8 +31,8 @@ public class ManualFlightActivity extends AppCompatActivity implements View.OnCl
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.img_cset: {
-                Intent intent = new Intent(this, CameraSettings.class);
-                startActivity(intent);
+//                Intent intent = new Intent(this, CameraSettings.class);
+//                startActivity(intent);
                 break;
             }
             case R.id.img_bset: {

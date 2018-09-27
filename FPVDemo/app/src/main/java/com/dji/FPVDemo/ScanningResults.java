@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.TypedValue;
+import android.view.View;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class ScanningResults extends Activity {
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
@@ -22,6 +24,11 @@ public class ScanningResults extends Activity {
 
         TableLayout resultTable = findViewById(R.id.barcode_result);
 
+        // Padding in DP
+        final float scale = getResources().getDisplayMetrics().density;
+        int padding_15dp = (int) (15 * scale + 0.5f);
+        int padding_69dp = (int) (69 * scale + 0.5f);
+        int padding_186dp = (int) (186 * scale + 0.5f);
 
         for (int i = 0; i < listOfBarcodes.size(); i++) {
 
@@ -30,18 +37,30 @@ public class ScanningResults extends Activity {
             TextView resultTitle = new TextView(this);
             TextView resultText = new TextView(this);
 
-            resultTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
-            resultTitle.setTextColor(Color.BLACK);
+            resultTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+            resultTitle.setTextColor(getResources().getColor(R.color.colorBlackResults));
+            resultTitle.setBackgroundResource(R.drawable.cell_shape);
+            resultTitle.setPadding(padding_69dp, padding_15dp, 0, padding_15dp);
 
-            resultText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
-            resultText.setTextColor(Color.BLACK);
+            resultText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+            resultText.setTextColor(getResources().getColor(R.color.colorBlackResults));
+            resultText.setBackgroundResource(R.drawable.cell_shape);
+            resultText.setPadding(padding_186dp, padding_15dp, 0, padding_15dp);
 
-            resultTitle.setText("Barcode #" + (i + 1));
+            resultTitle.setText("Barcode " + (i + 1));
             resultText.setText(listOfBarcodes.get(i));
 
             resultTable.addView(resultRow);
+            resultRow.addView(resultTitle);
             resultRow.addView(resultText);
         }
+    }
+
+    public void onGoHome(View v) {
+        overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
+        Intent intent = new Intent(this, ConnectionActivity.class);
+        startActivity(intent);
+        this.finish();
     }
 
     @Override
@@ -51,5 +70,6 @@ public class ScanningResults extends Activity {
         overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
         Intent intent = new Intent(this, ConnectionActivity.class);
         startActivity(intent);
+        this.finish();
     }
 }
