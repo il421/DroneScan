@@ -29,7 +29,7 @@ public class PathDefinerActivity extends AppCompatActivity implements DroneActio
         actionsLv = findViewById(R.id.actions_list);
         actionsArray = new ArrayList<String>();
         droneActions = new ArrayList<DroneAction>();
-        initializeArray();
+//        initializeArray();
         populateArrayAdapter();
     }
 
@@ -59,6 +59,7 @@ public class PathDefinerActivity extends AppCompatActivity implements DroneActio
     }
 
     public void populateArrayAdapter() {
+        actionsArray.clear();
         for (DroneAction d: droneActions) {
 //            switch (d.droneCommand) {
 //                case Yaw:
@@ -78,6 +79,7 @@ public class PathDefinerActivity extends AppCompatActivity implements DroneActio
 //            }
             actionsArray.add(d.droneActionDesc);
         }
+        Log.v("PathDefiner", "actions size: " + actionsArray.size());
         arrayAdapter = new ArrayAdapter<String>(
                 this,
                 android.R.layout.simple_list_item_1,
@@ -102,12 +104,12 @@ public class PathDefinerActivity extends AppCompatActivity implements DroneActio
         switch (position) {
             case 0:
                 // TAKEOFF
-
+                droneActions.add(new DroneAction());
+                populateArrayAdapter();
                 break;
             case 1:
                 // YAW
                 getDetailsDlg.show(this.getSupportFragmentManager(), DroneCommand.Yaw.toString());
-
                 break;
             case 2:
                 // MOVE
@@ -119,7 +121,8 @@ public class PathDefinerActivity extends AppCompatActivity implements DroneActio
                 break;
             case 4:
                 // LAND
-
+                droneActions.add(new DroneAction("Land"));
+                populateArrayAdapter();
                 break;
             default:
                 break;
@@ -130,9 +133,11 @@ public class PathDefinerActivity extends AppCompatActivity implements DroneActio
     public void onFinishActionDetailsDlg(DroneAction droneAction) {
         // lala
         Log.v(getClass().toString(), droneAction.droneActionDesc);
+        droneActions.add(droneAction);
+        Log.v("PathDefiner", "droneActions size: " + droneActions.size());
+//        actionsArray.add(droneAction.droneActionDesc);
+        populateArrayAdapter();
     }
-
-
 
     public void startDroneScan(View view) {
         Intent intent = new Intent(this, DroneController.class);

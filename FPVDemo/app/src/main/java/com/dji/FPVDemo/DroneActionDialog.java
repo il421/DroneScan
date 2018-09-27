@@ -43,11 +43,19 @@ public class DroneActionDialog extends DialogFragment {
                         } else if (command.equals("Move")) {
                             Spinner directionSpnr = (Spinner) getDialog().findViewById(R.id.spnr_directions);
                             // check direction
-                            directionSpnr.getSelectedItem().toString();
+                            String dir = directionSpnr.getSelectedItem().toString();
                             EditText dis = (EditText) getDialog().findViewById(R.id.distance_input);
-//                            detailsDlgListener.onFinishActionDetailsDlg(new DroneAction(dis, directionSpnr)));
+                            detailsDlgListener.onFinishActionDetailsDlg(new DroneAction(dir, Float.parseFloat(dis.getText().toString())));
                         } else {
-
+                            RadioButton rBtn = (RadioButton) getDialog().findViewById(R.id.opt_left);
+                            Direction dir = (rBtn.isChecked()) ? Direction.Left : Direction.Right;
+                            EditText minH = (EditText) getDialog().findViewById(R.id.min_height_input);
+                            EditText maxH = (EditText) getDialog().findViewById(R.id.max_height_input);
+                            EditText minW = (EditText) getDialog().findViewById(R.id.min_width_input);
+                            EditText maxW = (EditText) getDialog().findViewById(R.id.max_width_input);
+                            detailsDlgListener.onFinishActionDetailsDlg(new DroneAction(Float.parseFloat(minW.getText().toString()),
+                                    Float.parseFloat(maxW.getText().toString()), Float.parseFloat(minH.getText().toString()),
+                                            Float.parseFloat(maxH.getText().toString()), dir.toString()));
                         }
                         // SET DIALOG LISTENER
 
