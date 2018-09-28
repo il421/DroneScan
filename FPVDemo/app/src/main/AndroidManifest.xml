@@ -61,7 +61,7 @@
         </service>
         <!-- DJI SDK -->
 
-        <activity android:name=".GeneralSettings"
+        <activity android:name=".ConnectionActivity"
             android:configChanges="orientation"
 	    android:screenOrientation="landscape">
 
