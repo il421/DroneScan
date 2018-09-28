@@ -7,23 +7,25 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 
-public class ManualFlightActivity extends AppCompatActivity implements View.OnClickListener{
+import com.dji.scan.qr.camera.CameraSettings;
+
+public class GeneralSettings extends AppCompatActivity implements View.OnClickListener{
 
     private ImageView imgPathway, imgBarcodeSettings, imgCameraSettings;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_connection);
+        setContentView(R.layout.activity_setting);
         initUI();
     }
 
     private void initUI() {
-        imgPathway = (ImageView) findViewById(R.id.img_path);
+        imgPathway = findViewById(R.id.img_path);
         imgPathway.setOnClickListener(this);
-        imgBarcodeSettings = (ImageView) findViewById(R.id.img_bset);
+        imgBarcodeSettings = findViewById(R.id.img_bset);
         imgBarcodeSettings.setOnClickListener(this);
-        imgCameraSettings = (ImageView) findViewById(R.id.img_cset);
+        imgCameraSettings = findViewById(R.id.img_cset);
         imgCameraSettings.setOnClickListener(this);
     }
 
@@ -31,8 +33,10 @@ public class ManualFlightActivity extends AppCompatActivity implements View.OnCl
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.img_cset: {
-//                Intent intent = new Intent(this, CameraSettings.class);
-//                startActivity(intent);
+                Intent intentCameraMode  = new Intent(this, MainActivity.class);
+                intentCameraMode.putExtra("cameraMode", 0);
+                overridePendingTransition(R.anim.slide_to_right, R.anim.slide_to_left);
+                startActivity(intentCameraMode);
                 break;
             }
             case R.id.img_bset: {
