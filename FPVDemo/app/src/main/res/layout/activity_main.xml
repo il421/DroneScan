@@ -23,21 +23,24 @@
             android:id="@+id/scan_land"
             android:layout_width="160dp"
             android:layout_height="65dp"
-            android:onClick="getResults"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp"
             android:background="@drawable/btn_control"
-            android:text="Land" />
+            android:onClick="getResults"
+            android:paddingLeft="15dp"
+            android:paddingRight="40dp"
+            android:text="Land"
+            android:fontFamily="sans-serif-light"
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/scan_res"
             android:layout_width="160dp"
             android:layout_height="65dp"
-            android:onClick="getResults"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp"
             android:background="@drawable/btn_control"
-            android:text="Barcodes" />
+            android:onClick="getResults"
+            android:paddingLeft="15dp"
+            android:text="Barcodes"
+            android:fontFamily="sans-serif-light"
+            android:textSize="20sp" />
 
     </LinearLayout>
 
