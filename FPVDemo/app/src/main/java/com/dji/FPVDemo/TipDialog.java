@@ -20,7 +20,6 @@ public class TipDialog extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_tip, container, false);
 
-
         TextView getItClose;
         TextView dialogTitle;
         TextView dialogText;

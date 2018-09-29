@@ -2,79 +2,113 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorWhite"
+    android:background="@drawable/background"
     android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:weightSum="5"
-        android:layout_margin="15dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="17dp"
         android:orientation="horizontal">
+
         <ImageView
-            android:layout_width="152dp"
-            android:layout_height="36dp"
-            android:layout_weight="1"
-            android:layout_gravity="left"
-            android:src="@drawable/timbersmartlogo" />
+            android:layout_width="137dp"
+            android:layout_height="39dp"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/logo" />
+
+        <TextView
+            android:layout_width="68dp"
+            android:layout_height="24dp"
+            android:layout_marginLeft="69dp"
+            android:layout_marginTop="15dp"
+            android:text="Status:"
+            android:textAlignment="textStart"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/text_status"
-            android:layout_width="wrap_content"
-            android:layout_height="36dp"
-            android:layout_weight="4"
-            android:text="Status: Disconnected"
-            android:textColor="@color/colorBlack"
-            android:textSize="15sp" />
+            android:layout_width="120dp"
+            android:layout_height="24dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="15dp"
+            android:fontFamily="sans-serif-light"
+            android:text="disconnected"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:textStyle="normal" />
+
         <ImageView
-            android:id="@+id/img_cam_settings"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:src="@drawable/settings"
-            android:gravity="right" />
+            android:id="@+id/img_status"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginLeft="7dp"
+            android:layout_marginTop="24dp"
+            android:src="@drawable/oval_dis" />
+
+        <ImageView
+            android:id="@+id/set"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_marginLeft="70dp"
+            android:src="@drawable/settings_button" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:gravity="bottom|center"
+        android:orientation="horizontal"
+        android:paddingBottom="50dp">
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="70dp"
             android:gravity="center"
-            android:layout_margin="20dp"
             android:orientation="vertical">
+
             <ImageView
-                android:layout_width="150dp"
-                android:layout_height="150dp"
                 android:id="@+id/img_auto"
-                android:src="@drawable/auto_btn_disabled" />
+                android:layout_width="154dp"
+                android:layout_height="154dp"
+                android:src="@drawable/auto_on_button_dis" />
+
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="154dp"
                 android:layout_height="wrap_content"
-                android:text="Start Auto Scanning"
-                android:textColor="@color/colorBlack"
-                android:textSize="18sp" />
+                android:fontFamily="sans-serif"
+                android:gravity="center_horizontal"
+                android:text="Start auto scanning"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
             android:gravity="center"
             android:orientation="vertical">
+
             <ImageView
-                android:layout_width="150dp"
-                android:layout_height="150dp"
                 android:id="@+id/img_manual"
-                android:src="@drawable/auto_btn_disabled" />
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/auto_on_button_dis" />
+
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:text="Start Manual Scanning"
-                android:textColor="@color/colorBlack"
-                android:textSize="18sp" />
+                android:fontFamily="sans-serif"
+                android:gravity="center_horizontal"
+                android:text="Start manual scanning"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

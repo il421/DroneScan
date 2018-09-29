@@ -310,7 +310,7 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
 
     // SELECT APERTURE
     public void onRadioButtonClickedAperture(View view) {
-        // Is the button now checked?
+
         boolean checked = ((RadioButton) view).isChecked();
 
         // Check which radio button was clicked

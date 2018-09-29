@@ -216,21 +216,23 @@ public class ConnectionActivity extends AppCompatActivity implements View.OnClic
     private void refreshSDKRelativeUI() {
         BaseProduct mProduct = FPVDemoApplication.getProductInstance();
         TextView statusText = findViewById(R.id.text_status);
+        ImageView statusImage = findViewById(R.id.img_status);
 
         if (null != mProduct && mProduct.isConnected()) {
 
             Log.v(TAG, "refreshSDK: True");
 //            mBtnOpen.setEnabled(true);
 
-            String str = mProduct instanceof Aircraft ? "DJIAircraft" : "DJIHandHeld";
+//            String str = mProduct instanceof Aircraft ? "DJIAircraft" : "DJIHandHeld";
 //            mTextConnectionStatus.setText("Status: " + str + " connected");
 
             if (null != mProduct.getModel()) {
 //                mTextProduct.setText("" + mProduct.getModel().getDisplayName());
                 statusText.setText("Status: " + mProduct.getModel().getDisplayName() + " connected");
+                statusImage.setImageResource(R.drawable.oval);
                 initUI();
-                autoScan.setImageResource(R.drawable.auto_btn_enabled);
-                manualScan.setImageResource(R.drawable.manual_btn_enabled);
+                autoScan.setImageResource(R.drawable.auto_on_button);
+                manualScan.setImageResource(R.drawable.manual_on_button);
             } else {
 //                mTextProduct.setText(R.string.product_information);
             }
