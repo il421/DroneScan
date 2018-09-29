@@ -27,7 +27,6 @@ import dji.common.error.DJISDKError;
 import dji.log.DJILog;
 import dji.sdk.base.BaseComponent;
 import dji.sdk.base.BaseProduct;
-import dji.sdk.products.Aircraft;
 import dji.sdk.sdkmanager.DJISDKManager;
 
 public class ConnectionActivity extends AppCompatActivity implements View.OnClickListener, BarcodeTypesDialog.BarcodeTypesDlgListener {
@@ -60,7 +59,7 @@ public class ConnectionActivity extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         checkAndRequestPermissions();
 //        setContentView(R.layout.activity_connection);
-        setContentView(R.layout.main_page);
+        setContentView(R.layout.activity_connection);
 
         // TODO: Remove this call to disable buttons if drone is not connected
         initUI();

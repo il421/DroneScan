@@ -5,12 +5,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.PointF;
 import android.graphics.SurfaceTexture;
 import android.media.MediaActionSound;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.TextureView;
@@ -20,25 +18,17 @@ import android.view.TextureView.SurfaceTextureListener;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
-import dji.common.camera.FocusAssistantSettings;
 import dji.common.camera.SettingsDefinitions;
-import dji.common.error.DJIError;
-import dji.common.flightcontroller.FlightControllerState;
 import dji.common.product.Model;
-import dji.common.remotecontroller.HardwareState;
-import dji.common.util.CommonCallbacks;
 import dji.sdk.base.BaseProduct;
 import dji.sdk.camera.Camera;
 import dji.sdk.camera.VideoFeeder;
@@ -82,7 +72,7 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
 
         // SELECT AN ACTIVITY
         if (cameraMode == 0) {
-            setContentView(R.layout.activity_camera);
+            setContentView(R.layout.activity_setting_camera);
         } else {
             setContentView(R.layout.activity_main);
         }
