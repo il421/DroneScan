@@ -195,7 +195,7 @@ public class ConnectionActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void initUI() {
-        settings = findViewById(R.id.img_cam_settings);
+        settings = findViewById(R.id.set);
         settings.setOnClickListener(this);
         autoScan = findViewById(R.id.img_auto);
         autoScan.setOnClickListener(this);
@@ -249,8 +249,9 @@ public class ConnectionActivity extends AppCompatActivity implements View.OnClic
     public void onClick(View v) {
         switch (v.getId()) {
 
-            case R.id.img_cam_settings: {
+            case R.id.set: {
                 Intent intent = new Intent(this, GeneralSettings.class);
+                overridePendingTransition(R.anim.slide_to_right, R.anim.slide_to_left);
                 startActivity(intent);
                 break;
             }

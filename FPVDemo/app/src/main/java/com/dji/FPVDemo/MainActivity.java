@@ -28,7 +28,9 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 
 import dji.common.camera.SettingsDefinitions;
+import dji.common.error.DJIError;
 import dji.common.product.Model;
+import dji.common.util.CommonCallbacks;
 import dji.sdk.base.BaseProduct;
 import dji.sdk.camera.Camera;
 import dji.sdk.camera.VideoFeeder;
@@ -66,9 +68,9 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
 
         super.onCreate(savedInstanceState);
 
-        // DEFINE THE CAMERA MODE (0 - settings, 1 - scanning)
+        // DEFINE THE CAMERA MODE (0 - settings, 1 - auto-scanning, 2- manual-scanning, )
         Intent intentCameraMode = getIntent();
-        cameraMode = intentCameraMode.getIntExtra("cameraMode", 1);
+        cameraMode = intentCameraMode.getIntExtra("cameraMode", 2);
 
         // SELECT AN ACTIVITY
         if (cameraMode == 0) {
@@ -349,6 +351,17 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
         finish();
     }
 
+    // LAND DRONE
+    public void droneLand(View view) {
+        flightController.startLanding(new CommonCallbacks.CompletionCallback() {
+            @Override
+            public void onResult(DJIError djiError) {
+                showToast("Error: " + djiError);
+            }
+        });
+    }
+
+    // NOTATION ISO
     public void onIsoNote(View view) {
         Log.e(TAG, "open dialog");
 
@@ -358,6 +371,7 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
         isoDialog.show(getFragmentManager(), "TipDialogISO");
     }
 
+    // NOTATION APERTURE
     public void onApertureNote(View view) {
         Log.e(TAG, "open dialog");
 
