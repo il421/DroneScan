@@ -197,10 +197,15 @@ public class ConnectionActivity extends AppCompatActivity implements View.OnClic
     private void initUI() {
         settings = findViewById(R.id.set);
         settings.setOnClickListener(this);
+//        settings.setEnabled(false);
+
         autoScan = findViewById(R.id.img_auto);
         autoScan.setOnClickListener(this);
+        autoScan.setEnabled(false);
+
         manualScan = findViewById(R.id.img_manual);
         manualScan.setOnClickListener(this);
+        manualScan.setEnabled(false);
 
     }
 
@@ -220,7 +225,9 @@ public class ConnectionActivity extends AppCompatActivity implements View.OnClic
         if (null != mProduct && mProduct.isConnected()) {
 
             Log.v(TAG, "refreshSDK: True");
-//            mBtnOpen.setEnabled(true);
+//            settings.setEnabled(true);
+            autoScan.setEnabled(true);
+            manualScan.setEnabled(true);
 
 //            String str = mProduct instanceof Aircraft ? "DJIAircraft" : "DJIHandHeld";
 //            mTextConnectionStatus.setText("Status: " + str + " connected");
@@ -239,7 +246,9 @@ public class ConnectionActivity extends AppCompatActivity implements View.OnClic
         } else {
 
             Log.v(TAG, "refreshSDK: False");
-//            mBtnOpen.setEnabled(false);
+//            settings.setEnabled(false);
+            autoScan.setEnabled(false);
+            manualScan.setEnabled(false);
 //            mTextProduct.setText(R.string.product_information);
 //            mTextConnectionStatus.setText(R.string.connection_loose);
         }
@@ -251,21 +260,18 @@ public class ConnectionActivity extends AppCompatActivity implements View.OnClic
 
             case R.id.set: {
                 Intent intent = new Intent(this, GeneralSettings.class);
-                overridePendingTransition(R.anim.slide_to_right, R.anim.slide_to_left);
                 startActivity(intent);
                 break;
             }
             case R.id.img_auto: {
                 Intent intentCameraMode  = new Intent(this, MainActivity.class);
                 intentCameraMode.putExtra("cameraMode", 1);
-                overridePendingTransition(R.anim.slide_to_right, R.anim.slide_to_left);
                 startActivity(intentCameraMode);
                 break;
             }
             case R.id.img_manual: {
                 Intent intentCameraMode  = new Intent(this, MainActivity.class);
                 intentCameraMode.putExtra("cameraMode", 2);
-                overridePendingTransition(R.anim.slide_to_right, R.anim.slide_to_left);
                 startActivity(intentCameraMode);
                 break;
             }
@@ -284,7 +290,7 @@ public class ConnectionActivity extends AppCompatActivity implements View.OnClic
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(getApplicationContext(), toastMsg, Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), toastMsg, Toast.LENGTH_SHORT).show();
 
             }
         });
