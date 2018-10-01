@@ -26,6 +26,7 @@ import com.google.android.gms.vision.barcode.BarcodeDetector;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import dji.common.camera.SettingsDefinitions;
 import dji.common.error.DJIError;
@@ -155,8 +156,8 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
         } else {
 //            // GET CUSTOM'S SETTINGS FROM CameraSettings
 //            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-//            String myAperture = sharedPref.getString("Aperture", "Not Available");
-//            String myISO = sharedPref.getString("ISO", "Not Available");
+//            String myAperture = sharedPref.getString("Aperture", "ISO_6400");
+//            String myISO = sharedPref.getString("ISO", "F_9");
 //
 //            // CAMERA SETTING
 //            camera.setMode(SettingsDefinitions.CameraMode.SHOOT_PHOTO, null);
@@ -210,19 +211,14 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
 //                public void onFailure(DJIError djiError) {}
 //            });
 
+            // Define barcode type
             SharedPreferences prefs = getSharedPreferences("BarcodePrefs", MODE_PRIVATE);
             int barcodeNum = prefs.getInt("barcodeType", 0); //0 is the default value.
-            Toast.makeText(MainActivity.this, "SharedPref " + barcodeNum,
-                    Toast.LENGTH_SHORT).show();
+            showToast("Barcode Type: " + barcodeNum);
+
             // RUN BAR-CODE DETECTOR AND SETTINGS BARCODE FORMAT
             barcodeDetector = new BarcodeDetector.Builder(this).setBarcodeFormats(barcodeNum).build();
-
             barcodeThread = Executors.newSingleThreadExecutor();
-
-
-
-
-
 
             // RESULT BTN ENABLE/DISABLE
             final Button resultBtn = findViewById(R.id.scan_res);
