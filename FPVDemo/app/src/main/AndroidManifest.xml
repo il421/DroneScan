@@ -79,7 +79,7 @@
             android:screenOrientation="landscape"></activity>
         <activity android:name=".BarcodeTypeSelection"
             android:screenOrientation="landscape"></activity>
-        <activity android:name=".ManualFlightActivity"
+        <activity android:name=".GeneralSettings"
             android:screenOrientation="landscape">
         </activity>
         <activity android:name=".ScanningResults"

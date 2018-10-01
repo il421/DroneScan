@@ -2,24 +2,24 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
     android:background="@color/colorWhite"
-    android:weightSum="4"
-    android:orientation="vertical">
+    android:gravity="center"
+    android:orientation="vertical"
+    android:weightSum="4">
 
     <ImageView
         android:layout_width="152dp"
         android:layout_height="36dp"
-        android:layout_weight="1"
-        android:layout_marginLeft="20dp"
         android:layout_gravity="start"
+        android:layout_marginLeft="20dp"
+        android:layout_weight="1"
         android:src="@drawable/timbersmartlogo" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:layout_weight="3"
+        android:gravity="center"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -28,11 +28,13 @@
             android:layout_margin="20dp"
             android:gravity="center"
             android:orientation="vertical">
+
             <ImageView
+                android:id="@+id/img_path"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:id="@+id/img_path"
-                android:src="@drawable/pathway"/>
+                android:src="@drawable/pathway" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -41,17 +43,20 @@
                 android:textColor="@color/colorBlack"
                 android:textSize="18sp" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:gravity="center"
             android:orientation="vertical">
+
             <ImageView
+                android:id="@+id/img_bset"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:id="@+id/img_bset"
-                android:src="@drawable/barcode_settings"/>
+                android:src="@drawable/barcode_settings" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -60,22 +65,25 @@
                 android:textColor="@color/colorBlack"
                 android:textSize="18sp" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:gravity="center"
             android:orientation="vertical">
+
             <ImageView
+                android:id="@+id/img_cset"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:id="@+id/img_cset"
-                android:src="@drawable/photo_camera"/>
+                android:src="@drawable/photo_camera" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:layout_margin="10dp"
+                android:gravity="center"
                 android:text="Camera Settings"
                 android:textColor="@color/colorBlack"
                 android:textSize="18sp" />

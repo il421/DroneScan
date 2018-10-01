@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.PointF;
 import android.graphics.SurfaceTexture;
 import android.media.MediaActionSound;
@@ -19,6 +20,7 @@ import android.view.TextureView.SurfaceTextureListener;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.vision.Frame;
@@ -62,29 +64,12 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
 
     int SHUTTER_CLICK;
 
-    protected String valueOfISO;
-    protected String valueOfAperture;
+    private String valueOfISO;
+    private String valueOfAperture;
 
     BarcodeDetector barcodeDetector;
     ArrayList<String> listOfBarcodes = new ArrayList<>();
     MediaActionSound sound = new MediaActionSound();
-
-    Thread zoomThread = new Thread(new Runnable() {
-        PointF point = new PointF(0.5f, 0.5f);
-
-        void zoomFocus() {
-            camera.setFocusTarget(point, new CommonCallbacks.CompletionCallback() {
-                @Override
-                public void onResult(DJIError djiError) {
-                    zoomFocus();
-                }
-            });
-        }
-        @Override
-        public void run() {
-            zoomFocus();
-        }
-    });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,7 +105,26 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
                 @Override
                 public void onCheckedChanged(RadioGroup radioGroup, int i) {
                     RadioButton checkedISO =  radioGroup.findViewById(i);
-                    valueOfISO = checkedISO.getText().toString();
+                    switch (checkedISO.getText().toString()) {
+                        case "800":
+                            valueOfISO = "ISO_800";
+                            break;
+                        case "1600":
+                            valueOfISO = "ISO_1600";
+                            break;
+                        case "3200":
+                            valueOfISO = "ISO_3200";
+                            break;
+                        case "6400":
+                            valueOfISO = "ISO_6400";
+                            break;
+                        case "12800":
+                            valueOfISO = "ISO_12800";
+                            break;
+
+                        default:
+                            valueOfISO = "ISO_640";
+                    }
                 }
             });
 
@@ -130,24 +134,66 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
                 @Override
                 public void onCheckedChanged(RadioGroup radioGroup, int i) {
                     RadioButton checkedAperture =  radioGroup.findViewById(i);
-                    valueOfAperture = checkedAperture.getText().toString();
+                    switch (checkedAperture.getText().toString()) {
+                        case "F_6":
+                            valueOfAperture = "F_6_DOT_3";
+                            break;
+                        case "F_7":
+                            valueOfAperture = "F_7_DOT_1";
+                            break;
+                        case "F_8":
+                            valueOfAperture = "F_8";
+                            break;
+                        case "F_9":
+                            valueOfAperture = "F_9";
+                            break;
+                        case "F_10":
+                            valueOfAperture = "F_10";
+                            break;
+
+                        default:
+                            valueOfAperture = "F_9";
+                    }
                 }
             });
+
+            // Aperture Btn lowercase
+            Button tipOfAperture = findViewById(R.id.tip_aperture);
+            tipOfAperture.setTransformationMethod(null);
         } else {
-            // GET CUSTOM'S SETTINGS FROM CameraSettings
-            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-            String myAperture = sharedPref.getString("Aperture", "Not Available");
-            String myISO = sharedPref.getString("ISO", "Not Available");
-
-            // CAMERA SETTING
-            camera.setMode(SettingsDefinitions.CameraMode.SHOOT_PHOTO, null);
-            camera.setExposureMode(SettingsDefinitions.ExposureMode.MANUAL, null);
-            camera.setAperture(SettingsDefinitions.Aperture.valueOf(myAperture), null);
-            camera.setISO(SettingsDefinitions.ISO.valueOf(myISO), null);
-            camera.setFocusAssistantSettings(new FocusAssistantSettings(true, true), null);
-            camera.setFocusMode(SettingsDefinitions.FocusMode.AUTO, null);
-
-            // CHECK CAMERA SETTINGS
+//            // GET CUSTOM'S SETTINGS FROM CameraSettings
+//            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+//            String myAperture = sharedPref.getString("Aperture", "Not Available");
+//            String myISO = sharedPref.getString("ISO", "Not Available");
+//
+//            // CAMERA SETTING
+//            camera.setMode(SettingsDefinitions.CameraMode.SHOOT_PHOTO, null);
+//            camera.setExposureMode(SettingsDefinitions.ExposureMode.MANUAL, null);
+//            camera.setAperture(SettingsDefinitions.Aperture.valueOf(myAperture), null);
+//            camera.setISO(SettingsDefinitions.ISO.valueOf(myISO), null);
+//            camera.setFocusAssistantSettings(new FocusAssistantSettings(true, true), null);
+//            camera.setFocusMode(SettingsDefinitions.FocusMode.AUTO, null);
+//
+//            // ZOOM SETTINGS
+//            Thread zoomThread = new Thread(new Runnable() {
+//                    PointF point = new PointF(0.5f, 0.5f);
+//
+//                    void zoomFocus() {
+//                        camera.setFocusTarget(point, new CommonCallbacks.CompletionCallback() {
+//                            @Override
+//                            public void onResult(DJIError djiError) {
+//                                zoomFocus();
+//                            }
+//                        });
+//                    }
+//                    @Override
+//                    public void run() {
+//                        zoomFocus();
+//                    }
+//                });
+//            zoomThread.start();
+//
+//            // CHECK CAMERA SETTINGS
 //            camera.getAperture(new CommonCallbacks.CompletionCallbackWith<SettingsDefinitions.Aperture>() {
 //                @Override
 //                public void onSuccess(SettingsDefinitions.Aperture aperture) {
@@ -166,12 +212,8 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
 //                @Override
 //                public void onFailure(DJIError djiError) {}
 //            });
-//            camera.getMode(new CommonCallbacks.CompletionCallbackWith<SettingsDefinitions.CameraMode>() {
-//                @Override
-//                public void onSuccess(SettingsDefinitions.CameraMode cameraMode) {
-//                    showToast(cameraMode + " ");
-//                }
 //
+
 //                @Override
 //                public void onFailure(DJIError djiError) {}
 //            });
@@ -185,23 +227,49 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
 
             barcodeThread = Executors.newSingleThreadExecutor();
 
+
+
+
+
+
             // RESULT BTN ENABLE/DISABLE
             final Button resultBtn = findViewById(R.id.scan_res);
-            flightController = aircraft.getFlightController();
-            flightController.setStateCallback(new FlightControllerState.Callback() {
-                @Override
-                public void onUpdate(@NonNull FlightControllerState flightControllerState) {
-                    if(flightControllerState.isFlying()) {
-                        resultBtn.setEnabled(false);
-                    } else {
-                        resultBtn.setEnabled(true);
-                    }
-                }
-            });
-        }
+            final Button resultLand = findViewById(R.id.scan_land);
 
-        // ZOOM SETTINGS
-        zoomThread.start();
+            // Just for testing
+            resultBtn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.barcode_dis, 0, 0, 0);
+            resultBtn.setTextColor(Color.argb(204, 88, 88, 88));
+            resultBtn.setTransformationMethod(null);
+
+            resultLand.setCompoundDrawablesWithIntrinsicBounds(R.drawable.helipad, 0, 0, 0);
+            resultLand.setTextColor(Color.WHITE);
+            resultLand.setTransformationMethod(null);
+
+//            flightController = aircraft.getFlightController();
+//            flightController.setStateCallback(new FlightControllerState.Callback() {
+//                @Override
+//                public void onUpdate(@NonNull FlightControllerState flightControllerState) {
+//                    if(flightControllerState.isFlying()) {
+//                        resultBtn.setEnabled(false);
+//                        resultBtn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.barcode_dis, 0, 0, 0);
+//                        resultBtn.setTextColor(Color.argb(204, 88, 88, 88));
+//
+//                        resultLand.setEnabled(true);
+//                        resultLand.setCompoundDrawablesWithIntrinsicBounds(R.drawable.helipad, 0, 0, 0);
+//                        resultLand.setTextColor(Color.WHITE);
+//                    } else {
+//                        resultBtn.setEnabled(true);
+//                        resultBtn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.barcode, 0, 0, 0);
+//                        resultBtn.setTextColor(Color.WHITE);
+//
+//                        resultLand.setEnabled(false);
+//                        resultLand.setCompoundDrawablesWithIntrinsicBounds(R.drawable.helipad_dis, 0, 0, 0);
+//                        resultLand.setTextColor(Color.argb(204, 88, 88, 88));
+//
+//                    }
+//                }
+//            });
+        }
 
         initUI();
     }
@@ -262,75 +330,66 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
 
         // Check which radio button was clicked
         switch (view.getId()) {
-            case R.id.F_6_DOT_3:{
+            case R.id.F_6:{
                 if (checked)
                     camera.setAperture(SettingsDefinitions.Aperture.F_6_DOT_3, null);
-                showToast("F_6_DOT_3");
+//                showToast("F_6_DOT_3");
                 break;
             }
-            case R.id.F_7_DOT_1:{
+            case R.id.F_7:{
                 if (checked)
                     camera.setAperture(SettingsDefinitions.Aperture.F_7_DOT_1, null);
-                showToast("F_7_DOT_1");
+//                showToast("F_7_DOT_1");
                 break;
             }
             case R.id.F_8:{
                 if (checked)
                     camera.setAperture(SettingsDefinitions.Aperture.F_8, null);
-                showToast("F_8");
+//                showToast("F_8");
                 break;
             }
             case R.id.F_9:{
                 if (checked)
                     camera.setAperture(SettingsDefinitions.Aperture.F_9, null);
-                showToast("F_9");
+//                showToast("F_9");
                 break;
             }
             case R.id.F_10:{
                 if (checked)
                     camera.setAperture(SettingsDefinitions.Aperture.F_10, null);
-                showToast("F_10");
+//                showToast("F_10");
 
                 break;
             }
         }
     }
 
-    // SAVE PARAMETERS
-//    public void cameraSaveBtn(View view) {
-//        if (valueOfAperture != null && valueOfISO != null) {
-//            // Create object of SharedPreferences.
-//            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-//
-//            // Get Editor
-//            SharedPreferences.Editor editor = sharedPref.edit();
-//
-//            // Put values
-//            editor.putString("ISO", valueOfISO);
-//            editor.putString("Aperture", valueOfAperture);
-//
-//            // Commit editor
-//            editor.apply();
-//
-//            if (sharedPref.contains("ISO") && sharedPref.contains("Aperture")) {
-//                showToast("Saved successfully");
-//            } else {
-//                showToast("Something has happend!");
-//            }
-//        } else {
-//            showToast("Please, select camera settings!");
-//        }
-//
-//    }
-
     // CREATE INTENT AND SHOW RESULTS
-    public void getResults(View v) {
+    public void getResults(View view) {
         Intent intentResults = new Intent(this, ScanningResults.class);
         overridePendingTransition(R.anim.slide_to_left, R.anim.slide_from_right);
 
         intentResults.putStringArrayListExtra("barcode", listOfBarcodes);
         startActivity(intentResults);
         finish();
+    }
+
+    public void onIsoNote(View view) {
+        Log.e(TAG, "open dialog");
+
+        TipDialog isoDialog = new TipDialog();
+        isoDialog.titleParam = "ISO";
+        isoDialog.textParam = "ISO is the sensitivity of your sensor to light. The ISO setting you use depends on the amount of light in the scene you are photographing. The more light you have to work with the lower you can set your ISO.";
+        isoDialog.show(getFragmentManager(), "TipDialogISO");
+    }
+
+    public void onApertureNote(View view) {
+        Log.e(TAG, "open dialog");
+
+        TipDialog apertureDialog = new TipDialog();
+        apertureDialog.titleParam = "Aperture";
+        apertureDialog.textParam = "Aperture is essentially an opening of a lens's diaphragm through which light passes. It works much like the iris and pupil of an eye, by controlling the amount of light which reaches the retina. A bigger aperture hole lets your smartphone camera sensor gather more light, which it needs to produce quality images";
+        apertureDialog.show(getFragmentManager(), "TipDialogAperture");
     }
 
     // BARCODE DETECTION

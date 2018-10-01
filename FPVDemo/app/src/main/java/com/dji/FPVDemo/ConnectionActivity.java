@@ -196,19 +196,13 @@ public class ConnectionActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void initUI() {
-        settings = (ImageView) findViewById(R.id.img_cam_settings);
+        settings = findViewById(R.id.img_cam_settings);
         settings.setOnClickListener(this);
-        autoScan = (ImageView) findViewById(R.id.img_auto);
+        autoScan = findViewById(R.id.img_auto);
         autoScan.setOnClickListener(this);
-        manualScan = (ImageView) findViewById(R.id.img_manual);
+        manualScan = findViewById(R.id.img_manual);
         manualScan.setOnClickListener(this);
 
-        // JUST FOR TESTING
-//        Button btnSetCameraSettings = findViewById(R.id.btn_view_barcode);
-//        btnSetCameraSettings.setOnClickListener(this);
-
-//        mVersionTv = (TextView) findViewById(R.id.textView2);
-//        mVersionTv.setText(getResources().getString(R.string.sdk_version, DJISDKManager.getInstance().getSDKVersion()));
     }
 
     protected BroadcastReceiver mReceiver = new BroadcastReceiver() {
@@ -255,20 +249,22 @@ public class ConnectionActivity extends AppCompatActivity implements View.OnClic
         switch (v.getId()) {
 
             case R.id.img_cam_settings: {
-                Intent intent = new Intent(this, ManualFlightActivity.class);
+                Intent intent = new Intent(this, GeneralSettings.class);
                 startActivity(intent);
                 break;
             }
             case R.id.img_auto: {
-                Intent intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
+                Intent intentCameraMode  = new Intent(this, MainActivity.class);
+                intentCameraMode.putExtra("cameraMode", 1);
+                overridePendingTransition(R.anim.slide_to_right, R.anim.slide_to_left);
+                startActivity(intentCameraMode);
                 break;
             }
             case R.id.img_manual: {
-                // TODO: Update class to be called to start manual scanning
-                Intent intent = new Intent(this, ManualFlightActivity.class);
-                overridePendingTransition(R.anim.slide_to_left, R.anim.slide_from_right);
-                startActivity(intent);
+                Intent intentCameraMode  = new Intent(this, MainActivity.class);
+                intentCameraMode.putExtra("cameraMode", 2);
+                overridePendingTransition(R.anim.slide_to_right, R.anim.slide_to_left);
+                startActivity(intentCameraMode);
                 break;
             }
 

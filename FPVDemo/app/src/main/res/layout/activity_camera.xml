@@ -1,8 +1,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
+    android:orientation="horizontal">
 
     <TextureView
         android:id="@+id/video_previewer_surface"
@@ -14,19 +15,37 @@
 
     <LinearLayout
         android:id="@+id/linearLayout_ISO"
-        android:layout_width="wrap_content"
+        android:layout_width="175dp"
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="19dp"
+        android:background="@drawable/settings_block_left"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="29dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="28dp"
+            android:background="@color/zxing_transparent"
+            android:drawableRight="@drawable/tip"
+            android:onClick="onIsoNote"
+            android:paddingLeft="5dp"
+            android:paddingRight="70dp"
+            android:text="ISO"
+            android:textAlignment="viewStart"
+            android:textColor="@color/colorWhite"
+            android:textSize="20sp" />
+
         <RadioGroup
             android:id="@+id/radioButtons_ISO"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginBottom="56dp"
+            android:paddingLeft="20dp">
 
             <RadioButton
                 android:id="@+id/ISO_800"
@@ -36,7 +55,7 @@
                 android:buttonTint="@color/colorOrangeRadio"
                 android:onClick="onRadioButtonClickedISO"
                 android:paddingLeft="15dp"
-                android:text="ISO_800"
+                android:text="800"
                 android:textColor="@color/colorWhite"
                 android:textSize="20sp" />
 
@@ -48,7 +67,7 @@
                 android:buttonTint="@color/colorOrangeRadio"
                 android:onClick="onRadioButtonClickedISO"
                 android:paddingLeft="15dp"
-                android:text="ISO_1600"
+                android:text="1600"
                 android:textColor="@color/colorWhite"
                 android:textSize="20sp" />
 
@@ -60,7 +79,7 @@
                 android:buttonTint="@color/colorOrangeRadio"
                 android:onClick="onRadioButtonClickedISO"
                 android:paddingLeft="15dp"
-                android:text="ISO_3200"
+                android:text="3200"
                 android:textColor="@color/colorWhite"
                 android:textSize="20sp" />
 
@@ -70,11 +89,11 @@
                 android:layout_height="47dp"
                 android:layout_weight="1"
                 android:buttonTint="@color/colorOrangeRadio"
+                android:checked="true"
                 android:onClick="onRadioButtonClickedISO"
                 android:paddingLeft="15dp"
-                android:text="ISO_6400"
+                android:text="6400"
                 android:textColor="@color/colorWhite"
-                android:checked="true"
                 android:textSize="20sp" />
 
             <RadioButton
@@ -85,7 +104,7 @@
                 android:buttonTint="@color/colorOrangeRadio"
                 android:onClick="onRadioButtonClickedISO"
                 android:paddingLeft="15dp"
-                android:text="ISO_12800"
+                android:text="12800"
                 android:textColor="@color/colorWhite"
                 android:textSize="20sp" />
         </RadioGroup>
@@ -94,93 +113,114 @@
 
     <LinearLayout
         android:id="@+id/linearLayout_aperture"
-        android:layout_width="wrap_content"
+        android:layout_width="175dp"
         android:layout_height="match_parent"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:layout_marginEnd="19dp"
+        android:background="@drawable/settings_block_right"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <Button
+            android:id="@+id/tip_aperture"
+            android:layout_width="match_parent"
+            android:layout_height="29dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginTop="28dp"
+            android:background="@color/zxing_transparent"
+            android:drawableLeft="@drawable/tip"
+            android:onClick="onApertureNote"
+            android:paddingLeft="20dp"
+            android:scrollbarAlwaysDrawVerticalTrack="false"
+            android:text="Aperture"
+            android:textAlignment="textEnd"
+            android:textColor="@color/colorWhite"
+            android:textSize="20sp" />
+
         <RadioGroup
             android:id="@+id/radioButtons_aperture"
             android:layout_width="fill_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginBottom="56dp"
+            android:paddingLeft="65dp"
+            android:paddingRight="20dp">
 
             <RadioButton
-                android:id="@+id/F_6_DOT_3"
+                android:id="@+id/F_6"
                 android:layout_width="match_parent"
                 android:layout_height="47dp"
+                android:layout_gravity="start"
                 android:layout_weight="1"
                 android:buttonTint="@color/colorOrangeRadio"
-                android:onClick="onRadioButtonClickedAperture"
-                android:text="F_6_DOT_3"
-                android:textColor="@color/colorWhite"
                 android:layoutDirection="rtl"
+                android:onClick="onRadioButtonClickedAperture"
+                android:text="F_6"
                 android:textAlignment="textStart"
-                android:layout_gravity="start"
+                android:textColor="@color/colorWhite"
                 android:textSize="20sp" />
 
             <RadioButton
-                android:id="@+id/F_7_DOT_1"
+                android:id="@+id/F_7"
                 android:layout_width="match_parent"
                 android:layout_height="47dp"
+                android:layout_gravity="start"
                 android:layout_weight="1"
                 android:buttonTint="@color/colorOrangeRadio"
+                android:layoutDirection="rtl"
                 android:onClick="onRadioButtonClickedAperture"
                 android:paddingRight="15dp"
-                android:text="F_7_DOT_1"
-                android:textColor="@color/colorWhite"
-                android:layoutDirection="rtl"
+                android:text="F_7"
                 android:textAlignment="textStart"
-                android:layout_gravity="start"
+                android:textColor="@color/colorWhite"
                 android:textSize="20sp" />
 
             <RadioButton
                 android:id="@+id/F_8"
                 android:layout_width="match_parent"
                 android:layout_height="47dp"
+                android:layout_gravity="start"
                 android:layout_weight="1"
                 android:buttonTint="@color/colorOrangeRadio"
+                android:layoutDirection="rtl"
                 android:onClick="onRadioButtonClickedAperture"
                 android:paddingRight="15dp"
                 android:text="F_8"
-                android:textColor="@color/colorWhite"
-                android:layoutDirection="rtl"
                 android:textAlignment="textStart"
-                android:layout_gravity="start"
+                android:textColor="@color/colorWhite"
                 android:textSize="20sp" />
 
             <RadioButton
                 android:id="@+id/F_9"
                 android:layout_width="match_parent"
                 android:layout_height="47dp"
+                android:layout_gravity="start"
                 android:layout_weight="1"
                 android:buttonTint="@color/colorOrangeRadio"
+                android:checked="true"
+                android:layoutDirection="rtl"
                 android:onClick="onRadioButtonClickedAperture"
                 android:paddingRight="15dp"
                 android:text="F_9"
-                android:textColor="@color/colorWhite"
-                android:layoutDirection="rtl"
                 android:textAlignment="textStart"
-                android:layout_gravity="start"
-                android:checked="true"
+                android:textColor="@color/colorWhite"
                 android:textSize="20sp" />
 
             <RadioButton
                 android:id="@+id/F_10"
                 android:layout_width="match_parent"
                 android:layout_height="47dp"
+                android:layout_gravity="start"
                 android:layout_weight="1"
                 android:buttonTint="@color/colorOrangeRadio"
+                android:layoutDirection="rtl"
                 android:onClick="onRadioButtonClickedAperture"
                 android:paddingRight="15dp"
                 android:text="F_10"
-                android:textColor="@color/colorWhite"
-                android:layoutDirection="rtl"
                 android:textAlignment="textStart"
-                android:layout_gravity="start"
+                android:textColor="@color/colorWhite"
                 android:textSize="20sp" />
         </RadioGroup>
 
