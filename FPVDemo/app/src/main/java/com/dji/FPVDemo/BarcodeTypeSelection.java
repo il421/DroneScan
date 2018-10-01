@@ -1,5 +1,7 @@
 package com.dji.FPVDemo;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -20,8 +22,32 @@ public class BarcodeTypeSelection extends AppCompatActivity {
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
-                Toast.makeText(BarcodeTypeSelection.this, "" + position,
-                        Toast.LENGTH_SHORT).show();
+                SharedPreferences.Editor editor = getSharedPreferences("BarcodePrefs", MODE_PRIVATE).edit();
+                int barcodeNum = 0;
+                switch (position) {
+                    case 1:
+                        barcodeNum = 2;
+                        break;
+                    case 2:
+                        barcodeNum = 1;
+                        break;
+                    case 3:
+                        barcodeNum = 256;
+                        break;
+                    case 4:
+                        barcodeNum = 32;
+                        break;
+                    case 5:
+                        barcodeNum = 64;
+                        break;
+                    case 6:
+                        barcodeNum = 16;
+                        break;
+                    default:
+                        break;
+                }
+                editor.putInt("barcodeType", barcodeNum);
+                editor.apply();
             }
         });
     }

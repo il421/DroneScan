@@ -176,8 +176,13 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
 //                public void onFailure(DJIError djiError) {}
 //            });
 
+            SharedPreferences prefs = getSharedPreferences("BarcodePrefs", MODE_PRIVATE);
+            int barcodeNum = prefs.getInt("barcodeType", 0); //0 is the default value.
+            Toast.makeText(MainActivity.this, "SharedPref " + barcodeNum,
+                    Toast.LENGTH_SHORT).show();
             // RUN BAR-CODE DETECTOR AND SETTINGS BARCODE FORMAT
-            barcodeDetector = new BarcodeDetector.Builder(this).setBarcodeFormats(0).build();
+            barcodeDetector = new BarcodeDetector.Builder(this).setBarcodeFormats(barcodeNum).build();
+
             barcodeThread = Executors.newSingleThreadExecutor();
 
             // RESULT BTN ENABLE/DISABLE
