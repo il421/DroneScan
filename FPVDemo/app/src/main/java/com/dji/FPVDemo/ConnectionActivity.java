@@ -29,7 +29,7 @@ import dji.sdk.base.BaseComponent;
 import dji.sdk.base.BaseProduct;
 import dji.sdk.sdkmanager.DJISDKManager;
 
-public class ConnectionActivity extends AppCompatActivity implements View.OnClickListener, BarcodeTypesDialog.BarcodeTypesDlgListener {
+public class ConnectionActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = ConnectionActivity.class.getName();
 
@@ -275,10 +275,10 @@ public class ConnectionActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
-    @Override
-    public void onFinishBarcodeTypeDlg(int position) {
-        Log.v(getClass().toString(), "selected barcode type " + position);
-    }
+//    @Override
+//    public void onFinishBarcodeTypeDlg(int position) {
+//        Log.v(getClass().toString(), "selected barcode type " + position);
+//    }
 
     private void showToast(final String toastMsg) {
         runOnUiThread(new Runnable() {
