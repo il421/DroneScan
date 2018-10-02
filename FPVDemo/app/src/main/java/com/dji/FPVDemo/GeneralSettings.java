@@ -49,9 +49,7 @@ public class GeneralSettings extends AppCompatActivity implements View.OnClickLi
                 break;
             }
             case R.id.img_path: {
-                Intent intent = new Intent(this, PathDefinerActivity.class);
-                overridePendingTransition(R.anim.slide_to_left, R.anim.slide_from_right);
-                startActivity(intent);
+
                 break;
             }
             default:

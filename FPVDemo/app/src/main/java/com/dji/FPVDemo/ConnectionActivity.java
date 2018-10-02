@@ -197,8 +197,7 @@ public class ConnectionActivity extends AppCompatActivity implements View.OnClic
     private void initUI() {
         settings = findViewById(R.id.set);
         settings.setOnClickListener(this);
-
-        autoScan = findViewById(R.id.img_auto);
+       autoScan = findViewById(R.id.img_auto);
         autoScan.setOnClickListener(this);
 
         manualScan = findViewById(R.id.img_manual);

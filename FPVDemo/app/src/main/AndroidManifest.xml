@@ -73,10 +73,6 @@
         <activity android:name=".MainActivity"
             android:screenOrientation="landscape">
         </activity>
-        <activity android:name=".PathDefinerActivity"
-            android:screenOrientation="landscape"></activity>
-        <activity android:name=".DroneController"
-            android:screenOrientation="landscape"></activity>
         <activity android:name=".BarcodeTypeSelection"
             android:screenOrientation="landscape"></activity>
         <activity android:name=".GeneralSettings"

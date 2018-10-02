@@ -7,33 +7,6 @@
     <string name="disconnected">disconnected</string>
     <string name="start_a">Start auto scanning</string>
     <string name="start_m">Start manual scanning</string>
-    <string name="meters_unit">m</string>
-    <string name="distance_hint">Enter distance (1-100) meters</string>
     <string name="start">Start</string>
-    <string-array name="directions_array">
-        <item>Forward</item>
-        <item>Backward</item>
-        <item>Left</item>
-        <item>Right</item>
-        <item>Up</item>
-        <item>Down</item>
-    </string-array>
-    <string-array name="commands_array">
-        <item>Takeoff</item>
-        <item>Yaw</item>
-        <item>Move</item>
-        <item>Scan</item>
-        <item>Land</item>
-    </string-array>
-    <string-array name="barcode_types_array">
-        <item>All barcode types</item>
-        <item>Code 128</item>
-        <item>Code 39</item>
-        <item>QR Code</item>
-        <item>EAN 13</item>
-        <item>EAN 8</item>
-    </string-array>
-    <string name="select_cmd">Select a command for the drone</string>
-    <string name="select_types">Select barcode types to scan</string>
 
 </resources>
