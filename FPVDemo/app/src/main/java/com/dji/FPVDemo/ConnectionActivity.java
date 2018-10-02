@@ -197,13 +197,15 @@ public class ConnectionActivity extends AppCompatActivity implements View.OnClic
     private void initUI() {
         settings = findViewById(R.id.set);
         settings.setOnClickListener(this);
-//        settings.setEnabled(false);
 
         autoScan = findViewById(R.id.img_auto);
         autoScan.setOnClickListener(this);
 
         manualScan = findViewById(R.id.img_manual);
         manualScan.setOnClickListener(this);
+
+        autoScan.setEnabled(false);
+        manualScan.setEnabled(false);
     }
 
     protected BroadcastReceiver mReceiver = new BroadcastReceiver() {
@@ -222,12 +224,8 @@ public class ConnectionActivity extends AppCompatActivity implements View.OnClic
         if (null != mProduct && mProduct.isConnected()) {
 
             Log.v(TAG, "refreshSDK: True");
-//            settings.setEnabled(true);
             autoScan.setEnabled(true);
             manualScan.setEnabled(true);
-
-//            String str = mProduct instanceof Aircraft ? "DJIAircraft" : "DJIHandHeld";
-//            mTextConnectionStatus.setText("Status: " + str + " connected");
 
             if (null != mProduct.getModel()) {
 //                mTextProduct.setText("" + mProduct.getModel().getDisplayName());
@@ -238,8 +236,6 @@ public class ConnectionActivity extends AppCompatActivity implements View.OnClic
                 manualScan.setImageResource(R.drawable.manual_on_button);
                 autoScan.setEnabled(true);
                 manualScan.setEnabled(true);
-            } else {
-//                mTextProduct.setText(R.string.product_information);
             }
 
         } else {
