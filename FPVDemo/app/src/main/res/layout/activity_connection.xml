@@ -23,11 +23,11 @@
             android:layout_height="24dp"
             android:layout_marginLeft="69dp"
             android:layout_marginTop="15dp"
+            android:fontFamily="@font/roboto_bold"
             android:text="Status:"
             android:textAlignment="textStart"
             android:textColor="#000000"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/text_status"
@@ -35,7 +35,7 @@
             android:layout_height="24dp"
             android:layout_marginLeft="12dp"
             android:layout_marginTop="15dp"
-            android:fontFamily="sans-serif-light"
+            android:fontFamily="@font/roboto_light"
             android:text="disconnected"
             android:textColor="#000000"
             android:textSize="20sp"
@@ -46,7 +46,7 @@
             android:layout_width="15dp"
             android:layout_height="15dp"
             android:layout_marginLeft="7dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="23dp"
             android:src="@drawable/oval_dis" />
 
         <ImageView
@@ -81,7 +81,7 @@
             <TextView
                 android:layout_width="154dp"
                 android:layout_height="wrap_content"
-                android:fontFamily="sans-serif"
+                android:fontFamily="@font/roboto_bold"
                 android:gravity="center_horizontal"
                 android:text="Start auto scanning"
                 android:textColor="#000000"
@@ -104,7 +104,7 @@
             <TextView
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:fontFamily="sans-serif"
+                android:fontFamily="@font/roboto_bold"
                 android:gravity="center_horizontal"
                 android:text="Start manual scanning"
                 android:textColor="#000000"

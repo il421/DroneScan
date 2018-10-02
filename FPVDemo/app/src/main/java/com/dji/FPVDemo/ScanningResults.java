@@ -3,6 +3,7 @@ package com.dji.FPVDemo;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.View;
@@ -41,11 +42,13 @@ public class ScanningResults extends Activity {
             resultTitle.setTextColor(getResources().getColor(R.color.colorBlackResults));
             resultTitle.setBackgroundResource(R.drawable.cell_shape);
             resultTitle.setPadding(padding_69dp, padding_15dp, 0, padding_15dp);
+            resultTitle.setTypeface(Typeface.create("roboto_light",Typeface.NORMAL));
 
             resultText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
             resultText.setTextColor(getResources().getColor(R.color.colorBlackResults));
             resultText.setBackgroundResource(R.drawable.cell_shape);
             resultText.setPadding(padding_186dp, padding_15dp, 0, padding_15dp);
+            resultText.setTypeface(Typeface.create("roboto_light",Typeface.NORMAL));
 
             resultTitle.setText("Barcode " + (i + 1));
             resultText.setText(listOfBarcodes.get(i));

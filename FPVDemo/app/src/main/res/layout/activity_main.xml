@@ -28,7 +28,7 @@
             android:paddingLeft="15dp"
             android:paddingRight="40dp"
             android:text="Land"
-            android:fontFamily="sans-serif-light"
+            android:fontFamily="@font/roboto_light"
             android:textSize="20sp" />
 
         <Button
@@ -39,7 +39,7 @@
             android:onClick="getResults"
             android:paddingLeft="15dp"
             android:text="Barcodes"
-            android:fontFamily="sans-serif-light"
+            android:fontFamily="@font/roboto_light"
             android:textSize="20sp" />
 
     </LinearLayout>
