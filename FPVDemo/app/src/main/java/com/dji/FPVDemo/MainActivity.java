@@ -5,10 +5,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.PointF;
 import android.graphics.SurfaceTexture;
 import android.media.MediaActionSound;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.TextureView;
@@ -28,8 +30,10 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import dji.common.camera.FocusAssistantSettings;
 import dji.common.camera.SettingsDefinitions;
 import dji.common.error.DJIError;
+import dji.common.flightcontroller.FlightControllerState;
 import dji.common.product.Model;
 import dji.common.util.CommonCallbacks;
 import dji.sdk.base.BaseProduct;
@@ -154,39 +158,39 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
             Button tipOfAperture = findViewById(R.id.tip_aperture);
             tipOfAperture.setTransformationMethod(null);
         } else {
-//            // GET CUSTOM'S SETTINGS FROM CameraSettings
-//            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-//            String myAperture = sharedPref.getString("Aperture", "ISO_6400");
-//            String myISO = sharedPref.getString("ISO", "F_9");
-//
-//            // CAMERA SETTING
-//            camera.setMode(SettingsDefinitions.CameraMode.SHOOT_PHOTO, null);
-//            camera.setExposureMode(SettingsDefinitions.ExposureMode.MANUAL, null);
-//            camera.setAperture(SettingsDefinitions.Aperture.valueOf(myAperture), null);
-//            camera.setISO(SettingsDefinitions.ISO.valueOf(myISO), null);
-//            camera.setFocusAssistantSettings(new FocusAssistantSettings(true, true), null);
-//            camera.setFocusMode(SettingsDefinitions.FocusMode.AUTO, null);
-//
-//            // ZOOM SETTINGS
-//            Thread zoomThread = new Thread(new Runnable() {
-//                    PointF point = new PointF(0.5f, 0.5f);
-//
-//                    void zoomFocus() {
-//                        camera.setFocusTarget(point, new CommonCallbacks.CompletionCallback() {
-//                            @Override
-//                            public void onResult(DJIError djiError) {
-//                                zoomFocus();
-//                            }
-//                        });
-//                    }
-//                    @Override
-//                    public void run() {
-//                        zoomFocus();
-//                    }
-//                });
-//            zoomThread.start();
-//
-//            // CHECK CAMERA SETTINGS
+            // GET CUSTOM'S SETTINGS FROM CameraSettings
+            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+            String myAperture = sharedPref.getString("Aperture", "ISO_6400");
+            String myISO = sharedPref.getString("ISO", "F_9");
+
+            // CAMERA SETTING
+            camera.setMode(SettingsDefinitions.CameraMode.SHOOT_PHOTO, null);
+            camera.setExposureMode(SettingsDefinitions.ExposureMode.MANUAL, null);
+            camera.setAperture(SettingsDefinitions.Aperture.valueOf(myAperture), null);
+            camera.setISO(SettingsDefinitions.ISO.valueOf(myISO), null);
+            camera.setFocusAssistantSettings(new FocusAssistantSettings(true, true), null);
+            camera.setFocusMode(SettingsDefinitions.FocusMode.AUTO, null);
+
+            // ZOOM SETTINGS
+            Thread zoomThread = new Thread(new Runnable() {
+                    PointF point = new PointF(0.5f, 0.5f);
+
+                    void zoomFocus() {
+                        camera.setFocusTarget(point, new CommonCallbacks.CompletionCallback() {
+                            @Override
+                            public void onResult(DJIError djiError) {
+                                zoomFocus();
+                            }
+                        });
+                    }
+                    @Override
+                    public void run() {
+                        zoomFocus();
+                    }
+                });
+            zoomThread.start();
+
+            // CHECK CAMERA SETTINGS
 //            camera.getAperture(new CommonCallbacks.CompletionCallbackWith<SettingsDefinitions.Aperture>() {
 //                @Override
 //                public void onSuccess(SettingsDefinitions.Aperture aperture) {
@@ -205,16 +209,12 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
 //                @Override
 //                public void onFailure(DJIError djiError) {}
 //            });
-//
 
-//                @Override
-//                public void onFailure(DJIError djiError) {}
-//            });
 
             // Define barcode type
             SharedPreferences prefs = getSharedPreferences("BarcodePrefs", MODE_PRIVATE);
             int barcodeNum = prefs.getInt("barcodeType", 0); //0 is the default value.
-            showToast("Barcode Type: " + barcodeNum);
+//            showToast("Barcode Type: " + barcodeNum);
 
             // RUN BAR-CODE DETECTOR AND SETTINGS BARCODE FORMAT
             barcodeDetector = new BarcodeDetector.Builder(this).setBarcodeFormats(barcodeNum).build();
@@ -223,40 +223,57 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
             // RESULT BTN ENABLE/DISABLE
             final Button resultBtn = findViewById(R.id.scan_res);
             final Button resultLand = findViewById(R.id.scan_land);
-
-            // Just for testing
-            resultBtn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.barcode_dis, 0, 0, 0);
-            resultBtn.setTextColor(Color.argb(204, 88, 88, 88));
             resultBtn.setTransformationMethod(null);
-
-            resultLand.setCompoundDrawablesWithIntrinsicBounds(R.drawable.helipad, 0, 0, 0);
-            resultLand.setTextColor(Color.WHITE);
             resultLand.setTransformationMethod(null);
 
-//            flightController = aircraft.getFlightController();
-//            flightController.setStateCallback(new FlightControllerState.Callback() {
-//                @Override
-//                public void onUpdate(@NonNull FlightControllerState flightControllerState) {
-//                    if(flightControllerState.isFlying()) {
-//                        resultBtn.setEnabled(false);
-//                        resultBtn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.barcode_dis, 0, 0, 0);
-//                        resultBtn.setTextColor(Color.argb(204, 88, 88, 88));
+            // Just for testing
+//            resultBtn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.barcode_dis, 0, 0, 0);
+//            resultBtn.setTextColor(Color.argb(204, 88, 88, 88));
 //
-//                        resultLand.setEnabled(true);
-//                        resultLand.setCompoundDrawablesWithIntrinsicBounds(R.drawable.helipad, 0, 0, 0);
-//                        resultLand.setTextColor(Color.WHITE);
-//                    } else {
-//                        resultBtn.setEnabled(true);
-//                        resultBtn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.barcode, 0, 0, 0);
-//                        resultBtn.setTextColor(Color.WHITE);
 //
-//                        resultLand.setEnabled(false);
-//                        resultLand.setCompoundDrawablesWithIntrinsicBounds(R.drawable.helipad_dis, 0, 0, 0);
-//                        resultLand.setTextColor(Color.argb(204, 88, 88, 88));
+//            resultLand.setCompoundDrawablesWithIntrinsicBounds(R.drawable.helipad, 0, 0, 0);
+//            resultLand.setTextColor(Color.WHITE);
 //
-//                    }
-//                }
-//            });
+
+            flightController = aircraft.getFlightController();
+            flightController.setStateCallback(new FlightControllerState.Callback() {
+                @Override
+                public void onUpdate(@NonNull FlightControllerState flightControllerState) {
+                    if(flightControllerState.isFlying()) {
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                resultBtn.setEnabled(false);
+                                resultBtn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.barcode_dis, 0, 0, 0);
+                                resultBtn.setTextColor(Color.argb(204, 88, 88, 88));
+
+                                resultLand.setEnabled(true);
+                                resultLand.setCompoundDrawablesWithIntrinsicBounds(R.drawable.helipad, 0, 0, 0);
+                                resultLand.setTextColor(Color.WHITE);
+                            }
+                        });
+
+//                        showToast("Flying");
+                    } else {
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                resultBtn.setEnabled(true);
+                                resultBtn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.barcode, 0, 0, 0);
+                                resultBtn.setTextColor(Color.WHITE);
+
+                                resultLand.setEnabled(false);
+                                resultLand.setCompoundDrawablesWithIntrinsicBounds(R.drawable.helipad_dis, 0, 0, 0);
+                                resultLand.setTextColor(Color.argb(204, 88, 88, 88));
+                            }
+                        });
+
+//                        showToast("Not flying");
+                    }
+                }
+            });
         }
 
         initUI();

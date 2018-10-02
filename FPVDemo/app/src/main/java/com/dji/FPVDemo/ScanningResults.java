@@ -61,8 +61,8 @@ public class ScanningResults extends Activity {
 
     public void onGoHome(View v) {
         overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
-        Intent intent = new Intent(this, ConnectionActivity.class);
-        startActivity(intent);
+//        Intent intent = new Intent(this, ConnectionActivity.class);
+//        startActivity(intent);
         this.finish();
     }
 
@@ -71,8 +71,8 @@ public class ScanningResults extends Activity {
         super.onBackPressed();
 
         overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
-        Intent intent = new Intent(this, ConnectionActivity.class);
-        startActivity(intent);
+//        Intent intent = new Intent(this, ConnectionActivity.class);
+//        startActivity(intent);
         this.finish();
     }
 }

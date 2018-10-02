@@ -201,12 +201,9 @@ public class ConnectionActivity extends AppCompatActivity implements View.OnClic
 
         autoScan = findViewById(R.id.img_auto);
         autoScan.setOnClickListener(this);
-        autoScan.setEnabled(false);
 
         manualScan = findViewById(R.id.img_manual);
         manualScan.setOnClickListener(this);
-        manualScan.setEnabled(false);
-
     }
 
     protected BroadcastReceiver mReceiver = new BroadcastReceiver() {
@@ -234,11 +231,13 @@ public class ConnectionActivity extends AppCompatActivity implements View.OnClic
 
             if (null != mProduct.getModel()) {
 //                mTextProduct.setText("" + mProduct.getModel().getDisplayName());
-                statusText.setText("Status: " + mProduct.getModel().getDisplayName() + " connected");
+                statusText.setText("connected");
                 statusImage.setImageResource(R.drawable.oval);
                 initUI();
                 autoScan.setImageResource(R.drawable.auto_on_button);
                 manualScan.setImageResource(R.drawable.manual_on_button);
+                autoScan.setEnabled(true);
+                manualScan.setEnabled(true);
             } else {
 //                mTextProduct.setText(R.string.product_information);
             }
