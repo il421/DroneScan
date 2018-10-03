@@ -2,11 +2,34 @@
 <resources>
 
     <string name="app_name">DroneScan</string>
+
     <string name="action_settings">Status:</string>
-    <string name="connected">connected</string>
-    <string name="disconnected">disconnected</string>
-    <string name="start_a">Start auto scanning</string>
-    <string name="start_m">Start manual scanning</string>
-    <string name="start">Start</string>
+    <string name="action_disconnected">disconnected</string>
+
+    <string name="btn_start_a">Start auto scanning</string>
+    <string name="btn_start_m">Start manual scanning</string>
+    <string name="btn_land">Land</string>
+    <string name="btn_barcodes">Barcodes</string>
+    <string name="btn_home">Home</string>
+    <string name="btn_camera">Camera</string>
+    <string name="btn_pathway">Pathway</string>
+    <string name="btn_iso">ISO</string>
+    <string name="btn_aperture">Aperture</string>
+    <string name="btn_got_it">GOT IT</string>
+
+    <string name="result_name">Name</string>
+    <string name="result_id">ID</string>
+
+    <string name="rb_iso_800">800</string>
+    <string name="rb_iso_1600">1600</string>
+    <string name="rb_iso_3200">3200</string>
+    <string name="rb_iso_6400">6400</string>
+    <string name="rb_iso_12800">12800</string>
+
+    <string name="rb_aperture_6">F_6</string>
+    <string name="rb_aperture_7">F_7</string>
+    <string name="rb_aperture_8">F_8</string>
+    <string name="rb_aperture_9">F_9</string>
+    <string name="rb_aperture_10">F_10</string>
 
 </resources>

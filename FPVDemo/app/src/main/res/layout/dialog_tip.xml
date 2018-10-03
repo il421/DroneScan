@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/roboto"
         android:lineSpacingExtra="8sp"
-        android:textColor="#de000000"
+        android:textColor="@color/colorBlack"
         android:textSize="20sp"
         android:textStyle="normal" />
 
@@ -27,7 +27,7 @@
         android:fontFamily="@font/roboto"
         android:lineSpacingExtra="10sp"
         android:textAlignment="gravity"
-        android:textColor="#8a000000"
+        android:textColor="@color/colorBlack"
         android:textSize="14sp"
         android:textStyle="normal" />
 
@@ -41,8 +41,8 @@
         android:letterSpacing="0.04"
         android:paddingLeft="320dp"
         android:paddingTop="10dp"
-        android:text="GOT IT"
-        android:textColor="#1900ff"
+        android:text="@string/btn_got_it"
+        android:textColor="@color/colorBlueBtn"
         android:textSize="14sp"
         android:textStyle="normal" />
 </LinearLayout>

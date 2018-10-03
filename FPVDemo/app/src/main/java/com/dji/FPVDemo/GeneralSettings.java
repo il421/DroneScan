@@ -11,9 +11,12 @@ import android.widget.ImageView;
 
 import com.dji.scan.qr.camera.CameraSettings;
 
+import dji.sdk.base.BaseProduct;
+
 public class GeneralSettings extends AppCompatActivity implements View.OnClickListener{
 
     private ImageView imgPathway, imgBarcodeSettings, imgCameraSettings;
+    private BaseProduct product = FPVDemoApplication.getProductInstance();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -30,6 +33,10 @@ public class GeneralSettings extends AppCompatActivity implements View.OnClickLi
         imgBarcodeSettings.setOnClickListener(this);
         imgCameraSettings = findViewById(R.id.img_cset);
         imgCameraSettings.setOnClickListener(this);
+
+        if (product == null || !product.isConnected()) {
+            imgCameraSettings.setEnabled(false);
+        }
     }
 
     @Override

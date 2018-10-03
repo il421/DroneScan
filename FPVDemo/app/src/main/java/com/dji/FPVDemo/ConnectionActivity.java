@@ -227,7 +227,6 @@ public class ConnectionActivity extends AppCompatActivity implements View.OnClic
             manualScan.setEnabled(true);
 
             if (null != mProduct.getModel()) {
-//                mTextProduct.setText("" + mProduct.getModel().getDisplayName());
                 statusText.setText("connected");
                 statusImage.setImageResource(R.drawable.oval);
                 initUI();
@@ -238,13 +237,9 @@ public class ConnectionActivity extends AppCompatActivity implements View.OnClic
             }
 
         } else {
-
             Log.v(TAG, "refreshSDK: False");
-//            settings.setEnabled(false);
             autoScan.setEnabled(false);
             manualScan.setEnabled(false);
-//            mTextProduct.setText(R.string.product_information);
-//            mTextConnectionStatus.setText(R.string.connection_loose);
         }
     }
 
@@ -274,11 +269,6 @@ public class ConnectionActivity extends AppCompatActivity implements View.OnClic
                 break;
         }
     }
-
-//    @Override
-//    public void onFinishBarcodeTypeDlg(int position) {
-//        Log.v(getClass().toString(), "selected barcode type " + position);
-//    }
 
     private void showToast(final String toastMsg) {
         runOnUiThread(new Runnable() {

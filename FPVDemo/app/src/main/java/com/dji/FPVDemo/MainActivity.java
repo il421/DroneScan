@@ -1,16 +1,17 @@
 package com.dji.FPVDemo;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.PointF;
 import android.graphics.SurfaceTexture;
 import android.media.MediaActionSound;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.TextureView;
@@ -57,6 +58,7 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
     protected Camera camera = FPVDemoApplication.getCameraInstance();
 
     Frame frame;
+    Context context;
     ExecutorService barcodeThread;
 
     int SHUTTER_CLICK;
@@ -225,14 +227,6 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
             final Button resultLand = findViewById(R.id.scan_land);
             resultBtn.setTransformationMethod(null);
             resultLand.setTransformationMethod(null);
-
-            // Just for testing
-//            resultBtn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.barcode_dis, 0, 0, 0);
-//            resultBtn.setTextColor(Color.argb(204, 88, 88, 88));
-//
-//
-//            resultLand.setCompoundDrawablesWithIntrinsicBounds(R.drawable.helipad, 0, 0, 0);
-//            resultLand.setTextColor(Color.WHITE);
 //
 
             flightController = aircraft.getFlightController();
@@ -246,11 +240,11 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
                             public void run() {
                                 resultBtn.setEnabled(false);
                                 resultBtn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.barcode_dis, 0, 0, 0);
-                                resultBtn.setTextColor(Color.argb(204, 88, 88, 88));
+                                resultBtn.setTextColor(getResources().getColor(R.color.colorGrayTrans));
 
                                 resultLand.setEnabled(true);
                                 resultLand.setCompoundDrawablesWithIntrinsicBounds(R.drawable.helipad, 0, 0, 0);
-                                resultLand.setTextColor(Color.WHITE);
+                                resultLand.setTextColor(getResources().getColor(R.color.colorWhite));
                             }
                         });
 
@@ -262,11 +256,11 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
                             public void run() {
                                 resultBtn.setEnabled(true);
                                 resultBtn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.barcode, 0, 0, 0);
-                                resultBtn.setTextColor(Color.WHITE);
+                                resultBtn.setTextColor(getResources().getColor(R.color.colorWhite));
 
                                 resultLand.setEnabled(false);
                                 resultLand.setCompoundDrawablesWithIntrinsicBounds(R.drawable.helipad_dis, 0, 0, 0);
-                                resultLand.setTextColor(Color.argb(204, 88, 88, 88));
+                                resultLand.setTextColor(getResources().getColor(R.color.colorGrayTrans));
                             }
                         });
 
@@ -486,7 +480,7 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
         BaseProduct product = FPVDemoApplication.getProductInstance();
 
         if (product == null || !product.isConnected()) {
-            showToast(getString(R.string.disconnected));
+            showToast(getString(R.string.action_disconnected));
         } else {
             if (null != mVideoSurface) {
                 mVideoSurface.setSurfaceTextureListener(this);

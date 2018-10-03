@@ -40,8 +40,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/roboto_light"
-                android:text="Pathway"
-                android:textColor="#000000"
+                android:text="@string/btn_pathway"
+                android:textColor="@color/colorBlack"
                 android:textSize="14sp"
                 android:textStyle="normal" />
         </LinearLayout>
@@ -66,8 +66,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/roboto_light"
-                android:text="Barcodes"
-                android:textColor="#000000"
+                android:text="@string/btn_barcodes"
+                android:textColor="@color/colorBlack"
                 android:textSize="14sp"
                 android:textStyle="normal" />
         </LinearLayout>
@@ -91,8 +91,8 @@
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/roboto_light"
                 android:gravity="center"
-                android:text="Camera"
-                android:textColor="#000000"
+                android:text="@string/btn_camera"
+                android:textColor="@color/colorBlack"
                 android:textSize="14sp" />
         </LinearLayout>
 

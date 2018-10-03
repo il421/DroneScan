@@ -29,8 +29,8 @@
             android:elevation="3dp"
             android:fontFamily="@font/roboto"
             android:onClick="onGoHome"
-            android:text="Home"
-            android:textColor="#FFFFFF"
+            android:text="@string/btn_home"
+            android:textColor="@color/colorWhite"
             android:textSize="14sp" />
 
     </LinearLayout>
@@ -58,7 +58,7 @@
                     android:paddingBottom="15dp"
                     android:paddingLeft="69dp"
                     android:paddingTop="15dp"
-                    android:text="Name"
+                    android:text="@string/result_name"
                     android:textColor="@color/colorGrayTitle"
                     android:textSize="14sp" />
 
@@ -70,7 +70,7 @@
                     android:paddingBottom="15dp"
                     android:paddingLeft="186dp"
                     android:paddingTop="15dp"
-                    android:text="ID"
+                    android:text="@string/result_id"
                     android:textColor="@color/colorGrayTitle"
                     android:textSize="14sp" />
             </TableRow>

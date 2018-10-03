@@ -36,7 +36,7 @@
             android:onClick="onIsoNote"
             android:paddingLeft="5dp"
             android:paddingRight="70dp"
-            android:text="ISO"
+            android:text="@string/btn_iso"
             android:textAlignment="viewStart"
             android:textColor="@color/colorWhite"
             android:textSize="20sp" />
@@ -57,7 +57,7 @@
                 android:fontFamily="@font/roboto"
                 android:onClick="onRadioButtonClickedISO"
                 android:paddingLeft="15dp"
-                android:text="800"
+                android:text="@string/rb_iso_800"
                 android:textColor="@color/colorWhite"
                 android:textSize="20sp" />
 
@@ -70,7 +70,7 @@
                 android:fontFamily="@font/roboto"
                 android:onClick="onRadioButtonClickedISO"
                 android:paddingLeft="15dp"
-                android:text="1600"
+                android:text="@string/rb_iso_1600"
                 android:textColor="@color/colorWhite"
                 android:textSize="20sp" />
 
@@ -83,7 +83,7 @@
                 android:fontFamily="@font/roboto"
                 android:onClick="onRadioButtonClickedISO"
                 android:paddingLeft="15dp"
-                android:text="3200"
+                android:text="@string/rb_iso_3200"
                 android:textColor="@color/colorWhite"
                 android:textSize="20sp" />
 
@@ -97,7 +97,7 @@
                 android:checked="true"
                 android:onClick="onRadioButtonClickedISO"
                 android:paddingLeft="15dp"
-                android:text="6400"
+                android:text="@string/rb_iso_6400"
                 android:textColor="@color/colorWhite"
                 android:textSize="20sp" />
 
@@ -110,7 +110,7 @@
                 android:fontFamily="@font/roboto"
                 android:onClick="onRadioButtonClickedISO"
                 android:paddingLeft="15dp"
-                android:text="12800"
+                android:text="@string/rb_iso_12800"
                 android:textColor="@color/colorWhite"
                 android:textSize="20sp" />
         </RadioGroup>
@@ -142,7 +142,7 @@
             android:onClick="onApertureNote"
             android:paddingLeft="20dp"
             android:scrollbarAlwaysDrawVerticalTrack="false"
-            android:text="Aperture"
+            android:text="@string/btn_aperture"
             android:textAlignment="textEnd"
             android:textColor="@color/colorWhite"
             android:textSize="20sp" />
@@ -165,7 +165,7 @@
                 android:fontFamily="@font/roboto"
                 android:layoutDirection="rtl"
                 android:onClick="onRadioButtonClickedAperture"
-                android:text="F_6"
+                android:text="@string/rb_aperture_6"
                 android:textAlignment="textStart"
                 android:textColor="@color/colorWhite"
                 android:textSize="20sp" />
@@ -181,7 +181,7 @@
                 android:layoutDirection="rtl"
                 android:onClick="onRadioButtonClickedAperture"
                 android:paddingRight="15dp"
-                android:text="F_7"
+                android:text="@string/rb_aperture_7"
                 android:textAlignment="textStart"
                 android:textColor="@color/colorWhite"
                 android:textSize="20sp" />
@@ -197,7 +197,7 @@
                 android:layoutDirection="rtl"
                 android:onClick="onRadioButtonClickedAperture"
                 android:paddingRight="15dp"
-                android:text="F_8"
+                android:text="@string/rb_aperture_8"
                 android:textAlignment="textStart"
                 android:textColor="@color/colorWhite"
                 android:textSize="20sp" />
@@ -214,7 +214,7 @@
                 android:layoutDirection="rtl"
                 android:onClick="onRadioButtonClickedAperture"
                 android:paddingRight="15dp"
-                android:text="F_9"
+                android:text="@string/rb_aperture_9"
                 android:textAlignment="textStart"
                 android:textColor="@color/colorWhite"
                 android:textSize="20sp" />
@@ -230,7 +230,7 @@
                 android:layoutDirection="rtl"
                 android:onClick="onRadioButtonClickedAperture"
                 android:paddingRight="15dp"
-                android:text="F_10"
+                android:text="@string/rb_aperture_10"
                 android:textAlignment="textStart"
                 android:textColor="@color/colorWhite"
                 android:textSize="20sp" />

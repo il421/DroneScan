@@ -20,5 +20,6 @@
         android:textSize="14sp"
         android:fontFamily="@font/roboto_light"
         android:textStyle="normal"
-        android:textColor="#000000" />
+        android:textColor="@color/colorBlack" />
+
 </LinearLayout>

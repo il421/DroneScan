@@ -26,7 +26,7 @@
             android:fontFamily="@font/roboto_bold"
             android:text="@string/action_settings"
             android:textAlignment="textStart"
-            android:textColor="#000000"
+            android:textColor="@color/colorBlack"
             android:textSize="20sp" />
 
         <TextView
@@ -36,8 +36,8 @@
             android:layout_marginLeft="12dp"
             android:layout_marginTop="15dp"
             android:fontFamily="@font/roboto_light"
-            android:text="@string/disconnected"
-            android:textColor="#000000"
+            android:text="@string/action_disconnected"
+            android:textColor="@color/colorBlack"
             android:textSize="20sp"
             android:textStyle="normal" />
 
@@ -83,8 +83,8 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_bold"
                 android:gravity="center_horizontal"
-                android:text="@string/start_a"
-                android:textColor="#000000"
+                android:text="@string/btn_start_a"
+                android:textColor="@color/colorBlack"
                 android:textSize="20sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -106,10 +106,13 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_bold"
                 android:gravity="center_horizontal"
-                android:text="@string/start_m"
-                android:textColor="#000000"
+                android:text="@string/btn_start_m"
+                android:textColor="@color/colorBlack"
                 android:textSize="20sp"
                 android:textStyle="bold" />
+
         </LinearLayout>
+
     </LinearLayout>
+
 </LinearLayout>
