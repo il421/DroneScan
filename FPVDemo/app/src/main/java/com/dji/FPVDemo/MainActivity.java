@@ -9,6 +9,8 @@ import android.graphics.PointF;
 import android.graphics.SurfaceTexture;
 import android.media.MediaActionSound;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
@@ -96,6 +98,12 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
                 }
             }
         };
+
+        //FLYING
+        if (cameraMode == 1) {
+            JSONHandler jsonHandler = new JSONHandler(this);
+            new Handler(Looper.getMainLooper()).post(new NavigationExecutor(jsonHandler.getMovementsArr(), 0.5f));
+        }
 
         if (cameraMode == 0) {
             // WATCHING ISO CHANGES

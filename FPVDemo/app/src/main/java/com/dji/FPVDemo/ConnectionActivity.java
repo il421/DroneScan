@@ -197,7 +197,7 @@ public class ConnectionActivity extends AppCompatActivity implements View.OnClic
     private void initUI() {
         settings = findViewById(R.id.set);
         settings.setOnClickListener(this);
-       autoScan = findViewById(R.id.img_auto);
+        autoScan = findViewById(R.id.img_auto);
         autoScan.setOnClickListener(this);
 
         manualScan = findViewById(R.id.img_manual);
@@ -205,6 +205,7 @@ public class ConnectionActivity extends AppCompatActivity implements View.OnClic
 
         autoScan.setEnabled(false);
         manualScan.setEnabled(false);
+//        settings.setEnabled(false);
     }
 
     protected BroadcastReceiver mReceiver = new BroadcastReceiver() {
@@ -225,6 +226,7 @@ public class ConnectionActivity extends AppCompatActivity implements View.OnClic
             Log.v(TAG, "refreshSDK: True");
             autoScan.setEnabled(true);
             manualScan.setEnabled(true);
+//            settings.setEnabled(true);
 
             if (null != mProduct.getModel()) {
                 statusText.setText("connected");
@@ -232,14 +234,17 @@ public class ConnectionActivity extends AppCompatActivity implements View.OnClic
                 initUI();
                 autoScan.setImageResource(R.drawable.auto_on_button);
                 manualScan.setImageResource(R.drawable.manual_on_button);
+
                 autoScan.setEnabled(true);
                 manualScan.setEnabled(true);
+//                settings.setEnabled(true);
             }
 
         } else {
             Log.v(TAG, "refreshSDK: False");
             autoScan.setEnabled(false);
             manualScan.setEnabled(false);
+//            settings.setEnabled(false);
         }
     }
 

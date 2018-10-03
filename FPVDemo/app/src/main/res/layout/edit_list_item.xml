@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/popup_window"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingEnd="30dp"
+    android:paddingStart="30dp"
+    android:paddingTop="30dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="90dp"
+            android:fontFamily="sans-serif"
+            android:lineSpacingExtra="14sp"
+            android:text="Action:"
+            android:textColor="#de000000"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <ToggleButton
+            android:id="@+id/toggleScan"
+            android:layout_width="80dp"
+            android:layout_height="25dp"
+            android:background="@drawable/togglescan"
+            android:fontFamily="sans-serif"
+            android:text="Scan"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:textColor="@drawable/togglecolor"
+            android:textOff="Scan"
+            android:textOn="Scan" />
+
+        <ToggleButton
+            android:id="@+id/toggleFly"
+            android:layout_width="80dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="-2dp"
+            android:background="@drawable/togglefly"
+            android:fontFamily="sans-serif"
+            android:text="Fly"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:textColor="@drawable/togglecolor"
+            android:textOff="Fly"
+            android:textOn="Fly" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/moveSelector"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="15dp"
+        android:visibility="gone"
+        android:fontFamily="sans-serif">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="110dp"
+            android:lineSpacingExtra="14sp"
+            android:text="Move:"
+            android:textColor="#de000000"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif"/>
+
+        <Spinner
+            android:id="@+id/moveSpinner"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:textAlignment="textEnd"
+            android:textSize="14sp"
+            android:fontFamily="sans-serif"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/degreesSelector"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="10dp"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="125dp"
+            android:lineSpacingExtra="14sp"
+            android:text="Degrees:"
+            android:textColor="#de000000"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif"/>
+
+        <EditText
+            android:id="@+id/degreesNumber"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#673ab7"
+            android:inputType="number"
+            android:maxLength="3"
+            android:textAlignment="center"
+            android:textSize="14sp"
+            android:fontFamily="sans-serif"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="14sp"
+            android:text="deg"
+            android:textColor="#de000000"
+            android:textSize="16sp"
+            android:fontFamily="sans-serif"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/metersSelector"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="10dp"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="133dp"
+            android:fontFamily="sans-serif"
+            android:lineSpacingExtra="14sp"
+            android:text="Meters:"
+            android:textColor="#de000000"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/metersNumber"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#673ab7"
+            android:inputType="numberDecimal"
+            android:maxLength="4"
+            android:textAlignment="center"
+            android:textSize="14sp"
+            android:fontFamily="sans-serif"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:lineSpacingExtra="14sp"
+            android:text="m"
+            android:textColor="#de000000"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/sideSelector"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="15dp"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="115dp"
+            android:fontFamily="sans-serif"
+            android:lineSpacingExtra="14sp"
+            android:text="Side:"
+            android:textColor="#de000000"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/sideSpinner"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:textAlignment="textEnd"
+            android:fontFamily="sans-serif"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/marginAndIniSelector"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="10dp"
+        android:visibility="gone"
+        android:weightSum="100">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="45">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:fontFamily="sans-serif"
+                android:lineSpacingExtra="14sp"
+                android:text="Margin:"
+                android:textColor="#de000000"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/marginNumber"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#673ab7"
+                android:inputType="numberDecimal"
+                android:maxLength="4"
+                android:textAlignment="center"
+                android:textSize="14sp"
+                android:fontFamily="sans-serif"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:lineSpacingExtra="14sp"
+                android:text="m"
+                android:textColor="#de000000"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="55">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:fontFamily="sans-serif"
+                android:lineSpacingExtra="14sp"
+                android:text="Initial Height:"
+                android:textColor="#de000000"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/iniHeightNumber"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#673ab7"
+                android:inputType="numberDecimal"
+                android:maxLength="4"
+                android:textAlignment="center"
+                android:textSize="14sp"
+                android:fontFamily="sans-serif"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:lineSpacingExtra="14sp"
+                android:text="m"
+                android:textColor="#de000000"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/widthAndMaxSelector"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="10dp"
+        android:visibility="gone"
+        android:weightSum="100">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="45">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="17dp"
+                android:fontFamily="sans-serif"
+                android:lineSpacingExtra="14sp"
+                android:text="Width:"
+                android:textColor="#de000000"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/widthNumber"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#673ab7"
+                android:inputType="numberDecimal"
+                android:maxLength="4"
+                android:textAlignment="center"
+                android:textSize="14sp"
+                android:fontFamily="sans-serif"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:lineSpacingExtra="14sp"
+                android:text="m"
+                android:textColor="#de000000"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="55">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="19dp"
+                android:fontFamily="sans-serif"
+                android:lineSpacingExtra="14sp"
+                android:text="Max Height:"
+                android:textColor="#de000000"
+                android:textSize="14sp"
+                android:textStyle="bold"/>
+
+            <EditText
+                android:id="@+id/maxHeightNumber"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#673ab7"
+                android:inputType="numberDecimal"
+                android:maxLength="4"
+                android:textAlignment="center"
+                android:textSize="14sp"
+                android:fontFamily="sans-serif"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:lineSpacingExtra="14sp"
+                android:text="m"
+                android:textColor="#de000000"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/buttonAdd"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginTop="20dp"
+        android:background="@color/colorTrans"
+        android:text="ADD"
+        android:textAlignment="textEnd"
+        android:textColor="#3b3def"
+        android:textSize="14sp"
+        android:textStyle="normal"
+        android:fontFamily="sans-serif"/>
+</LinearLayout>

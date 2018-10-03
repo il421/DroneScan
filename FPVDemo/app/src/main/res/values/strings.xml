@@ -5,6 +5,7 @@
 
     <string name="action_settings">Status:</string>
     <string name="action_disconnected">disconnected</string>
+    <string name="title_activity_path_creation">PathCreation</string>
 
     <string name="btn_start_a">Start auto scanning</string>
     <string name="btn_start_m">Start manual scanning</string>

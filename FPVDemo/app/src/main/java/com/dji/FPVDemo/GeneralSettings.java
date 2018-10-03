@@ -33,10 +33,6 @@ public class GeneralSettings extends AppCompatActivity implements View.OnClickLi
         imgBarcodeSettings.setOnClickListener(this);
         imgCameraSettings = findViewById(R.id.img_cset);
         imgCameraSettings.setOnClickListener(this);
-
-        if (product == null || !product.isConnected()) {
-            imgCameraSettings.setEnabled(false);
-        }
     }
 
     @Override
@@ -56,7 +52,9 @@ public class GeneralSettings extends AppCompatActivity implements View.OnClickLi
                 break;
             }
             case R.id.img_path: {
-
+                Intent intent = new Intent(this, PathCreation.class);
+                overridePendingTransition(R.anim.slide_to_right, R.anim.slide_to_left);
+                startActivity(intent);
                 break;
             }
             default:

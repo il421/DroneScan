@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="moves_array">
+        <item>forward</item>
+        <item>back</item>
+        <item>left</item>
+        <item>right</item>
+        <item>up</item>
+        <item>down</item>
+        <item>yaw right</item>
+        <item>yaw left</item>
+    </string-array>
+</resources>

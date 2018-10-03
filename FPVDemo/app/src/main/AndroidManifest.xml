@@ -81,6 +81,11 @@
         <activity android:name=".ScanningResults"
             android:screenOrientation="landscape">
         </activity>
+        <activity
+            android:name=".PathCreation"
+            android:label="@string/title_activity_path_creation"
+            android:screenOrientation="landscape">
+        </activity>
     </application>
 
 </manifest>
