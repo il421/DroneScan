@@ -59,7 +59,7 @@
                     android:paddingLeft="69dp"
                     android:paddingTop="15dp"
                     android:text="@string/result_name"
-                    android:textColor="@color/colorGrayTitle"
+                    android:textColor="@color/colorGrayResult"
                     android:textSize="14sp" />
 
                 <TextView
@@ -71,7 +71,7 @@
                     android:paddingLeft="186dp"
                     android:paddingTop="15dp"
                     android:text="@string/result_id"
-                    android:textColor="@color/colorGrayTitle"
+                    android:textColor="@color/colorGrayResult"
                     android:textSize="14sp" />
             </TableRow>
 

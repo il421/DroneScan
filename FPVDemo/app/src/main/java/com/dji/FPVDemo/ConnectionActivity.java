@@ -33,7 +33,8 @@ public class ConnectionActivity extends AppCompatActivity implements View.OnClic
 
     private static final String TAG = ConnectionActivity.class.getName();
 
-    private ImageView settings, autoScan, manualScan;
+    private ImageView settingsImg, autoScanImg, manualScanImg;
+    private  TextView autoScanText, manualScanText;
     private static final String[] REQUIRED_PERMISSION_LIST = new String[]{
             Manifest.permission.VIBRATE,
             Manifest.permission.INTERNET,
@@ -195,17 +196,19 @@ public class ConnectionActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void initUI() {
-        settings = findViewById(R.id.set);
-        settings.setOnClickListener(this);
-        autoScan = findViewById(R.id.img_auto);
-        autoScan.setOnClickListener(this);
+        settingsImg = findViewById(R.id.set);
+        settingsImg.setOnClickListener(this);
 
-        manualScan = findViewById(R.id.img_manual);
-        manualScan.setOnClickListener(this);
+        autoScanImg = findViewById(R.id.img_auto);
+        autoScanImg.setOnClickListener(this);
+        autoScanText = findViewById(R.id.text_auto);
 
-        autoScan.setEnabled(false);
-        manualScan.setEnabled(false);
-//        settings.setEnabled(false);
+        manualScanImg = findViewById(R.id.img_manual);
+        manualScanImg.setOnClickListener(this);
+        manualScanText = findViewById(R.id.text_manual);
+
+        autoScanImg.setEnabled(false);
+        manualScanImg.setEnabled(false);
     }
 
     protected BroadcastReceiver mReceiver = new BroadcastReceiver() {
@@ -224,27 +227,26 @@ public class ConnectionActivity extends AppCompatActivity implements View.OnClic
         if (null != mProduct && mProduct.isConnected()) {
 
             Log.v(TAG, "refreshSDK: True");
-            autoScan.setEnabled(true);
-            manualScan.setEnabled(true);
-//            settings.setEnabled(true);
+            autoScanImg.setEnabled(true);
+            manualScanImg.setEnabled(true);
 
             if (null != mProduct.getModel()) {
                 statusText.setText("connected");
                 statusImage.setImageResource(R.drawable.oval);
                 initUI();
-                autoScan.setImageResource(R.drawable.auto_on_button);
-                manualScan.setImageResource(R.drawable.manual_on_button);
+                autoScanImg.setImageResource(R.drawable.auto_on_button);
+                manualScanImg.setImageResource(R.drawable.manual_on_button);
+                autoScanText.setTextColor(getResources().getColor(R.color.colorBlack));
+                manualScanText.setTextColor(getResources().getColor(R.color.colorBlack));
 
-                autoScan.setEnabled(true);
-                manualScan.setEnabled(true);
-//                settings.setEnabled(true);
+                autoScanImg.setEnabled(true);
+                manualScanImg.setEnabled(true);
             }
 
         } else {
             Log.v(TAG, "refreshSDK: False");
-            autoScan.setEnabled(false);
-            manualScan.setEnabled(false);
-//            settings.setEnabled(false);
+            autoScanImg.setEnabled(false);
+            manualScanImg.setEnabled(false);
         }
     }
 

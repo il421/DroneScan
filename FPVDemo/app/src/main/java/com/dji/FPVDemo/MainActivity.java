@@ -60,7 +60,6 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
     protected Camera camera = FPVDemoApplication.getCameraInstance();
 
     Frame frame;
-    Context context;
     ExecutorService barcodeThread;
 
     int SHUTTER_CLICK;
@@ -99,12 +98,13 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
             }
         };
 
-        //FLYING
+        // FLYING MODE
         if (cameraMode == 1) {
-            JSONHandler jsonHandler = new JSONHandler(this);
-            new Handler(Looper.getMainLooper()).post(new NavigationExecutor(jsonHandler.getMovementsArr(), 0.5f));
+                JSONHandler jsonHandler = new JSONHandler(this);
+                new Handler(Looper.getMainLooper()).post(new NavigationExecutor(jsonHandler.getMovementsArr(), 0.5f));
         }
 
+        // SETTINGS
         if (cameraMode == 0) {
             // WATCHING ISO CHANGES
             RadioGroup groupISO = findViewById(R.id.radioButtons_ISO);
@@ -130,7 +130,7 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
                             break;
 
                         default:
-                            valueOfISO = "ISO_640";
+                            valueOfISO = "ISO_6400";
                     }
                 }
             });
@@ -183,48 +183,25 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
 
             // ZOOM SETTINGS
             Thread zoomThread = new Thread(new Runnable() {
-                    PointF point = new PointF(0.5f, 0.5f);
+                PointF point = new PointF(0.5f, 0.5f);
 
-                    void zoomFocus() {
-                        camera.setFocusTarget(point, new CommonCallbacks.CompletionCallback() {
-                            @Override
-                            public void onResult(DJIError djiError) {
-                                zoomFocus();
-                            }
-                        });
-                    }
-                    @Override
-                    public void run() {
-                        zoomFocus();
-                    }
-                });
+                void zoomFocus() {
+                    camera.setFocusTarget(point, new CommonCallbacks.CompletionCallback() {
+                        @Override
+                        public void onResult(DJIError djiError) {
+                            zoomFocus();
+                        }
+                    });
+                }
+                @Override
+                public void run() {
+                    zoomFocus();
+                }
+            });
             zoomThread.start();
 
-            // CHECK CAMERA SETTINGS
-//            camera.getAperture(new CommonCallbacks.CompletionCallbackWith<SettingsDefinitions.Aperture>() {
-//                @Override
-//                public void onSuccess(SettingsDefinitions.Aperture aperture) {
-//                    showToast(aperture + " ");
-//                }
-//
-//                @Override
-//                public void onFailure(DJIError djiError) {}
-//            });
-//            camera.getISO(new CommonCallbacks.CompletionCallbackWith<SettingsDefinitions.ISO>() {
-//                @Override
-//                public void onSuccess(SettingsDefinitions.ISO iso) {
-//                    showToast(iso + " ");
-//                }
-//
-//                @Override
-//                public void onFailure(DJIError djiError) {}
-//            });
-
-
-            // Define barcode type
             SharedPreferences prefs = getSharedPreferences("BarcodePrefs", MODE_PRIVATE);
             int barcodeNum = prefs.getInt("barcodeType", 0); //0 is the default value.
-//            showToast("Barcode Type: " + barcodeNum);
 
             // RUN BAR-CODE DETECTOR AND SETTINGS BARCODE FORMAT
             barcodeDetector = new BarcodeDetector.Builder(this).setBarcodeFormats(barcodeNum).build();
@@ -235,7 +212,6 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
             final Button resultLand = findViewById(R.id.scan_land);
             resultBtn.setTransformationMethod(null);
             resultLand.setTransformationMethod(null);
-//
 
             flightController = aircraft.getFlightController();
             flightController.setStateCallback(new FlightControllerState.Callback() {
@@ -256,9 +232,7 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
                             }
                         });
 
-//                        showToast("Flying");
                     } else {
-
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -271,8 +245,6 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
                                 resultLand.setTextColor(getResources().getColor(R.color.colorGrayTrans));
                             }
                         });
-
-//                        showToast("Not flying");
                     }
                 }
             });
@@ -413,7 +385,6 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
 
     // BARCODE DETECTION
     private class BarcodeDetectionTimber implements Runnable {
-
         @Override
         public void run() {
             if (barcodeDetector != null) {

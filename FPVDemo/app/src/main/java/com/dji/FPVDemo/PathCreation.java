@@ -86,4 +86,11 @@ public class PathCreation extends AppCompatActivity implements AdapterView.OnIte
     public void onNothingSelected(AdapterView<?> adapterView) {
 
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
+    }
 }
