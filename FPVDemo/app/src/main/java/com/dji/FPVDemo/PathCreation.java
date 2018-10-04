@@ -3,12 +3,17 @@ package com.dji.FPVDemo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -42,6 +47,53 @@ public class PathCreation extends AppCompatActivity implements AdapterView.OnIte
         }
 
         ListView mListView = findViewById(R.id.mListView);
+        final TextView operatingAttitude = findViewById(R.id.operatingAttitude);
+        Button operHeightButton = findViewById(R.id.operHeightButton);
+
+        // Change operation height
+        try {
+            operatingAttitude.setText(json.getString("height") + "m");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        operHeightButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(PathCreation.this);
+                alertView = getLayoutInflater().inflate(R.layout.change_operating_attitude, null);
+
+                Button setButton = alertView.findViewById(R.id.setButton);
+                final EditText operHeight = alertView.findViewById(R.id.operHeight);
+
+                mBuilder.setView(alertView);
+                final AlertDialog dialog = mBuilder.create();
+                dialog.show();
+
+                setButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (operHeight.getText().length() > 0) {
+                            try {
+                                json.put("height", operHeight.getText());
+                                PreferenceManager.getDefaultSharedPreferences(PathCreation.this).edit().putString("FlyingJSON", json.toString()).apply();
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        operatingAttitude.setText(operHeight.getText() + "m");
+                                    }
+                                });
+                                dialog.dismiss();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+                            Toast.makeText(PathCreation.this, "You need to fill operation height", Toast.LENGTH_SHORT);
+                        }
+                    }
+                });
+            }
+        });
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -54,17 +106,6 @@ public class PathCreation extends AppCompatActivity implements AdapterView.OnIte
 
         itemAdapter = new ItemAdapter(this, json);
         mListView.setAdapter(itemAdapter);
-//
-//        JSONHandler jsonHandler = new JSONHandler(this);
-//        String arr = "";
-//        for (int i = 0; i < jsonHandler.getMovementsArr().length; i++) {
-//            if (i == 0) {
-//                arr += jsonHandler.getMovementsArr()[i];
-//            } else {
-//                arr += ", " + jsonHandler.getMovementsArr()[i];
-//            }
-//        }
-//        Log.d("TestJson", arr);
     }
 
     @Override
