@@ -279,7 +279,7 @@ class NavigationExecutor implements Runnable {
 
         float width = 0, initialHeight = 0, maxHeight = 0;
         float step = 0.2f;
-        float speed = 0.3f;
+        float speed = 0.1f;
         int counter;
         String side = initialMoveName.substring(4, 5);
         boolean isMoveRight;
@@ -490,7 +490,7 @@ class NavigationExecutor implements Runnable {
                                 sen3 = od[2].getObstacleDistanceInMeters();
                             }
 
-                            if (sen1 > 1.5f || sen2 > 1.5f || sen3 > 1.5f) {
+                            if (sen1 > 1f || sen2 > 1f || sen3 > 1f) {
                                 flightController.sendVirtualStickFlightControlData(new FlightControlData(0, 0.15f, 0, 0), null);
                             } else {
                                 flightController.sendVirtualStickFlightControlData(new FlightControlData(0, 0, 0, 0), null);

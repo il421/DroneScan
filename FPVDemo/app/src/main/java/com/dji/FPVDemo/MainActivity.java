@@ -64,8 +64,8 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
 
     int SHUTTER_CLICK;
 
-    private String valueOfISO;
-    private String valueOfAperture;
+    private String valueOfISO = "ISO_6400";
+    private String valueOfAperture = "F_9";
 
     BarcodeDetector barcodeDetector;
     ArrayList<String> listOfBarcodes = new ArrayList<>();
@@ -101,7 +101,7 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
         // FLYING MODE
         if (cameraMode == 1) {
                 JSONHandler jsonHandler = new JSONHandler(this);
-                new Handler(Looper.getMainLooper()).post(new NavigationExecutor(jsonHandler.getMovementsArr(), 0.5f));
+                new Handler(Looper.getMainLooper()).post(new NavigationExecutor(jsonHandler.getMovementsArr(), 0.2f));
         }
 
         // SETTINGS
